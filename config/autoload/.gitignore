@@ -1,4 +1,5 @@
 local.php
-*.local.php
 doctrine.local.php
 global.php
+*.local.php
+*.global.php
