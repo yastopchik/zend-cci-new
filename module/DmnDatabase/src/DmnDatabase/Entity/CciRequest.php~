@@ -1,0 +1,141 @@
+<?php
+
+namespace DmnDatabase\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CciRequest
+ *
+ * @ORM\Table(name="cci_request", indexes={@ORM\Index(name="sertificate_to_sertificatenum_idx", columns={"SertificateNumID"})})
+ * @ORM\Entity
+ */
+class CciRequest
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Consignor", type="string", length=150, nullable=false)
+     */
+    private $consignor;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Exporter", type="string", length=150, nullable=true)
+     */
+    private $exporter;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Consignee", type="string", length=150, nullable=false)
+     */
+    private $consignee;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Importer", type="string", length=150, nullable=true)
+     */
+    private $importer;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Transport", type="string", length=75, nullable=true)
+     */
+    private $transport;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ServiceMark", type="string", length=150, nullable=true)
+     */
+    private $servicemark;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="AdressConsignor", type="string", length=255, nullable=false)
+     */
+    private $adressconsignor;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="AdressExporter", type="string", length=255, nullable=true)
+     */
+    private $adressexporter;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="AdressConsignee", type="string", length=255, nullable=false)
+     */
+    private $adressconsignee;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="AdressImporter", type="string", length=255, nullable=true)
+     */
+    private $adressimporter;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Itinerary", type="string", length=175, nullable=true)
+     */
+    private $itinerary;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="UnpConsignor", type="string", length=9, nullable=false)
+     */
+    private $unpconsignor;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="UnpExporter", type="string", length=9, nullable=true)
+     */
+    private $unpexporter;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Representation", type="string", length=255, nullable=false)
+     */
+    private $representation;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="FioAgent", type="string", length=150, nullable=false)
+     */
+    private $fioagent;
+
+    /**
+     * @var \DmnDatabase\Entity\CciRequestNumber
+     *
+     * @ORM\ManyToOne(targetEntity="DmnDatabase\Entity\CciRequestNumber")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="SertificateNumID", referencedColumnName="Id")
+     * })
+     */
+    private $sertificatenumid;
+
+
+}
+

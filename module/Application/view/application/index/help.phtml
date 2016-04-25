@@ -1,0 +1,9 @@
+<?php echo $this->headTitle($help->getTitle()); ?>
+    <div id="help" class="row">
+        <div class="info">
+            <?php  if(!empty($help)){ ?>
+                <h2 class="box-header"><?php echo $help->getTitle(); ?></h2>
+                <?php echo $help->getContent(); ?>
+            <?php  } ?>
+        </div>
+    </div>

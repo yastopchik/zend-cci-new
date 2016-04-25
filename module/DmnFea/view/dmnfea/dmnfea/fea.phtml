@@ -1,0 +1,230 @@
+<?php echo $this->headTitle('Fea/Request'); ?>
+<div id="help">  
+	 <?php 
+        $form = $this->form;  
+        $form->setAttribute('action',  $this->url('fea', array('action' => 'index', 'url'=>$url)));
+        $formLabel = $this->plugin('formLabel');
+        $form->prepare(); 
+        echo $this->form()->openTag($form);  
+      ?> 
+      <h1><?php echo $this->translate('Applying for an event'); ?></h1>
+<table id="fea_request">  
+     <tr><td>     
+       <table class="fea_up">
+       <tr><th colspan=4 class="title"><h2><?php echo $this->translate('Information about the event'); ?></h2></th></tr>
+        <tr>
+		 <th colspan=4>
+			<?php  
+            $request = $form->get('request');
+            echo $formLabel->openTag().$request->getOption('label');   echo $formLabel->closeTag();
+            ?>
+         </th></tr>
+         <tr><th colspan=4 class="biginput"><?php 
+            $request->setAttribute('required', 'required');
+            echo $this->formInput($request) . $this->formElementErrors($request);
+           ?>
+		 </th>
+		</tr>
+		<tr>
+		 <th>
+			<?php  
+            $dateBegin = $form->get('dateBegin');
+            echo $formLabel->openTag().$dateBegin->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th><?php 
+            $dateBegin->setAttribute('required', 'required');
+            echo $this->formInput($dateBegin) . $this->formElementErrors($dateBegin);
+           ?>
+		 </th>
+		 <th>
+			<?php  
+            $dateEnd = $form->get('dateEnd');
+            echo $formLabel->openTag().$dateEnd->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th><?php 
+            $dateEnd->setAttribute('required', 'required');
+            echo $this->formInput($dateEnd) . $this->formElementErrors($dateEnd);
+           ?>
+		 </th>
+		</tr> 
+	 </table>	 
+	</td></tr>
+	<tr><td>
+	 <table class="fea_center">	
+	    <tr><th colspan=2 class="title"><h2><?php echo $this->translate('Information about the organization'); ?></h2></th></tr>	
+		<tr>
+		 <th style="width: 30%;">
+			<?php  
+            $organization = $form->get('organization');
+            echo $formLabel->openTag().$organization->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th style="width: 70%;"><?php 
+            $organization->setAttribute('required', 'required');
+            echo $this->formInput($organization) . $this->formElementErrors($organization);
+           ?>
+		 </th>
+		</tr>		
+		<tr>                
+		 <th>
+			<?php  
+            $unp = $form->get('unp');
+            echo $formLabel->openTag().$unp->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th><?php 
+            $unp->setAttribute('required', 'required');
+            echo $this->formInput($unp) . $this->formElementErrors($unp);
+           ?>
+		 </th>
+		</tr>		
+                <tr>
+		 <th>
+			<?php  
+            $phone = $form->get('phone');
+            echo $formLabel->openTag().$phone->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th><?php 
+            $phone->setAttribute('required', 'required');
+            echo $this->formInput($phone) . $this->formElementErrors($phone);
+           ?>
+		 </th>		 
+		</tr>
+		<tr>
+		<th>
+			<?php  
+            $email = $form->get('email');
+            echo $formLabel->openTag().$email->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th><?php 
+            $email->setAttribute('required', 'required');
+            echo $this->formInput($email) . $this->formElementErrors($email);
+           ?>
+		 </th>
+		</tr>
+		<tr>
+		<th>
+			<?php  
+            $fio = $form->get('fio');
+            echo $formLabel->openTag().$fio->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th><?php 
+            $fio->setAttribute('required', 'required');
+            echo $this->formInput($fio) . $this->formElementErrors($fio);
+           ?>
+		 </th>
+		</tr>
+		<tr>
+		<th>
+			<?php  
+            $rule = $form->get('rule');
+            echo $formLabel->openTag().$rule->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th><?php             
+            echo $this->formInput($rule) . $this->formElementErrors($rule);
+           ?>
+		 </th>
+		</tr>
+		<tr>
+		 <th colspan=2>
+			<?php  
+            $bank = $form->get('bank');
+            echo $formLabel->openTag().$bank->getOption('label');   echo $formLabel->closeTag();
+            ?></th>
+          </tr>
+          <tr><th colspan=2><?php            
+            echo $this->formTextarea($bank) . $this->formElementErrors($bank);
+           ?>
+		 </th>
+		</tr>
+	 </table>
+	 </td></tr>
+	 <tr><td>
+	 <table  class="fea_down">
+	    <tr><th colspan=2 class="title"><h2><?php echo $this->translate('Information about the member(s)'); ?></h2></th></tr>
+		<tr>
+		<th>
+			<?php  
+            $place = $form->get('place');
+            echo $formLabel->openTag().$place->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th><?php             
+            echo $this->formInput($place) . $this->formElementErrors($place);
+           ?>
+		 </th>
+		</tr>
+		<tr>
+		<th>
+			<?php  
+            $mphone = $form->get('mphone');
+            echo $formLabel->openTag().$mphone->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th><?php             
+            echo $this->formInput($mphone) . $this->formElementErrors($mphone);
+           ?>
+		 </th>
+		</tr>
+		<tr>
+		 <th style="width: 40%;">
+			<?php  
+            $booking = $form->get('booking');
+            echo $formLabel->openTag().$booking->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th style="width: 60%;"><?php 
+            $booking->setAttribute('required', 'required');
+            echo $this->formSelect($booking) . $this->formElementErrors($booking);
+           ?>
+		 </th>
+		</tr>
+		<tr>
+		 <th style="width: 40%;">
+			<?php  
+            $executor = $form->get('executor');
+            echo $formLabel->openTag().$executor->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th style="width: 60%;"><?php 
+            $executor->setAttribute('required', 'required');
+            echo $this->formSelect($executor) . $this->formElementErrors($executor);
+           ?>
+		 </th>
+		</tr>		
+		<tr>
+		 <th>
+			<?php  
+            $fileupload = $form->get('fileupload');
+            echo $formLabel->openTag().$fileupload->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th><?php             
+            echo $this->formElement($fileupload). $this->formElementErrors($fileupload);
+           ?>
+		 </th>
+		</tr>		
+		<tr>
+		 <th>
+		<?php 
+			echo $this->formElement($form->get('submit'));    
+		?>  
+		</th>
+		</tr>
+	 </table>	 
+  </td></tr>
+</table> 
+<?php         
+echo $this->form()->closeTag($form);
+?> 
+<h6>  * - Обязательные поля для заполнения</h6>
+</div>
+<?php 
+$this->inlineScript()->captureStart();
+echo <<<JS
+   $(function () {
+		  $.datepicker.setDefaults($.datepicker.regional['']);		 
+         $('#dateBegin').datepicker({ 
+        	    dateFormat: 'yy-mm-dd',
+        	    monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь',
+        	                 'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+        	    monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн',
+        	                 'Июл','Авг','Сен','Окт','Ноя','Дек'], 
+        	    dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+        	    dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+        	    dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'], 
+         });          
+         $('#dateEnd').datepicker({ 
+        	 	dateFormat: 'yy-mm-dd',
+        	 	monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь',
+        	                 'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+        	    monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн',
+        	                 'Июл','Авг','Сен','Окт','Ноя','Дек'], 
+        	    dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+        	    dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+        	    dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
+         }); 
+});
+JS;
+$this->inlineScript()->captureEnd();
+?>

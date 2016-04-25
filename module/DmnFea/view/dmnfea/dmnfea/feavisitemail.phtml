@@ -1,0 +1,115 @@
+<body style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<div style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<table cellspacing="0" cellpadding="0" border="0" height="100%" width="100%">
+		<tr>
+			<td align="center" valign="top" style="padding:20px 0 20px 0">
+				<!-- [ header starts here] -->
+				<table bgcolor="FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:1px solid #E0E0E0;">
+					<tr>
+						<td valign="top">
+							<a href="parts1.ru">www.cci.mogilev.by</a>
+						</td>
+					</tr>
+					<!-- [ middle starts here] -->
+					<tr>
+						<td valign="top">
+							<h1 style="font-size:22px; font-weight:normal; line-height:22px; margin:0 0 11px 0;">Заявка на визит: "<?php echo $request; ?>"</h1>
+							<p style="font-size:12px; line-height:16px; margin:0 0 8px 0;">Данные по заявке:</p>
+							<table style="border:1px solid #E0E0E0; font-size:12px; line-height:16px; margin:0 0 16px 0; padding:13px 18px; background:#f9f9f9; width:600px">								
+								<tr><th colspan="2"><strong>Информация об организации</strong></th></tr>						
+								<?php if(isset($organization) && !empty($organization)) { ?>
+								<tr><td style="width:50%">Наименование Организации</td><td style="width:50%"><?php echo $organization;?></td></tr>	
+								<?php } if (isset($adress) && !empty($adress)) { ?>
+								<tr><td>Адрес</td><td><?php echo $adress;?> </td></tr>
+								<?php } if (isset($unp) && !empty($unp)) { ?>
+								<tr><td>УНП</td><td><?php echo $unp;?> </td></tr>
+								<?php } if (isset($fio) && !empty($fio)) { ?>
+								<tr><td>ФИО руководителя в договор, должность*</td><td><?php echo $fio;?> </td></tr>
+								<?php } if (isset($rule) && !empty($rule)) { ?>
+								<tr><td>Действует на основании</td><td><?php echo $rule;?> </td></tr>	
+								<?php } if (isset($site) && !empty($site)) { ?>		
+								<tr><td>Сайт</td><td><?php echo $site;?> </td></tr>
+								<?php } if (isset($activity) && !empty($activity)) { ?>		
+								<tr><td>Сфера деятельности</td><td><?php echo $activity;?> </td></tr>
+								<?php } if (isset($members) && !empty($members)) { ?>													
+								<tr><th colspan="2"><strong>Информация об участнике(ах)</strong></th></tr>	
+								<tr><td><strong>Участник N1:</strong></td><td></td></tr>
+								<tr><td>ФИО участника (полностью)</td><td><?php echo $members;?> </td></tr>
+								<?php if (isset($position) && !empty($position)) { ?>
+								<tr><td>Должность</td><td><?php echo $position;?> </td></tr>
+								<?php } if (isset($mphone) && !empty($mphone)) { ?>
+								<tr><td>Мобильный телефон</td><td><?php echo $mphone;?> </td></tr>
+								<?php } if (isset($wphone) && !empty($wphone)) { ?>
+								<tr><td>Рабочий телефон</td><td><?php echo $wphone;?> </td></tr>
+								<?php } if (isset($email) && !empty($email)) { ?>								
+								<tr><td>Адрес электронной почты</td><td><?php echo $email;?></td></tr>
+								<?php } if (isset($surname) && !empty($surname)) { ?>								
+								<tr><td>Фамилия при рождении/предыдущая/девичья</td><td><?php echo $surname;?></td></tr>
+								<?php } if (isset($marital) && !empty($marital)) { ?>								
+								<tr><td>Семейное положение</td><td><?php echo $marital;?></td></tr>
+								<?php } if (isset($home) && !empty($home)) { ?>								
+								<tr><td>Домашний адрес и адрес электронной почты, номер телефона</td><td><?php echo $home;?></td></tr>
+								<?php } if (isset($proffesional) && !empty($proffesional)) { ?>								
+								<tr><td>Профессиональная деятельность в настоящее время</td><td><?php echo $proffesional;?></td></tr>
+								<?php } if (isset($employer) && !empty($employer)) { ?>								
+								<tr><td>Работодатель; адрес и телефон работодателя</td><td><?php echo $employer;?></td></tr>
+								<?php } if (isset($visa) && !empty($visa)) { ?>								
+								<tr><td>Шенгенские визы, выданные за последние 3 года</td><td><?php echo $visa;?></td></tr>
+								<?php } if (isset($validity) && !empty($validity)) { ?>								
+								<tr><td>Срок действия с__до</td><td><?php echo $validity;?></td></tr>
+								<?php }?>
+								<?php if(isset($membersAdd) && is_array($membersAdd)) {
+								        $count=2;
+								        foreach ($membersAdd as $key=>$value){?>
+								        <tr><td><strong>Участник №<?php echo intval($count+$key);?>:</strong></td><td></td></tr>
+								        <?php if(isset($value) && !empty($proffesional)) { ?>
+								        <tr><td>ФИО участника (полностью)</td><td><?php echo $value;?> </td></tr>
+								        <?php } if (isset($positionAdd[$key]) && !empty($positionAdd[$key])) { ?>	
+								        <tr><td>Должность</td><td><?php echo $positionAdd[$key];?> </td></tr>
+								        <?php } if (isset($mphoneAdd[$key]) && !empty($mphoneAdd[$key])) { ?>	
+								        <tr><td>Мобильный телефон</td><td><?php echo $mphoneAdd[$key];?> </td></tr>
+								        <?php } if (isset($wphoneAdd[$key]) && !empty($wphoneAdd[$key])) { ?>	
+								        <tr><td>Рабочий телефон</td><td><?php echo $wphoneAdd[$key];?> </td></tr>
+								        <?php } if (isset($emailAdd[$key]) && !empty($emailAdd[$key])) { ?>									
+								        <tr><td>Адрес электронной почты</td><td><?php echo $emailAdd[$key];?></td></tr>
+								        <?php } if (isset($surnameAdd[$key]) && !empty($surnameAdd[$key])) { ?>									
+								        <tr><td>Фамилия при рождении/предыдущая/девичья</td><td><?php echo $surnameAdd[$key];?></td></tr>	
+								        <?php } if (isset($maritalAdd[$key]) && !empty($maritalAdd[$key])) { ?>									
+								        <tr><td>Семейное положение</td><td><?php echo $maritalAdd[$key];?></td></tr>	
+								        <?php } if (isset($homeAdd[$key]) && !empty($homeAdd[$key])) { ?>									
+								        <tr><td>Домашний адрес и адрес электронной почты, номер телефона</td><td><?php echo $homeAdd[$key];?></td></tr>			
+								        <?php } if (isset($proffesionalAdd[$key]) && !empty($proffesionalAdd[$key])) { ?>									
+								        <tr><td>Профессиональная деятельность в настоящее время</td><td><?php echo $proffesionalAdd[$key];?></td></tr>			
+								        <?php } if (isset($employerAdd[$key]) && !empty($employerAdd[$key])) { ?>									
+								        <tr><td>Работодатель; адрес и телефон работодателя</td><td><?php echo $employerAdd[$key];?></td></tr>
+								        <?php } if (isset($visaAdd[$key]) && !empty($visaAdd[$key])) { ?>									
+								        <tr><td>Шенгенские визы, выданные за последние 3 года</td><td><?php echo $visaAdd[$key];?></td></tr>
+								        <?php } if (isset($validityAdd[$key]) && !empty($validityAdd[$key])) { ?>									
+								        <tr><td>Срок действия с__до</td><td><?php echo $validityAdd[$key];?></td></tr>	
+								        <?php } ?>				
+								<?php }}}?>
+								<tr><th colspan="2"><strong>Дополнительная информация</strong></th></tr>
+								<?php if (isset($ccontact) && !empty($ccontact)) { ?>									
+								<tr><td>ФИО контактного лица</td><td><?php echo $ccontact;?> </td></tr>
+								<?php } if (isset($cmphone) && !empty($cmphone)) { ?>	
+								<tr><td>Мобильный телефон</td><td><?php echo $cmphone;?> </td></tr>
+								<?php } if (isset($cwphone) && !empty($cwphone)) { ?>
+								<tr><td>Рабочий телефон</td><td><?php echo $cwphone;?> </td></tr>	
+								<?php } if (isset($cemail) && !empty($cemail)) { ?>							
+								<tr><td>Адрес электронной почты</td><td><?php echo $cemail;?></td></tr>
+								<?php } if (isset($cfax) && !empty($cfax)) { ?>	
+								<tr><td>Факс</td><td><?php echo $cfax;?></td></tr>
+								<?php } if (isset($intresting) && !empty($intresting)) { ?>	
+								<tr><td>Сфера интересов в стране проведения мероприятия</td><td><?php echo $intresting;?> </td></tr>								
+								<?php } if (isset($company) && !empty($company)) { ?>	
+								<tr><td>Компании в стране (регионе) проведения мероприятия, в установлении контактов с которыми заинтересовано предприятие | Список компаний с контактами в стране (регионе) проведения мероприятия для приглашения на встречи (при отсутствии конкретных компаний с контактами укажите сферу деятельности предприятий, с которыми вы хотели бы провести переговоры)</td><td><?php echo $company;?> </td></tr>
+								<?php } if (isset($info) && !empty($info)) { ?>	
+								<tr><td>Дополнительная информация</td><td><?php echo $info;?> </td></tr>
+								<?php } ?>																	
+								</table>
+						</td>
+					</tr>					
+				</table>
+			</td>
+		</tr>
+	</table>

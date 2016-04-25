@@ -1,0 +1,32 @@
+<?php echo $this->doctype(); ?>
+<html>
+<head>
+    <meta charset="utf-8">
+    <?php echo $this->headTitle($this->translate('MogBelTpp'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+    <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
+
+    <!-- styles -->
+    <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/images/favicon.ico'))
+        ->prependStylesheet($this->basePath() . '/components/bootstrap/dist/css/bootstrap.min.css')
+        ->prependStylesheet($this->basePath() . '/css/style.css');
+    ?>
+    <!-- Scripts -->
+    <?php echo $this->headScript()->prependFile('https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+        ->prependFile('https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',));
+    ?>
+    <!-- Scripts -->
+    <?php echo $this->headScript()->prependFile($this->basePath() . '/components/bootstrap/dist/js/bootstrap.min.js')
+        ->prependFile($this->basePath() . '/components/jquery/dist/jquery.min.js');
+    ?>
+</head>
+<body>
+<table class="site">
+    <th class="main">
+        <?php echo $this->content; ?>
+    </th>
+    </tr>
+</table>
+<!-- /container -->
+</body>
+</html>

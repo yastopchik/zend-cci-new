@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit 
+	bootstrap="Bootstrap.php"
+    colors="true"
+    stopOnError="true"
+    stopOnFailure="true"
+    >
+    <selenium>
+        <browser name="Chrome" browser="chrome"/>
+        <browser name="Firefox" browser="*firefox"/>
+    </selenium>
+    <testsuites>
+        <testsuite name="mogbeltpp">  /* Название тест-кейса */
+            <directory>./DmnAdminTest</directory> /* Директория, с которой будут подгружаться тесты*/
+        </testsuite>
+    </testsuites>
+</phpunit>

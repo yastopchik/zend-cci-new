@@ -1,55 +1,139 @@
 <?php echo $this->doctype(); ?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <?php echo $this->headTitle($this->translate('УП "Могилевское отделение БелТПП"'))->setSeparator(' - ')->setAutoEscape(false) ?>
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
+    <!-- meta -->
+    <?php echo $this->headMeta()->prependHttpEquiv('viewport', 'width=device-width, initial-scale=1.0') ?>
+    <?php echo $this->headMeta()->prependHttpEquiv('Content-Type', 'text/html; charset=utf-8') ?>
+    <?php echo $this->headMeta()->prependHttpEquiv('X-UA-Compatible', 'IE=edge') ?>
 
-        <?php echo $this->headMeta()
-            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
-            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
-        ?>
+    <!-- styles -->
+    <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/images/favicon.ico'))
+        ->offsetSetStylesheet(1, $this->basePath() . '/components/bootstrap/dist/css/bootstrap.min.css')
+        ->offsetSetStylesheet(2, $this->basePath() . '/components/components-font-awesome/css/font-awesome.min.css')
+        ->offsetSetStylesheet(3, $this->basePath() . '/components/jGrowl/jquery.jgrowl.min.css')
+        ->offsetSetStylesheet(4, $this->basePath() . '/components/jquery-ui/themes/ui-lightness/jquery-ui.min.css')
+        ->offsetSetStylesheet(5, $this->basePath() . '/components/jquery-ui/themes/ui-lightness/theme.css')
+        ->offsetSetStylesheet(6, $this->basePath() . '/components/jqGrid/css/ui.jqgrid.css')
+        ->offsetSetStylesheet(7, $this->basePath() . '/css/style.css');
+    ?>
+    <!-- Scripts -->
+    <?php echo $this->headScript()
+        ->offsetSetFile(1, $this->basePath() . '/components/jquery/dist/jquery.min.js')
+        ->offsetSetFile(2, $this->basePath() . '/components/jGrowl/jquery.jgrowl.min.js')
+        ->offsetSetFile(3, $this->basePath() . '/components/bootstrap/dist/js/bootstrap.min.js')
+        ->offsetSetFile(4, $this->basePath() . '/components/jquery-ui/jquery-ui.min.js')
+        ->offsetSetFile(5, $this->basePath() . '/components/jqGrid/js/i18n/grid.locale-ru.js')
+        ->offsetSetFile(6, $this->basePath() . '/components/jqGrid/js/jquery.jqGrid.min.js')
+        ->offsetSetFile(7, $this->basePath() . '/js/custom.js');
+    ?>
+</head>
+<body id="layout">
+<header>
+    <section class="col-lg-10 col-lg-offset-1 col-md-12 col-sm-12 col-xs-12 brand">
+        <div class="logo visible-md-block visible-lg-block visible-sm-block">
+            <span class="rus">Белорусская <br /> торгово-промышленная палата <br />Могилевское отделение</span>
+            <span class="eng">Belarusian  <br />Chamber of Commerce and Industry<br />Mogilev branch</span>
+        </div>
+        <div class="logo-xs visible-xs-block">
+            <span class="rus">Белорусская торгово-промышленная палата Могилевское отделение</span>
+            <span class="eng">Belarusian Chamber of Commerce and Industry Mogilev branch</span>
+        </div>
+    </section>
+</header>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Меню</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <?php
+                if ((isset($auth) && is_array($auth)) && (isset($active) && is_array($active))) {
+                    foreach ($auth as $key => $value) {
+                        if ($value instanceof \DmnDatabase\Entity\CciBjyRole) {
+                            $role = $value->getId();
+                        } else {
+                            $role = 1;
+                        }
+                    }
+                    $route = $active['route'];
+                    $action = $active['action'];
+                    switch ($role) {
+                        case '2':
+                            echo $this->partial('header2', array('route' => $route, 'action' => $action));
+                            break;
+                        case '3':
+                            echo $this->partial('header3', array('route' => $route, 'action' => $action));
+                            break;
+                        case '4':
+                            echo $this->partial('header4', array('route' => $route, 'action' => $action));
+                            break;
+                        case '5':
+                            echo $this->partial('header5', array('route' => $route, 'action' => $action));
+                            break;
+                    }
+                } ?>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <?php if (isset($identity) && ($identity instanceof \Zend\Authentication\AuthenticationService)
+                    && ($identity->getIdentity() instanceof \DmnDatabase\Entity\CciZfUser)) { ?>
+                    <li><a href="#"><?php echo $identity->getIdentity()->getDisplayName(); ?></a></li>
+                <?php } ?>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Панель управления <i class="fa fa-ellipsis-v"></i> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <?php if ((($route == "dmnrequest") && ($action == "index")) || (($route == "dmnexrequest") && ($action == "index")) || (($route == "requests") && ($action == "index"))) { ?>
+                            <li><a href="#"
+                                   onclick="HelpDialog('<?php echo $this->url('application', array('action' => 'help', 'id' => '2')); ?>')"><i class="fa fa-info"></i> Помощь</a>
+                            </li>
+                        <?php } elseif ((($route == "dmnupload") && ($action == "index")) || (($route == "requests") && ($action == "upload")) || (($route == "dmnexrequest") && ($action == "upload"))) { ?>
+                            <li><a href="#"
+                                   onclick="HelpDialog('<?php echo $this->url('application', array('action' => 'help', 'id' => '4')); ?>')"><i class="fa fa-info"></i> Помощь</a>
+                            </li>
+                        <?php } elseif ((($route == "dmnrequest") && ($action == "add")) || (($route == "requests") && ($action == "add")) || (($route == "dmnexrequest") && ($action == "add"))) { ?>
+                            <li><a href="#"
+                                   onclick="HelpDialog('<?php echo $this->url('application', array('action' => 'help', 'id' => '3')); ?>')"><i class="fa fa-info"></i> Помощь</a>
+                            </li>
+                        <?php } else { ?>
+                            <li><a href="#"
+                                   onclick="HelpDialog('<?php echo $this->url('application', array('action' => 'help', 'id' => '2')); ?>')"><i class="fa fa-info"></i> Помощь</a>
+                            </li>
+                        <?php } ?>
 
-        <!-- Le styles -->
-        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-                        ->prependStylesheet($this->basePath('css/style.css'))
-                        ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
-                        ->prependStylesheet($this->basePath('css/bootstrap.min.css')) ?>
-
-        <!-- Scripts -->
-        <?php echo $this->headScript()
-            ->prependFile($this->basePath('js/bootstrap.min.js'))
-            ->prependFile($this->basePath('js/jquery.min.js'))
-            ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
-            ->prependFile($this->basePath('js/html5shiv.min.js'),   'text/javascript', array('conditional' => 'lt IE 9',))
-        ; ?>
-
-    </head>
-    <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath('img/zf2-logo.png') ?>" alt="Zend Framework 2"/>&nbsp;<?php echo $this->translate('Skeleton Application') ?></a>
-                </div>
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
+                        <li><a href="<?php echo $this->url('zfcuser/changepassword'); ?>"><i class="fa fa-user-secret"></i> Сменить пароль</a></li>
+                        <li><a href="/maketCT-1.xls"><i class="fa fa-download"></i> Скачать шаблон</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="<?php echo $this->url('zfcuser/logout'); ?>"><i class="fa fa-sign-out"></i> Выйти</a></li>
                     </ul>
-                </div><!--/.nav-collapse -->
-            </div>
-        </nav>
-        <div class="container">
-            <?php echo $this->content; ?>
-            <hr>
-            <footer>
-                <p>&copy; 2005 - <?php echo date('Y') ?> by Zend Technologies Ltd. <?php echo $this->translate('All rights reserved.') ?></p>
-            </footer>
-        </div> <!-- /container -->
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+<section class="main">
+    <div class="container-fluid">
+    <noscript>Ваш браузер не поддерживает Javascript. Воспользуйтесь следующими рекомендациями <a
+                        href="http://help.yandex.ru/common/browsers-settings/browsers-java-js-settings.xml"
+                        target="_blank">для включения данной функции</a> ,после чего обновите страницу.
+                </noscript>
+              <?php echo $this->content; ?>
         <?php echo $this->inlineScript() ?>
-    </body>
+            <div id="loadImg">
+                <div id="img">
+                    <img src="<?php echo $this->basePath('/images/495.gif') ?>"/></div>
+            </div>
+            <div id="winpopup"></div>
+    </div>
+</section>
+</body>
 </html>

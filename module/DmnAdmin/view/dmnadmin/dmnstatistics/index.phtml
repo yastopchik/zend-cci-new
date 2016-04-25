@@ -1,0 +1,11 @@
+<?php echo $this->headTitle($this->translate('Statistics')); 
+           $this->headScript()
+                ->offsetSetFile(101, $this->basePath() . '/components/fusioncharts/fusioncharts.js')
+                ->offsetSetFile(102, $this->basePath() . '/components/fusioncharts/fusioncharts.charts.js')
+                ->offsetSetFile(103, $this->basePath() . '/components/fusioncharts/themes/fusioncharts.theme.fint.js')
+                ->offsetSetFile(104, $this->basePath() . '/components/jqui-multi-dates-picker/jquery-ui.multidatespicker.js')
+?>
+<div id="content" class="content">
+    <div id="fusion">
+    </div>
+</div>

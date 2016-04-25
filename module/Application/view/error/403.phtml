@@ -1,0 +1,10 @@
+<?php 
+$this->inlineScript()->captureStart();
+echo <<<JS
+
+                window.location = '//ccimogilev.by';
+              
+
+JS;
+$this->inlineScript()->captureEnd();
+?>

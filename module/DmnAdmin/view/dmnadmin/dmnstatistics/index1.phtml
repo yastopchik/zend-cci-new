@@ -1,0 +1,103 @@
+<?php echo $this->headTitle($this->translate('Statistics')); 
+           $this->headScript()
+                ->offsetSetFile(101, $this->basePath() . '/js/charts/fusioncharts.js')
+                ->offsetSetFile(102, $this->basePath() . '/js/charts/fusioncharts.charts.js')
+                ->offsetSetFile(103, $this->basePath() . '/js/charts/fusioncharts.theme.fint.js')
+                ->offsetSetFile(104, $this->basePath() . '/js/jquery/jquery-ui.multidatespicker.js')
+                ->offsetSetFile(105, $this->basePath() . '/js/date.format.js');
+?>
+<div id="content" class="content">
+    <div id="imgStat">
+       <div id="print"><a href="javascript://" onclick="atoprint('chartContainer');"><img src="<?php echo $this->basePath('/images/PrintManager.png') ?>"/></a></div>
+       <div id="chartContainer">Загрузка FusionCharts</div> 
+       <div id="pollchart">
+            <h1>Выбирете необходимый отчет</h1>
+            <img src="<?php echo $this->basePath('/images/pollchart.png') ?>"/>
+       </div>
+       <ul id="tabs">
+	    <li><a href="#" data-href="dmnstatistics/getforms" data-caption="Количество заявок по основным формам" class="statistic">Отчет по формам</a></li>
+        <li><a href="#" data-href="dmnstatistics/getclients" data-caption="Количество заявок по основным клиентам" class="statistic">Отчет по  клиентам</a></li>
+        <li><a href="#" data-href="dmnstatistics/getexecutors" data-caption="Количество заявок по основным поставщикам" class="statistic">Отчет по исполнителям</a></li>        
+       </ul>
+       <div id="calendar"></div>
+    </div>
+</div>
+<?php 
+$this->inlineScript()->captureStart();
+echo <<<JS
+ var today = new Date();
+
+ function getstat(caption, href, period) {
+     $("#chartContainer").show();
+     $("#print").show();
+     $("selectdate").remove();
+     $.ajax({
+         dataType: 'json',
+         url: href+'?period='+period,
+         success: function (json) {             
+             var revenueChart = new FusionCharts({
+                 "type": "pie3d",
+                 "renderAt": "chartContainer",
+                 "width": "100%",
+                 "height": "400",
+                 "dataFormat": "json",
+                 "dataSource": {
+                     "chart": {
+                         "caption": caption,
+                         "subCaption": dateFormat(today, "dddd, mmmm d, yyyy"),
+                         "theme": "fint",
+                         "formatnumberscale": "0",
+                     },
+                     "data": json,
+                 }
+             });
+             revenueChart.render();
+         }
+     });
+     return false;
+ }
+ $(document).delegate('a.statistic', 'click', function () {  
+     var href = $(this).data("href");  
+     var caption = $(this).data("caption");      
+     $("#pollchart").hide();
+     $("#tabs").append('<li><a href="#" data-href="'+href+'" data-caption="'+caption+'" id="selectdate">Выбрать период</a></li>');
+     getstat($(this).data("caption"), $(this).data("href"));
+ });
+ $(document).delegate('a#selectdate', 'click', function () {    
+     $('#calendar').multiDatesPicker({
+         maxPicks: 2,
+         addDates: [today],
+         dateFormat: 'yy-mm-dd'
+     }).append('<button id="show_dates" data-href="'+$(this).data("href")+'" data-caption="'+$(this).data("caption")+'">Показать</button>');
+ });
+ $(document).delegate('#show_dates', 'click', function (e) {
+     e.preventDefault(); 
+     var href = $(this).data("href");  
+     var caption = $(this).data("caption");   
+     var dates = $('#calendar').multiDatesPicker('getDates');
+     $('#calendar').remove();  
+     $('#selectdate').remove();  
+     $("#tabs").append('<li><a href="#" data-href="'+href+'" data-caption="'+caption+'" id="selectdate">Выбрать период</a></li>');        
+     var period = '';
+     for (d in dates) period += dates[d] + ' ';
+     getstat(caption, href, period);
+     
+ });
+
+ function atoprint(aId) {
+     var atext = document.getElementById(aId).innerHTML;
+     var captext = window.document.title;
+     var alink = window.document.location;
+     var prwin = open('');
+     prwin.document.open();
+     prwin.document.writeln('<html><head><title>Версия для печати<\/title><\/head><body text="#000000" bgcolor="#FFFFFF"><div onselectstart="return false;" oncopy="return false;">');
+     prwin.document.writeln('<div style="margin-bottom:5px;"><a href="javascript://" onclick="window.print();">Печать<\/a> • <a href="javascript://" onclick="window.close();">Закрыть окно<\/a><\/div><hr>');
+     prwin.document.writeln('<h1>' + captext + '<\/h1>');
+     prwin.document.writeln(atext);
+     prwin.document.writeln('<div style="font-size:8pt;">Страница материала: ' + alink + '<\/div>');
+     prwin.document.writeln('<div style="margin-top:5px;"><a href="javascript://" onclick="window.print();">Печать<\/a> • <a href="javascript://" onclick="window.close();">Закрыть окно<\/a><\/div>');
+     prwin.document.writeln('<\/div><\/body><\/html>');
+ }
+JS;
+$this->inlineScript()->captureEnd();
+?>

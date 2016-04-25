@@ -1,0 +1,95 @@
+<?php echo $this->headTitle('Translate'); ?>
+<div id="help">  
+	 <?php 
+        $form = $this->form;  
+        $form->setAttribute('action',  $this->url('fea', array('action' => 'translate')));
+        $formLabel = $this->plugin('formLabel');
+        $form->prepare(); 
+        echo $this->form()->openTag($form);  
+      ?> 
+      <h1><?php echo $this->translate('Request a translate'); ?></h1>
+<table id="fea_request">
+	<tr><td>
+	 <table class="fea_center">	
+	    <tr><th colspan=4 class="title"><h2><?php echo $this->translate('Information'); ?></h2></th></tr>	
+		<tr>
+		 <th style="width: 30%;" colspan=2>
+			<?php  
+            $organization = $form->get('organization');
+            echo $formLabel->openTag().$organization->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th style="width: 70%;" colspan=2><?php 
+            $organization->setAttribute('required', 'required');
+            echo $this->formInput($organization) . $this->formElementErrors($organization);
+           ?>
+		 </th>
+		</tr>	
+		<tr>
+		 <th style="width: 30%;" colspan=2>
+			<?php  
+            $contact = $form->get('contact');
+            echo $formLabel->openTag().$contact->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th style="width: 70%;" colspan=2><?php 
+            $contact->setAttribute('required', 'required');
+            echo $this->formInput($contact) . $this->formElementErrors($contact);
+           ?>
+		 </th>
+		</tr>	
+		<tr>
+		 <th style="width: 30%;" colspan=2>
+			<?php  
+            $phone = $form->get('phone');
+            echo $formLabel->openTag().$phone->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th style="width: 70%;" colspan=2><?php 
+            $phone->setAttribute('required', 'required');
+            echo $this->formInput($phone) . $this->formElementErrors($phone);
+           ?>
+		 </th>		 
+		</tr>
+		<tr>
+		<th style="width: 30%;" colspan=2>
+			<?php  
+            $email = $form->get('email');
+            echo $formLabel->openTag().$email->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th style="width: 70%;" colspan=2><?php 
+            $email->setAttribute('required', 'required');
+            echo $this->formInput($email) . $this->formElementErrors($email);
+           ?>
+		 </th>
+		</tr>	
+		<tr>
+		 <th colspan=4>
+			<?php  
+            $info = $form->get('info');
+            echo $formLabel->openTag().$info->getOption('label');   echo $formLabel->closeTag();
+            ?></th>
+          </tr>
+          <tr><th colspan=4><?php            
+            echo $this->formTextarea($info) . $this->formElementErrors($info);
+           ?>
+		 </th>
+		</tr>		 	
+		<tr>
+		 <th colspan=2>
+			<?php  
+            $fileupload = $form->get('fileupload');
+            echo $formLabel->openTag().$fileupload->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th colspan=2><?php             
+            echo $this->formElement($fileupload). $this->formElementErrors($fileupload);
+           ?>
+		 </th>
+		</tr>		
+		<tr>
+		 <th>
+		<?php 
+			echo $this->formElement($form->get('submit'));    
+		?>  
+		</th>
+		</tr>
+	 </table>
+  </td></tr>
+</table> 
+<?php         
+echo $this->form()->closeTag($form);
+?> 
+<h6>  * - Обязательные поля для заполнения</h6>
+</div>

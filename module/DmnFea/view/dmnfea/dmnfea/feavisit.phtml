@@ -1,0 +1,289 @@
+<?php echo $this->headTitle('Fea/Request'); ?>
+<div id="help">  
+	 <?php 
+        $form = $this->form;  
+        $form->setAttribute('action',  $this->url('fea', array('action' => 'visit', 'url'=>$url)));
+        $formLabel = $this->plugin('formLabel');
+        $form->prepare(); 
+        echo $this->form()->openTag($form);  
+      ?> 
+      <h1><?php echo $this->translate('Applying for an visit'); ?></h1>
+<table id="fea_request">  
+     <tr><td>     
+       <table class="fea_up">
+       <tr><th colspan=4 class="title"><h2><?php echo $this->translate('Information about the event'); ?></h2></th></tr>
+        <tr>
+		 <th colspan=4>
+			<?php  
+            $request = $form->get('request');
+            echo $formLabel->openTag().$request->getOption('label');   echo $formLabel->closeTag();
+            ?>
+         </th></tr>
+         <tr><th colspan=4 class="biginput"><?php 
+            $request->setAttribute('required', 'required');
+            echo $this->formInput($request) . $this->formElementErrors($request);
+           ?>
+		 </th>
+		</tr>		
+	 </table>	 
+	</td></tr>
+	<tr><td>
+	 <table class="fea_center">	
+	    <tr><th colspan=4 class="title"><h2><?php echo $this->translate('Information about the organization'); ?></h2></th></tr>	
+		<tr>
+		 <th style="width: 30%;" colspan=2>
+			<?php  
+            $organization = $form->get('organization');
+            echo $formLabel->openTag().$organization->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th style="width: 70%;" colspan=2><?php 
+            $organization->setAttribute('required', 'required');
+            echo $this->formInput($organization) . $this->formElementErrors($organization);
+           ?>
+		 </th>
+		</tr>	
+		<tr>
+		 <th style="width: 30%;" colspan=2>
+			<?php  
+            $adress = $form->get('adress');
+            echo $formLabel->openTag().$adress->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th style="width: 70%;" colspan=2><?php 
+            $adress->setAttribute('required', 'required');
+            echo $this->formInput($adress) . $this->formElementErrors($adress);
+           ?>
+		 </th>
+		</tr>			
+		<tr>                
+		 <th colspan=2>
+			<?php  
+            $unp = $form->get('unp');
+            echo $formLabel->openTag().$unp->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th colspan=2><?php             
+            echo $this->formInput($unp) . $this->formElementErrors($unp);
+           ?>
+		 </th>
+		</tr>
+		<tr>
+		<th colspan=2>
+			<?php  
+            $fio = $form->get('fio');
+            echo $formLabel->openTag().$fio->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th colspan=2><?php
+            echo $this->formInput($fio) . $this->formElementErrors($fio);
+           ?>
+		 </th>
+		</tr>
+		<tr>
+		<th colspan=2>
+			<?php  
+            $rule = $form->get('rule');
+            echo $formLabel->openTag().$rule->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th colspan=2><?php             
+            echo $this->formInput($rule) . $this->formElementErrors($rule);
+           ?>
+		 </th>
+		</tr>		
+	 </table>
+	 </td></tr>
+	 <tr><td>
+	 <table class="fea_members">
+	    <tr><th colspan=4 class="title"><h2><?php echo $this->translate('Information about the member(s)'); ?></h2></th></tr>
+		<tr>
+		<th colspan=2 style="width: 30%;">
+			<?php  
+            $members = $form->get('members');
+            echo $formLabel->openTag().$members->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th colspan=2 style="width: 70%;"><?php     
+            $members->setAttribute('required', 'required');
+            echo $this->formInput($members) . $this->formElementErrors($members);
+           ?>
+		 </th>
+		</tr>
+		<tr>		
+		<th colspan=2 style="width: 30%;">
+			<?php  
+            $position = $form->get('position');
+            echo $formLabel->openTag().$position->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th colspan=2 style="width: 70%;"><?php     
+            $position->setAttribute('required', 'required');
+            echo $this->formInput($position) . $this->formElementErrors($position);
+           ?>
+		 </th>
+		 </tr>		
+		 <tr>
+		 <th colspan=2>
+			<?php  
+            $mphone = $form->get('mphone');
+            echo $formLabel->openTag().$mphone->getOption('label');   echo $formLabel->closeTag();
+            ?></th>
+            <th>
+			<?php  
+            $wphone = $form->get('wphone');
+            echo $formLabel->openTag().$wphone->getOption('label');   echo $formLabel->closeTag();
+            ?></th>
+            <th>
+			<?php  
+            $email = $form->get('email');
+            echo $formLabel->openTag().$email->getOption('label');   echo $formLabel->closeTag();
+            ?></th>
+          </tr>
+         <tr>
+		 <th colspan=2>
+			<?php  
+            echo $this->formInput($mphone) . $this->formElementErrors($mphone);
+            ?></th>
+            <th>
+			<?php  
+            echo $this->formInput($wphone) . $this->formElementErrors($wphone);
+            ?></th>
+            <th>
+			<?php  
+            echo $this->formInput($email) . $this->formElementErrors($email);
+            ?></th>
+          </tr>	
+          <tr><th><input type="button" onclick="add_input()" value="<?php echo $this->translate('Add member'); ?>"></th><th colspan=3></th></tr>
+	 </table>
+	 </td></tr>	 	        
+     <tr>
+         <td>
+             <table  id="inputi" class="fea_members_too"></table>
+         </td>
+     </tr> 
+	 <tr><td>
+	 <table class="fea_down">
+	    <tr><th colspan=4 class="title"><h2><?php echo $this->translate('Additional information'); ?></h2></th></tr>
+	    <tr>
+		<th style="width: 30%;">
+			<?php  
+            $ccontact = $form->get('ccontact');
+            echo $formLabel->openTag().$ccontact->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th colspan=3 style="width: 70%;"><?php     
+            $ccontact->setAttribute('required', 'required');
+            echo $this->formInput($ccontact) . $this->formElementErrors($ccontact);
+           ?>
+		 </th>
+		</tr>
+		<tr>				
+		 <th>
+			<?php  
+            $cmphone = $form->get('cmphone');
+            echo $formLabel->openTag().$cmphone->getOption('label');   echo $formLabel->closeTag();
+            ?></th>
+            <th>
+			<?php  
+            $cwphone = $form->get('cwphone');
+            echo $formLabel->openTag().$cwphone->getOption('label');   echo $formLabel->closeTag();
+            ?></th>
+            <th>
+			<?php  
+            $cemail = $form->get('cemail');
+            echo $formLabel->openTag().$cemail->getOption('label');   echo $formLabel->closeTag();
+            ?></th>
+            <th>
+			<?php  
+            $cfax = $form->get('cfax');
+            echo $formLabel->openTag().$cfax->getOption('label');   echo $formLabel->closeTag();
+            ?></th>
+          </tr>
+         <tr>
+		 <th>
+			<?php  
+            echo $this->formInput($cmphone) . $this->formElementErrors($cmphone);
+            ?></th>
+            <th>
+			<?php  
+            echo $this->formInput($cwphone) . $this->formElementErrors($cwphone);
+            ?></th>
+            <th>
+			<?php  
+            echo $this->formInput($cemail) . $this->formElementErrors($cemail);
+            ?></th>
+            <th>
+			<?php  
+            echo $this->formInput($cfax) . $this->formElementErrors($cfax);
+            ?></th>
+          </tr>	
+         <tr>
+		 <th colspan=4>
+			<?php  
+            $intresting = $form->get('intresting');
+            echo $formLabel->openTag().$intresting->getOption('label');   echo $formLabel->closeTag();
+            ?></th>
+          </tr>
+          <tr><th colspan=4><?php            
+            echo $this->formTextarea($intresting) . $this->formElementErrors($intresting);
+           ?>
+		 </th>
+		 </tr>
+		 <tr>
+		 <th colspan=4>
+			<?php  
+            $company = $form->get('company');
+            echo $formLabel->openTag().$company->getOption('label');   echo $formLabel->closeTag();
+            ?></th>
+          </tr>
+          <tr><th colspan=4><?php            
+            echo $this->formTextarea($company) . $this->formElementErrors($company);
+           ?>
+		 </th>
+		</tr>	
+		<tr>
+		 <th colspan=4>
+			<?php  
+            $info = $form->get('info');
+            echo $formLabel->openTag().$info->getOption('label');   echo $formLabel->closeTag();
+            ?></th>
+          </tr>
+          <tr><th colspan=4><?php            
+            echo $this->formTextarea($info) . $this->formElementErrors($info);
+           ?>
+		 </th>
+		</tr>		
+		<tr>
+		 <th colspan=2>
+			<?php  
+            $fileupload = $form->get('fileupload');
+            echo $formLabel->openTag().$fileupload->getOption('label');   echo $formLabel->closeTag();
+            ?></th><th colspan=2><?php             
+            echo $this->formElement($fileupload). $this->formElementErrors($fileupload);
+           ?>
+		 </th>
+		</tr>		
+		<tr>
+		 <th>
+		<?php 
+			echo $this->formElement($form->get('submit'));    
+		?>  
+		</th>
+		</tr>
+	 </table>
+  </td></tr>
+</table> 
+<?php         
+echo $this->form()->closeTag($form);
+?> 
+<h6>  * - Обязательные поля для заполнения</h6>
+</div>
+<?php 
+$this->inlineScript()->captureStart();
+echo <<<JS
+    function add_input()
+    {    
+        var membersAdd=document.createElement('tr');       
+        var positionAdd=document.createElement('tr');  
+        var infoAdd=document.createElement('tr');  
+        var valueInfoAdd=document.createElement('tr');             
+        membersAdd.innerHTML="<th colspan=2 style='width: 30%;'><label>ФИО участника (полностью)*</label></th><th colspan=2 style='width: 70%;'><input type='text' name='membersAdd[]'></th>"; 
+        positionAdd.innerHTML="<th colspan=2 style='width: 30%;'><label>Должность*</label></th><th colspan=2 style='width: 70%;'><input type='text' name='positionAdd[]'></th>";        
+        infoAdd.innerHTML="<th colspan=2><label>Мобильный телефон</label></th><th><label>Рабочий телефон</label></th><th><label>Эл.почта</label></th></th>"; 
+        valueInfoAdd.innerHTML="<th colspan=2><input type='text' name='mphoneAdd[]' placeholder='375295555555'></th><th>" + 
+                                              "<input type='text' name='wphoneAdd[]' placeholder='375222778034'></th>" + 
+                                              "<th><input type='email' name='emailAdd[]' placeholder='example&#x40;gmail.com'></th>"; 
+       
+        document.getElementById('inputi').appendChild(membersAdd); 
+        document.getElementById('inputi').appendChild(positionAdd);
+        document.getElementById('inputi').appendChild(infoAdd);
+        document.getElementById('inputi').appendChild(valueInfoAdd);
+    }
+JS;
+$this->inlineScript()->captureEnd();
+?>

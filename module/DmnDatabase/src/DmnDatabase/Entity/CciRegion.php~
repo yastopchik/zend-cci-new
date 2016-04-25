@@ -1,0 +1,47 @@
+<?php
+
+namespace DmnDatabase\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CciRegion
+ *
+ * @ORM\Table(name="cci_region", indexes={@ORM\Index(name="region_to_country_idx", columns={"idcountry"})})
+ * @ORM\Entity
+ */
+class CciRegion
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idcountry", type="integer", nullable=true)
+     */
+    private $idcountry;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nameru", type="string", length=150, nullable=true)
+     */
+    private $nameru;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nameen", type="string", length=150, nullable=true)
+     */
+    private $nameen;
+
+
+}
+

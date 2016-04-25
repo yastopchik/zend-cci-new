@@ -1,0 +1,123 @@
+<?php
+
+namespace DmnDatabase\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CciOrganization
+ *
+ * @ORM\Table(name="cci_organization", indexes={@ORM\Index(name="organization_to_city_idx", columns={"CityId"}), @ORM\Index(name="organizationt_to_sez_idx", columns={"IsResident"})})
+ * @ORM\Entity
+ */
+class CciOrganization
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Name", type="string", length=100, nullable=true)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="FullName", type="string", length=150, nullable=true)
+     */
+    private $fullname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="FullNameEn", type="string", length=150, nullable=true)
+     */
+    private $fullnameen;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Address", type="string", length=255, nullable=true)
+     */
+    private $address;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="AddressEn", type="string", length=255, nullable=true)
+     */
+    private $addressen;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Phone", type="string", length=45, nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Contract", type="string", length=50, nullable=true)
+     */
+    private $contract;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="DateContract", type="date", nullable=true)
+     */
+    private $datecontract;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Unp", type="string", length=45, nullable=true)
+     */
+    private $unp;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="IsCci", type="boolean", nullable=false)
+     */
+    private $iscci = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ParentId", type="integer", nullable=false)
+     */
+    private $parentid = '0';
+
+    /**
+     * @var \DmnDatabase\Entity\CciSez
+     *
+     * @ORM\ManyToOne(targetEntity="DmnDatabase\Entity\CciSez")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="IsResident", referencedColumnName="id")
+     * })
+     */
+    private $isresident;
+
+    /**
+     * @var \DmnDatabase\Entity\CciCity
+     *
+     * @ORM\ManyToOne(targetEntity="DmnDatabase\Entity\CciCity")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="CityId", referencedColumnName="id")
+     * })
+     */
+    private $cityid;
+
+
+}
+

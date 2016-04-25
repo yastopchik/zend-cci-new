@@ -1,0 +1,45 @@
+<?php echo $this->doctype(); ?>
+<html xmlns="http://www.w3.org/1999/xhtml" >
+    <head>        
+        <?php echo $this->headTitle($this->translate('УП "Могилевское отделение БелТПП"'))->setSeparator(' - ')->setAutoEscape(false) ?>
+        <!-- meta -->
+        <?php echo $this->headMeta()->prependHttpEquiv('viewport', 'width=device-width, initial-scale=1.0') ?>
+        <?php echo $this->headMeta()->prependHttpEquiv('Content-Type', 'text/html; charset=utf-8') ?>
+        <?php echo $this->headMeta()->prependHttpEquiv('X-UA-Compatible', 'IE=edge') ?>
+       <!-- Styles -->
+		<?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/images/favicon.ico'))
+			->offsetSetStylesheet(1, $this->basePath() . '/components/bootstrap/dist/css/bootstrap.min.css')
+			->offsetSetStylesheet(2, $this->basePath() . '/components/components-font-awesome/css/font-awesome.min.css')
+			->offsetSetStylesheet(3, $this->basePath() . '/components/jGrowl/jquery.jgrowl.min.css')
+			->offsetSetStylesheet(4, $this->basePath() . '/css/main.css');
+		?>
+		<!-- Scripts -->
+		<?php echo $this->headScript()->prependFile('https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+			->prependFile('https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',));
+		?>
+		<?php echo $this->headScript()
+			->offsetSetFile(1, $this->basePath() . '/components/jquery/dist/jquery.min.js')
+			->offsetSetFile(2, $this->basePath() . '/components/jGrowl/jquery.jgrowl.min.js')
+			->offsetSetFile(3, $this->basePath() . '/components/bootstrap/dist/js/bootstrap.min.js')
+			->offsetSetFile(4, $this->basePath() . '/js/custom.js');
+		?>
+	</head>
+	<body>
+	<header>
+		<section class="col-lg-10 col-lg-offset-1 col-md-12 col-sm-12 col-xs-12 brand">
+			<div class="logo visible-md-block visible-lg-block visible-sm-block">
+				<span class="rus">Белорусская <br /> торгово-промышленная палата <br />Могилевское отделение</span>
+				<span class="eng">Belarusian  <br />Chamber of Commerce and Industry<br />Mogilev branch</span>
+			</div>
+			<div class="logo-xs visible-xs-block">
+				<span class="rus">Белорусская торгово-промышленная палата Могилевское отделение</span>
+				<span class="eng">Belarusian Chamber of Commerce and Industry Mogilev branch</span>
+			</div>
+		</section>
+	</header>
+	<section class="main">
+		<?php echo $this->content; ?>
+		<?php echo $this->inlineScript() ?>
+	</section>
+	</body>
+</html>

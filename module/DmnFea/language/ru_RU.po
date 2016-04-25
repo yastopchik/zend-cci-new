@@ -1,0 +1,64 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ZendSkeletonApplication\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-15 12:15+0300\n"
+"PO-Revision-Date: 2015-08-18 11:38+0300\n"
+"Last-Translator: vragovR <vragovR@yandex.ru>\n"
+"Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.6.4\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../view/dmnfea/dmnfea/fea.phtml:1
+msgid "Fea/Request"
+msgstr "Подача заявки на мероприятие"
+
+#: ../view/dmnfea/dmnfea/fea.phtml:14
+msgid "Applying for an event"
+msgstr "Подача заявки на мероприятие"
+
+#: ../view/dmnfea/dmnfea/fea.phtml:14
+msgid "Information about the event"
+msgstr "Информация о мероприятии"
+
+#: ../view/dmnfea/dmnfea/fea.phtml:52
+msgid "Information about the organization"
+msgstr "Информация об организации"
+
+#: ../view/dmnfea/dmnfea/fea.phtml:113
+msgid "Information about the member(s)"
+msgstr "Информация об участнике(ах)"
+
+#: ../view/dmnfea/dmnfea/feasuccess.phtml:3
+msgid "Your application is accepted"
+msgstr "Ваша заявка принята"
+
+#: ../view/dmnfea/dmnfea/feavisit.phtml:145
+msgid "Add member"
+msgstr "Добавить участника"
+
+#: ../view/dmnfea/dmnfea/feavisit.phtml:155
+msgid "Additional information"
+msgstr "Дополнительная информация"
+
+#: ../view/dmnfea/dmnfea/feavisit.phtml:14
+msgid "Applying for an visit"
+msgstr "Подача заявки на участие в деловых визитах"
+
+#: ../view/dmnfea/dmnfea/featranslate.phtml:10
+msgid "Request a translate"
+msgstr "Оставить заявку на перевод"
+
+#: ../view/dmnfea/dmnfea/featranslate.phtml:14
+msgid "Information"
+msgstr "Информация"
+
+#: ../view/dmnfea/dmnfea/featranslate.phtml:1
+msgid "Translate"
+msgstr "Переводы"

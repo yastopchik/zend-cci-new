@@ -1,0 +1,32 @@
+{
+  "name": "ccimogilev",
+  "homepage": "https://ccimogilev.by",
+  "authors": [
+    "Yury Stopchik <stopchik@tut.by>"
+  ],
+  "description": "ccimogilev",
+  "main": "index.html",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "version": "0.1.0",
+  "dependencies": {
+    "jquery": "^2.2.1",
+    "bootstrap": "3.3",
+    "jquery-ui": "^1.11.4",
+    "jqGrid": "jqgrid#^5.1.0",
+    "plupload": "^2.1.8",
+    "fusioncharts": "^3.10.1",
+    "ckeditor": "^4.5.7",
+    "components-font-awesome": "^4.5.0",
+    "jGrowl": "jgrowl#^1.4.4",
+    "jqui-multi-dates-picker": "*"
+  }
+}

@@ -1,0 +1,50 @@
+<?php
+
+namespace DmnDatabase\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CciStatistic
+ *
+ * @ORM\Table(name="cci_statistic", indexes={@ORM\Index(name="statictic_to_user_idx", columns={"UserId"})})
+ * @ORM\Entity
+ */
+class CciStatistic
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="NumOfVisits", type="integer", nullable=false)
+     */
+    private $numofvisits = '1';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="NumOfSertif", type="integer", nullable=false)
+     */
+    private $numofsertif = '1';
+
+    /**
+     * @var \DmnDatabase\Entity\CciUser
+     *
+     * @ORM\ManyToOne(targetEntity="DmnDatabase\Entity\CciUser")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="UserId", referencedColumnName="Id")
+     * })
+     */
+    private $userid;
+
+
+}
+

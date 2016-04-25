@@ -1,0 +1,51 @@
+<body style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<div style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<table cellspacing="0" cellpadding="0" border="0" height="100%" width="100%">
+		<tr>
+			<td align="center" valign="top" style="padding:20px 0 20px 0">
+				<!-- [ header starts here] -->
+				<table bgcolor="FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:1px solid #E0E0E0;">
+					<tr>
+						<td valign="top">
+							<a href="parts1.ru">www.cci.mogilev.by</a>
+						</td>
+					</tr>
+					<!-- [ middle starts here] -->
+					<tr>
+						<td valign="top">
+							<h1 style="font-size:22px; font-weight:normal; line-height:22px; margin:0 0 11px 0;">Заявка на мероприятие: "<?php echo $request; ?>"</h1>
+							<p style="font-size:12px; line-height:16px; margin:0 0 8px 0;">Данные по заявке:</p>
+							<table style="border:1px solid #E0E0E0; font-size:12px; line-height:16px; margin:0 0 16px 0; padding:13px 18px; background:#f9f9f9; width:600px">
+								<tr><th colspan="2"><strong>Информация о мероприятии</strong></th></tr>
+								<tr><td style="width:50%">Дата начала</td><td style="width:50%"><?php echo $dateBegin;?></td></tr>
+								<tr><td>Дата окончания</td><td><?php echo $dateEnd;?></td></tr>	
+								<tr><th colspan="2"><strong>Информация об организации</strong></th></tr>						
+								<tr><td>Наименование Организации</td><td><?php echo $organization;?></td></tr>	
+								<tr><td>УНП </td><td><?php echo $unp;?> </td></tr>
+								<tr><td>Контактный телефон </td><td><?php echo $phone;?> </td></tr>							
+								<tr><td>Адрес электронной почты</td><td>
+								    <a href="mailto:<?php echo $email;?>" style="color:#1E7EC8;"><?php echo $email;?></a>	
+								</td></tr>
+								<tr><td>ФИО руководителя, должность </td><td><?php echo $fio;?> </td></tr>	
+								<tr><td>Действует на основании </td><td><?php echo $rule;?> </td></tr>								
+								<tr><td>Банковские реквизиты </td><td><?php echo $bank;?> </td></tr>
+								<tr><th colspan="2"><strong>Информация об участнике(ах)</strong></th></tr>
+								<tr><td>Размер торговой палатки </td><td><?php echo $place;?> </td></tr>
+								<tr><td>Мобильный телефон</td><td><?php echo $mphone;?> </td></tr>
+								<tr><td>Бронирование гостиницы: </td><td>								
+								<?php 
+								  switch ($booking) {
+								    case 0:
+								    echo "Самостоятельно"; break;
+								    case 1:
+								    echo "Централизовано"; break;
+								   };
+								?> 								
+								<td></tr>								
+								</table>
+						</td>
+					</tr>					
+				</table>
+			</td>
+		</tr>
+	</table>

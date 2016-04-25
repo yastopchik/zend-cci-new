@@ -1,0 +1,54 @@
+<?php
+
+namespace DmnDatabase\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CciSessions
+ *
+ * @ORM\Table(name="cci_sessions")
+ * @ORM\Entity
+ */
+class CciSessions
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="id", type="string", length=32, nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id = '';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     */
+    private $name;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="modified", type="integer", nullable=true)
+     */
+    private $modified;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="lifetime", type="integer", nullable=true)
+     */
+    private $lifetime;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="data", type="text", length=65535, nullable=true)
+     */
+    private $data;
+
+
+}
+

@@ -1,0 +1,3 @@
+﻿    <li class="<?php echo ((($route == "requests")&&($action=="index"))? "active" : "")?>"><a href="<?php echo $this->url('requests', array('action' => 'index')); ?>" id="view"><i class="fa fa-list"></i> <?php echo $this->translate('View'); ?></a></li>
+    <li class="<?php echo ((($route == "requests")&&($action=="upload"))? "active" : "")?>"><a href="<?php echo $this->url('requests', array('action' => 'upload')); ?>" id="upload"><i class="fa fa-upload"></i> <?php echo $this->translate('Upload'); ?></a></li>
+    <li class="<?php echo ((($route == "requests")&&($action=="add"))? "active" : "")?>"><a href="<?php echo $this->url('requests', array('action' => 'add')); ?>" id="addition"><i class="fa fa-plus-square"></i> <?php echo $this->translate('Add'); ?></a></li>

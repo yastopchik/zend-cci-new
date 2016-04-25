@@ -1,0 +1,128 @@
+<?php
+
+namespace DmnDatabase\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CciUser
+ *
+ * @ORM\Table(name="cci_user", indexes={@ORM\Index(name="user_to_organization_idx", columns={"OrganizationId"})})
+ * @ORM\Entity
+ */
+class CciUser
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Login", type="string", length=50, nullable=false)
+     */
+    private $login;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Password", type="string", length=128, nullable=false)
+     */
+    private $password;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Email", type="string", length=75, nullable=false)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Name", type="string", length=150, nullable=false)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="NameShort", type="string", length=75, nullable=false)
+     */
+    private $nameshort;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="NameShortEn", type="string", length=75, nullable=false)
+     */
+    private $nameshorten;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Position", type="string", length=200, nullable=true)
+     */
+    private $position;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Phone", type="string", length=75, nullable=false)
+     */
+    private $phone;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Activate", type="integer", nullable=false)
+     */
+    private $activate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="DateLastVisit", type="date", nullable=false)
+     */
+    private $datelastvisit;
+
+    /**
+     * @var \DmnDatabase\Entity\CciOrganization
+     *
+     * @ORM\ManyToOne(targetEntity="DmnDatabase\Entity\CciOrganization")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="OrganizationId", referencedColumnName="id")
+     * })
+     */
+    private $organizationid;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="DmnDatabase\Entity\CciUserrole", inversedBy="user")
+     * @ORM\JoinTable(name="cci_userrolelinker",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="user_id", referencedColumnName="Id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="role_id", referencedColumnName="id")
+     *   }
+     * )
+     */
+    private $role;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->role = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+}
+

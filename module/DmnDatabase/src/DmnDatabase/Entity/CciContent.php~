@@ -1,0 +1,47 @@
+<?php
+
+namespace DmnDatabase\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CciContent
+ *
+ * @ORM\Table(name="cci_content")
+ * @ORM\Entity
+ */
+class CciContent
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Static", type="string", length=45, nullable=true)
+     */
+    private $static;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Title", type="string", length=150, nullable=false)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Content", type="text", length=65535, nullable=true)
+     */
+    private $content;
+
+
+}
+
