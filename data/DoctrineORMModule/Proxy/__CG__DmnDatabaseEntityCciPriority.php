@@ -36,7 +36,7 @@ class CciPriority extends \DmnDatabase\Entity\CciPriority implements \Doctrine\O
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class CciPriority extends \DmnDatabase\Entity\CciPriority implements \Doctrine\O
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'DmnDatabase\\Entity\\CciPriority' . "\0" . 'id', '' . "\0" . 'DmnDatabase\\Entity\\CciPriority' . "\0" . 'priority');
+            return ['__isInitialized__', '' . "\0" . 'DmnDatabase\\Entity\\CciPriority' . "\0" . 'id', '' . "\0" . 'DmnDatabase\\Entity\\CciPriority' . "\0" . 'priority'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'DmnDatabase\\Entity\\CciPriority' . "\0" . 'id', '' . "\0" . 'DmnDatabase\\Entity\\CciPriority' . "\0" . 'priority');
+        return ['__isInitialized__', '' . "\0" . 'DmnDatabase\\Entity\\CciPriority' . "\0" . 'id', '' . "\0" . 'DmnDatabase\\Entity\\CciPriority' . "\0" . 'priority'];
     }
 
     /**
@@ -97,7 +97,7 @@ class CciPriority extends \DmnDatabase\Entity\CciPriority implements \Doctrine\O
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class CciPriority extends \DmnDatabase\Entity\CciPriority implements \Doctrine\O
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class CciPriority extends \DmnDatabase\Entity\CciPriority implements \Doctrine\O
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class CciPriority extends \DmnDatabase\Entity\CciPriority implements \Doctrine\O
     public function setPriority($priority)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPriority', array($priority));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPriority', [$priority]);
 
         return parent::setPriority($priority);
     }
@@ -205,7 +205,7 @@ class CciPriority extends \DmnDatabase\Entity\CciPriority implements \Doctrine\O
     public function getPriority()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPriority', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPriority', []);
 
         return parent::getPriority();
     }

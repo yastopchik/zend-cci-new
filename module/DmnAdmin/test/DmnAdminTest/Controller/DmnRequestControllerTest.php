@@ -5,13 +5,14 @@ namespace DmnRequestTestController;
 use DmnRequestTest\Bootstrap;
 use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 use DmnAdmin\Controller\DmnRequestController;
+use DmnAdmin\Service\DmnrequestServiceFactory as Dmnrequest;
 use Zend\Http\Request;
 use Zend\Http\Response;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
-use PHPUnit_Framework_TestCase;
+use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
  
-class DmnRequestTest extends PHPUnit_Framework_TestCase
+class DmnRequestTest extends AbstractHttpControllerTestCase
 {
     protected $controller;
     protected $request;
@@ -21,28 +22,20 @@ class DmnRequestTest extends PHPUnit_Framework_TestCase
  
     protected function setUp()
     {
-        $serviceManager = Bootstrap::getServiceManager();
-        $this->controller = new DmnRequestController();
-        $this->request    = new Request();
-        $this->routeMatch = new RouteMatch(array('controller' => 'getlistsAction'));
-        $this->event      = new MvcEvent();
-        $config = $serviceManager->get('Config');
-		$doctrine = $serviceManager->get('doctrine.entitymanager.orm_default');
-        $routerConfig = isset($config['router']) ? $config['router'] : array();
-        $router = HttpRouter::factory($routerConfig);
- 
-        $this->event->setRouter($router);
-        $this->event->setRouteMatch($this->routeMatch);
-        $this->controller->setEvent($this->event);
-        $this->controller->setServiceLocator($serviceManager);
+        $this->setApplicationConfig(
+            include 'config/application.config.php'
+        );
+        parent::setUp();
     }
 	public function testIndexActionCanBeAccessed()
 {
-    $this->routeMatch->setParam('action', 'index');
- 
-    $result   = $this->controller->dispatch($this->request);
-    $response = $this->controller->getResponse();
- 
-    $this->assertEquals(200, $response->getStatusCode());
+
+    $this->dispatch('/dmnrequest');
+    $this->assertResponseStatusCode(200);
+
+    $this->assertModuleName('Dmnadmin');
+    $this->assertControllerName('DmnAdmin\Controller\DmnRequest');
+    $this->assertControllerClass('DmnRequestController');
+    $this->assertMatchedRouteName('dmnrequest');
 }
 }

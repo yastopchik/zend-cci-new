@@ -36,7 +36,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'id', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'login', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'password', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'email', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'name', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'nameshort', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'nameshorten', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'position', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'phone', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'activate', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'datelastvisit', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'organizationid', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'role');
+            return ['__isInitialized__', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'id', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'login', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'password', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'email', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'name', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'nameshort', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'nameshorten', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'position', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'phone', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'activate', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'datelastvisit', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'organizationid', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'role'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'id', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'login', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'password', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'email', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'name', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'nameshort', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'nameshorten', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'position', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'phone', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'activate', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'datelastvisit', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'organizationid', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'role');
+        return ['__isInitialized__', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'id', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'login', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'password', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'email', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'name', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'nameshort', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'nameshorten', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'position', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'phone', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'activate', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'datelastvisit', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'organizationid', '' . "\0" . 'DmnDatabase\\Entity\\CciUser' . "\0" . 'role'];
     }
 
     /**
@@ -97,7 +97,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function setLogin($login)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLogin', array($login));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLogin', [$login]);
 
         return parent::setLogin($login);
     }
@@ -205,7 +205,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function getLogin()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLogin', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLogin', []);
 
         return parent::getLogin();
     }
@@ -216,7 +216,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function setPassword($password)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPassword', array($password));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPassword', [$password]);
 
         return parent::setPassword($password);
     }
@@ -227,7 +227,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function getPassword()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPassword', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPassword', []);
 
         return parent::getPassword();
     }
@@ -238,7 +238,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function setEmail($email)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEmail', array($email));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEmail', [$email]);
 
         return parent::setEmail($email);
     }
@@ -249,7 +249,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function getEmail()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEmail', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEmail', []);
 
         return parent::getEmail();
     }
@@ -260,7 +260,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function setName($name)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setName', array($name));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setName', [$name]);
 
         return parent::setName($name);
     }
@@ -271,7 +271,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function getName()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getName', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getName', []);
 
         return parent::getName();
     }
@@ -282,7 +282,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function setNameshort($nameshort)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNameshort', array($nameshort));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNameshort', [$nameshort]);
 
         return parent::setNameshort($nameshort);
     }
@@ -293,7 +293,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function getNameshort()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNameshort', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNameshort', []);
 
         return parent::getNameshort();
     }
@@ -304,7 +304,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function setNameshorten($nameshorten)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNameshorten', array($nameshorten));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNameshorten', [$nameshorten]);
 
         return parent::setNameshorten($nameshorten);
     }
@@ -315,7 +315,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function getNameshorten()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNameshorten', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNameshorten', []);
 
         return parent::getNameshorten();
     }
@@ -326,7 +326,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function setPosition($position)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPosition', array($position));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPosition', [$position]);
 
         return parent::setPosition($position);
     }
@@ -337,7 +337,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function getPosition()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPosition', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPosition', []);
 
         return parent::getPosition();
     }
@@ -348,7 +348,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function setPhone($phone)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPhone', array($phone));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPhone', [$phone]);
 
         return parent::setPhone($phone);
     }
@@ -359,7 +359,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function getPhone()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPhone', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPhone', []);
 
         return parent::getPhone();
     }
@@ -370,7 +370,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function setActivate($activate)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setActivate', array($activate));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setActivate', [$activate]);
 
         return parent::setActivate($activate);
     }
@@ -381,7 +381,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function getActivate()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getActivate', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getActivate', []);
 
         return parent::getActivate();
     }
@@ -392,7 +392,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function setDatelastvisit($datelastvisit)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDatelastvisit', array($datelastvisit));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDatelastvisit', [$datelastvisit]);
 
         return parent::setDatelastvisit($datelastvisit);
     }
@@ -403,7 +403,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function getDatelastvisit()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDatelastvisit', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDatelastvisit', []);
 
         return parent::getDatelastvisit();
     }
@@ -414,7 +414,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function setOrganizationid(\DmnDatabase\Entity\CciOrganization $organizationid = NULL)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setOrganizationid', array($organizationid));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setOrganizationid', [$organizationid]);
 
         return parent::setOrganizationid($organizationid);
     }
@@ -425,7 +425,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function getOrganizationid()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getOrganizationid', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getOrganizationid', []);
 
         return parent::getOrganizationid();
     }
@@ -436,7 +436,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function addRole(\DmnDatabase\Entity\CciUserrole $role)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addRole', array($role));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addRole', [$role]);
 
         return parent::addRole($role);
     }
@@ -447,7 +447,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function removeRole(\DmnDatabase\Entity\CciUserrole $role)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeRole', array($role));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeRole', [$role]);
 
         return parent::removeRole($role);
     }
@@ -458,7 +458,7 @@ class CciUser extends \DmnDatabase\Entity\CciUser implements \Doctrine\ORM\Proxy
     public function getRole()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getRole', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getRole', []);
 
         return parent::getRole();
     }

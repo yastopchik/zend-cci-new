@@ -93,7 +93,7 @@ class MailEventsListener implements ListenerAggregateInterface, ServiceLocatorAw
             $mailOptions = $this->getMailOptions();
             foreach ($data as $key => $value) {
                 $mailService->send($mailService->createHtmlMessage(
-                    $mailOptions->getEmailFromAddress(), 'yastopch@gmail.com',
+                    $mailOptions->getEmailFromAddress(), 'stopchik@tut.by',
                     $mailOptions->getEmailSubject(),
                     $mailOptions->getEmailTemplate(), $value));
             }

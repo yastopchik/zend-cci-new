@@ -36,7 +36,7 @@ class CciStatus extends \DmnDatabase\Entity\CciStatus implements \Doctrine\ORM\P
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class CciStatus extends \DmnDatabase\Entity\CciStatus implements \Doctrine\ORM\P
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'DmnDatabase\\Entity\\CciStatus' . "\0" . 'id', '' . "\0" . 'DmnDatabase\\Entity\\CciStatus' . "\0" . 'status', '' . "\0" . 'DmnDatabase\\Entity\\CciStatus' . "\0" . 'statusdescription');
+            return ['__isInitialized__', '' . "\0" . 'DmnDatabase\\Entity\\CciStatus' . "\0" . 'id', '' . "\0" . 'DmnDatabase\\Entity\\CciStatus' . "\0" . 'status', '' . "\0" . 'DmnDatabase\\Entity\\CciStatus' . "\0" . 'statusdescription'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'DmnDatabase\\Entity\\CciStatus' . "\0" . 'id', '' . "\0" . 'DmnDatabase\\Entity\\CciStatus' . "\0" . 'status', '' . "\0" . 'DmnDatabase\\Entity\\CciStatus' . "\0" . 'statusdescription');
+        return ['__isInitialized__', '' . "\0" . 'DmnDatabase\\Entity\\CciStatus' . "\0" . 'id', '' . "\0" . 'DmnDatabase\\Entity\\CciStatus' . "\0" . 'status', '' . "\0" . 'DmnDatabase\\Entity\\CciStatus' . "\0" . 'statusdescription'];
     }
 
     /**
@@ -97,7 +97,7 @@ class CciStatus extends \DmnDatabase\Entity\CciStatus implements \Doctrine\ORM\P
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class CciStatus extends \DmnDatabase\Entity\CciStatus implements \Doctrine\ORM\P
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class CciStatus extends \DmnDatabase\Entity\CciStatus implements \Doctrine\ORM\P
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class CciStatus extends \DmnDatabase\Entity\CciStatus implements \Doctrine\ORM\P
     public function setStatus($status)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStatus', array($status));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStatus', [$status]);
 
         return parent::setStatus($status);
     }
@@ -205,7 +205,7 @@ class CciStatus extends \DmnDatabase\Entity\CciStatus implements \Doctrine\ORM\P
     public function getStatus()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStatus', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStatus', []);
 
         return parent::getStatus();
     }
@@ -216,7 +216,7 @@ class CciStatus extends \DmnDatabase\Entity\CciStatus implements \Doctrine\ORM\P
     public function setStatusdescription($statusdescription)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStatusdescription', array($statusdescription));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStatusdescription', [$statusdescription]);
 
         return parent::setStatusdescription($statusdescription);
     }
@@ -227,7 +227,7 @@ class CciStatus extends \DmnDatabase\Entity\CciStatus implements \Doctrine\ORM\P
     public function getStatusdescription()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStatusdescription', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStatusdescription', []);
 
         return parent::getStatusdescription();
     }

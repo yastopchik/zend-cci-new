@@ -36,7 +36,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'id', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'workorder', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'numblank', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'dateorder', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'file', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'destinationiso', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'dateacceped', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'statusid', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'formsid', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'executorid', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'priorityid', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'userid', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'numdoplist');
+            return ['__isInitialized__', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'id', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'workorder', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'numblank', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'dateorder', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'file', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'destinationiso', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'dateacceped', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'statusid', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'formsid', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'executorid', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'priorityid', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'userid', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'numdoplist'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'id', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'workorder', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'numblank', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'dateorder', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'file', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'destinationiso', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'dateacceped', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'statusid', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'formsid', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'executorid', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'priorityid', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'userid', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'numdoplist');
+        return ['__isInitialized__', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'id', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'workorder', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'numblank', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'dateorder', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'file', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'destinationiso', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'dateacceped', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'statusid', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'formsid', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'executorid', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'priorityid', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'userid', '' . "\0" . 'DmnDatabase\\Entity\\CciRequestNumber' . "\0" . 'numdoplist'];
     }
 
     /**
@@ -97,7 +97,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function setWorkorder($workorder)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setWorkorder', array($workorder));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setWorkorder', [$workorder]);
 
         return parent::setWorkorder($workorder);
     }
@@ -205,7 +205,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function getWorkorder()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getWorkorder', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getWorkorder', []);
 
         return parent::getWorkorder();
     }
@@ -216,7 +216,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function setNumblank($numblank)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNumblank', array($numblank));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNumblank', [$numblank]);
 
         return parent::setNumblank($numblank);
     }
@@ -227,7 +227,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function getNumblank()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNumblank', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNumblank', []);
 
         return parent::getNumblank();
     }
@@ -238,7 +238,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function setDateorder($dateorder)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDateorder', array($dateorder));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDateorder', [$dateorder]);
 
         return parent::setDateorder($dateorder);
     }
@@ -249,7 +249,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function getDateorder()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDateorder', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDateorder', []);
 
         return parent::getDateorder();
     }
@@ -260,7 +260,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function setFile($file)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFile', array($file));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFile', [$file]);
 
         return parent::setFile($file);
     }
@@ -271,7 +271,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function getFile()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFile', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFile', []);
 
         return parent::getFile();
     }
@@ -282,7 +282,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function setDestinationiso($destinationiso)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDestinationiso', array($destinationiso));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDestinationiso', [$destinationiso]);
 
         return parent::setDestinationiso($destinationiso);
     }
@@ -293,7 +293,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function getNumDopList()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNumDopList', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNumDopList', []);
 
         return parent::getNumDopList();
     }
@@ -304,7 +304,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function setNumDopList($numdoplist)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNumDopList', array($numdoplist));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNumDopList', [$numdoplist]);
 
         return parent::setNumDopList($numdoplist);
     }
@@ -315,7 +315,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function getDestinationiso()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDestinationiso', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDestinationiso', []);
 
         return parent::getDestinationiso();
     }
@@ -326,7 +326,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function setDateacceped($dateacceped)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDateacceped', array($dateacceped));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDateacceped', [$dateacceped]);
 
         return parent::setDateacceped($dateacceped);
     }
@@ -337,7 +337,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function getDateacceped()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDateacceped', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDateacceped', []);
 
         return parent::getDateacceped();
     }
@@ -348,7 +348,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function setStatusid(\DmnDatabase\Entity\CciStatus $statusid = NULL)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStatusid', array($statusid));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStatusid', [$statusid]);
 
         return parent::setStatusid($statusid);
     }
@@ -359,7 +359,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function getStatusid()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStatusid', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStatusid', []);
 
         return parent::getStatusid();
     }
@@ -370,7 +370,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function setFormsid(\DmnDatabase\Entity\CciForms $formsid = NULL)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFormsid', array($formsid));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFormsid', [$formsid]);
 
         return parent::setFormsid($formsid);
     }
@@ -381,7 +381,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function getFormsid()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFormsid', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFormsid', []);
 
         return parent::getFormsid();
     }
@@ -392,7 +392,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function setExecutorid(\DmnDatabase\Entity\CciUser $executorid = NULL)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setExecutorid', array($executorid));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setExecutorid', [$executorid]);
 
         return parent::setExecutorid($executorid);
     }
@@ -403,7 +403,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function getExecutorid()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getExecutorid', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getExecutorid', []);
 
         return parent::getExecutorid();
     }
@@ -414,7 +414,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function setPriorityid(\DmnDatabase\Entity\CciPriority $priorityid = NULL)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPriorityid', array($priorityid));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPriorityid', [$priorityid]);
 
         return parent::setPriorityid($priorityid);
     }
@@ -425,7 +425,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function getPriorityid()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPriorityid', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPriorityid', []);
 
         return parent::getPriorityid();
     }
@@ -436,7 +436,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function setUserid(\DmnDatabase\Entity\CciUser $userid = NULL)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUserid', array($userid));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUserid', [$userid]);
 
         return parent::setUserid($userid);
     }
@@ -447,7 +447,7 @@ class CciRequestNumber extends \DmnDatabase\Entity\CciRequestNumber implements \
     public function getUserid()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUserid', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUserid', []);
 
         return parent::getUserid();
     }

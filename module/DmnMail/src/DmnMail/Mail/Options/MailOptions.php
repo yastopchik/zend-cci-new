@@ -15,7 +15,7 @@ class MailOptions implements MailOptionsInterface
 	/**
 	 * @var string
 	 */
-	protected $emailFromAddress = 'mail@info.of.by';
+	protected $emailFromAddress = 'yastopchik@mail.ru';
 	/**
 	 * @var string
 	 */

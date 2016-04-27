@@ -525,7 +525,7 @@ class DmnrequestService implements EventManagerAwareInterface
     {
         $data = $this->getRequestNumberWithParameters()->getResult();
         if (is_array($data) && count($data) != 0) {
-            //$this->getEventManager()->trigger('send_mail', $this, $data);
+            $this->getEventManager()->trigger('send_mail', $this, $data);
             return array('success'=>true);
         }
         return array('error'=>true);

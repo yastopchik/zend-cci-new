@@ -2,11 +2,15 @@
 return array(
     'modules' => array(
         'ZfcBase',
-    	'ZfcUser',        
-		'DmnAdmin',
-        'DmnDatabase',  	
+        'ZfcUser',
+        'BjyAuthorize',
+        'BjyProfiler',
+        'DmnAdmin',
+        'DmnDatabase',
+        'DmnLog',
         'DoctrineModule',
         'DoctrineORMModule',
+        'DBSessionStorage',
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(

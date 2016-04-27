@@ -15,6 +15,7 @@ return array(
         'DoctrineModule',
         'DoctrineORMModule',
     	'DBSessionStorage',
+        'ZendDeveloperTools'
     		
     ),
     'module_listener_options' => array(

@@ -17,6 +17,7 @@
         "nitecon/zf2-db-session": "^1.0",
         "bjyoungblood/bjy-authorize": "^1.4",
         "bjyoungblood/bjy-profiler": "^1.1",
-        "zendframework/zend-developer-tools": "^0.0.2"
+        "zendframework/zend-developer-tools": "^0.0.2",
+        "phpunit/phpunit": "^5.3"
     }
 }

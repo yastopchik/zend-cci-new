@@ -36,7 +36,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'id', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'consignor', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'exporter', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'consignee', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'importer', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'transport', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'servicemark', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'adressconsignor', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'adressexporter', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'adressconsignee', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'adressimporter', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'itinerary', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'unpconsignor', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'unpexporter', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'representation', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'fioagent', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'sertificatenumid');
+            return ['__isInitialized__', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'id', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'consignor', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'exporter', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'consignee', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'importer', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'transport', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'servicemark', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'adressconsignor', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'adressexporter', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'adressconsignee', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'adressimporter', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'itinerary', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'unpconsignor', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'unpexporter', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'representation', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'fioagent', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'sertificatenumid'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'id', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'consignor', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'exporter', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'consignee', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'importer', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'transport', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'servicemark', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'adressconsignor', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'adressexporter', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'adressconsignee', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'adressimporter', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'itinerary', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'unpconsignor', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'unpexporter', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'representation', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'fioagent', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'sertificatenumid');
+        return ['__isInitialized__', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'id', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'consignor', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'exporter', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'consignee', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'importer', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'transport', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'servicemark', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'adressconsignor', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'adressexporter', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'adressconsignee', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'adressimporter', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'itinerary', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'unpconsignor', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'unpexporter', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'representation', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'fioagent', '' . "\0" . 'DmnDatabase\\Entity\\CciRequest' . "\0" . 'sertificatenumid'];
     }
 
     /**
@@ -97,7 +97,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function setConsignor($consignor)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setConsignor', array($consignor));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setConsignor', [$consignor]);
 
         return parent::setConsignor($consignor);
     }
@@ -205,7 +205,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function getConsignor()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getConsignor', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getConsignor', []);
 
         return parent::getConsignor();
     }
@@ -216,7 +216,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function setExporter($exporter)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setExporter', array($exporter));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setExporter', [$exporter]);
 
         return parent::setExporter($exporter);
     }
@@ -227,7 +227,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function getExporter()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getExporter', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getExporter', []);
 
         return parent::getExporter();
     }
@@ -238,7 +238,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function setConsignee($consignee)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setConsignee', array($consignee));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setConsignee', [$consignee]);
 
         return parent::setConsignee($consignee);
     }
@@ -249,7 +249,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function getConsignee()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getConsignee', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getConsignee', []);
 
         return parent::getConsignee();
     }
@@ -260,7 +260,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function setImporter($importer)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setImporter', array($importer));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setImporter', [$importer]);
 
         return parent::setImporter($importer);
     }
@@ -271,7 +271,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function getImporter()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getImporter', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getImporter', []);
 
         return parent::getImporter();
     }
@@ -282,7 +282,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function setTransport($transport)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTransport', array($transport));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTransport', [$transport]);
 
         return parent::setTransport($transport);
     }
@@ -293,7 +293,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function getTransport()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTransport', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTransport', []);
 
         return parent::getTransport();
     }
@@ -304,7 +304,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function setServicemark($servicemark)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setServicemark', array($servicemark));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setServicemark', [$servicemark]);
 
         return parent::setServicemark($servicemark);
     }
@@ -315,7 +315,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function getServicemark()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getServicemark', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getServicemark', []);
 
         return parent::getServicemark();
     }
@@ -326,7 +326,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function setAdressconsignor($adressconsignor)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAdressconsignor', array($adressconsignor));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAdressconsignor', [$adressconsignor]);
 
         return parent::setAdressconsignor($adressconsignor);
     }
@@ -337,7 +337,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function getAdressconsignor()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAdressconsignor', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAdressconsignor', []);
 
         return parent::getAdressconsignor();
     }
@@ -348,7 +348,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function setAdressexporter($adressexporter)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAdressexporter', array($adressexporter));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAdressexporter', [$adressexporter]);
 
         return parent::setAdressexporter($adressexporter);
     }
@@ -359,7 +359,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function getAdressexporter()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAdressexporter', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAdressexporter', []);
 
         return parent::getAdressexporter();
     }
@@ -370,7 +370,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function setAdressconsignee($adressconsignee)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAdressconsignee', array($adressconsignee));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAdressconsignee', [$adressconsignee]);
 
         return parent::setAdressconsignee($adressconsignee);
     }
@@ -381,7 +381,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function getAdressconsignee()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAdressconsignee', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAdressconsignee', []);
 
         return parent::getAdressconsignee();
     }
@@ -392,7 +392,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function setAdressimporter($adressimporter)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAdressimporter', array($adressimporter));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAdressimporter', [$adressimporter]);
 
         return parent::setAdressimporter($adressimporter);
     }
@@ -403,7 +403,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function getAdressimporter()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAdressimporter', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAdressimporter', []);
 
         return parent::getAdressimporter();
     }
@@ -414,7 +414,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function setItinerary($itinerary)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setItinerary', array($itinerary));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setItinerary', [$itinerary]);
 
         return parent::setItinerary($itinerary);
     }
@@ -425,7 +425,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function getItinerary()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getItinerary', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getItinerary', []);
 
         return parent::getItinerary();
     }
@@ -436,7 +436,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function setUnpconsignor($unpconsignor)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUnpconsignor', array($unpconsignor));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUnpconsignor', [$unpconsignor]);
 
         return parent::setUnpconsignor($unpconsignor);
     }
@@ -447,7 +447,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function getUnpconsignor()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUnpconsignor', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUnpconsignor', []);
 
         return parent::getUnpconsignor();
     }
@@ -458,7 +458,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function setUnpexporter($unpexporter)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUnpexporter', array($unpexporter));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUnpexporter', [$unpexporter]);
 
         return parent::setUnpexporter($unpexporter);
     }
@@ -469,7 +469,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function getUnpexporter()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUnpexporter', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUnpexporter', []);
 
         return parent::getUnpexporter();
     }
@@ -480,7 +480,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function setRepresentation($representation)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setRepresentation', array($representation));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setRepresentation', [$representation]);
 
         return parent::setRepresentation($representation);
     }
@@ -491,7 +491,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function getRepresentation()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getRepresentation', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getRepresentation', []);
 
         return parent::getRepresentation();
     }
@@ -502,7 +502,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function setFioagent($fioagent)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFioagent', array($fioagent));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFioagent', [$fioagent]);
 
         return parent::setFioagent($fioagent);
     }
@@ -513,7 +513,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function getFioagent()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFioagent', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFioagent', []);
 
         return parent::getFioagent();
     }
@@ -524,7 +524,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function setSertificatenumid(\DmnDatabase\Entity\CciRequestNumber $sertificatenumid = NULL)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSertificatenumid', array($sertificatenumid));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSertificatenumid', [$sertificatenumid]);
 
         return parent::setSertificatenumid($sertificatenumid);
     }
@@ -535,7 +535,7 @@ class CciRequest extends \DmnDatabase\Entity\CciRequest implements \Doctrine\ORM
     public function getSertificatenumid()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSertificatenumid', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSertificatenumid', []);
 
         return parent::getSertificatenumid();
     }
