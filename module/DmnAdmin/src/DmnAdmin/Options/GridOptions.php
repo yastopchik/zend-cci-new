@@ -21,8 +21,8 @@ class GridOptions  implements GridOptionsInterface
 					'phone'    => 'Телефон',
 					'organization'    => 'Организация',
 					'executor'    => 'Исполнитель',
-					'destinationiso'    => 'Страна Назначения',			        
-			),
+					'destinationiso'    => 'Страна Назначения',
+	),
 	);
 	/**
 	 * @var array

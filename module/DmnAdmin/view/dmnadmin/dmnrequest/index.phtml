@@ -29,12 +29,15 @@
 $this->inlineScript()->captureStart();
 echo <<<JS
    $(function () {
-		var lastSel;
+		var lastSel, country;
+		$.getJSON("dmnrequest/getcountryjson", function(data){
+		    country=data;
+		});
 	  	$("#requestlist_n").jqGrid({
 			regional : 'ru',
-	  		url: "dmnrequest/getrequestnumber",	  		
+	  		url: "dmnrequest/getrequestnumber",
 	  		datatype: "json", 
-	  		colNames:['ID','№Сертиф.', 'Дата', '№Бланка', 'Форма', 'Файл', 'Статус', 'КолДопЛист', 'Клиент', 'Должность', 'Телефон', 'Организация', 'Исполнитель', 'СтранаНазн', 'Действия'], 
+	  		colNames:['ID','№Сертиф.', 'Дата', '№Бланка', 'Форма', 'Файл', 'Статус', 'КолДопЛист', 'Клиент', 'Должность', 'Телефон', 'Организация', 'Исполнитель', 'СтранаНазн', 'Действия'],
 	  		colModel:[ {name:'id',index:'id', width:'2%', searchoptions:{sopt:['eq']}}, 
 	  		           {name:'workorder',index:'workorder', width:'9%', editable:true, searchoptions:{sopt:['eq']}}, 					   
 	  		           {name:'dateorder',index:'dateorder', width:'6%', editable:true, editrules: {required:true},
@@ -162,25 +165,28 @@ echo <<<JS
 						},
 						{name:'destinationiso',index:'destinationiso', width:'7%',editable:true, editrules: {required:true},
                         formatter: function (cellValue) {
-                                                var value = "";
-                                                if(cellValue) {                                                
-                                                if(cellValue==1) {
+                                     var value = "";
+                                     if(cellValue) {
+                                          if (!$.isEmptyObject(country)) {
+                                             value = country[cellValue];
+
+                                          } else if(cellValue==1) {
 													return "Российская Федерация";
-												}else if(cellValue==21){
+										  } else if(cellValue==21){
 													return "Республика Беларусь";
-												}else{
+										  } else{
                                                 	$.ajax({
                                                    		dataType: 'json',
                                                    		url: "dmnrequest/getcountrybyid?id="+cellValue,
                                                    		async: false,
-                                                   		success: (function(result) { 
-                                                        	var cObject = result[0];                                                       
+                                                   		success: (function(result) {
+                                                        	var cObject = result[0];
                                                         	value=cObject.nameru;})
-                                                 	});  
-												}       
-                                               }
-                                            return value;
-                        }, 
+                                                 	});
+										   }
+                                     }
+                                     return value;
+                        },
                         unformat: function (cellValue) {
                                             var value = 1;
                                                 if(cellValue) {
@@ -188,11 +194,11 @@ echo <<<JS
                                                    dataType: 'json',
                                                    url: "dmnrequest/getcountrybyname?rows="+cellValue,
                                                    async: false,
-                                                   success: (function(result) { 
-                                                        var cObject = result[0];                                                       
+                                                   success: (function(result) {
+                                                        var cObject = result[0];
                                                         value = cObject.id;
                                                     })
-                                                });        
+                                                });
                                                }
                                             return value;
 
@@ -201,7 +207,7 @@ echo <<<JS
 						editoptions: {dataUrl: 'dmnrequest/geteditcountries',
 									  style: "width:98%",
 									  buildSelect: function(data) {
-											 var response = jQuery.parseJSON(data);                                             
+											 var response = jQuery.parseJSON(data);
                                              var s = '<select>';
                                              if (response && response.length) {
                                					for (var i = 0, l = response.length; i < l; i++) {
@@ -210,12 +216,12 @@ echo <<<JS
                                				 }
                            					}
                                             return s + "</select>";
-                                    }}, 
+                                    }},
 						searchoptions:{sopt:['eq'],
 									   dataUrl: 'dmnrequest/geteditcountries',
 									   style: "width:98%",
 									   buildSelect: function(data) {
-											 var response = jQuery.parseJSON(data);                                             
+											 var response = jQuery.parseJSON(data);
                                              var s = '<select>';
                                              if (response && response.length) {
                                					for (var i = 0, l = response.length; i < l; i++) {
@@ -225,7 +231,7 @@ echo <<<JS
                            					}
                                             return s + "</select>";
                                     }}
-					   }, 
+					   },
 						{name:'act',index:'act', width:'7%',sortable:false, search:false}  
 	  		          ], 
 			cmTemplate:{sortable:false}, 

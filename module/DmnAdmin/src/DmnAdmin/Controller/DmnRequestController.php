@@ -147,6 +147,14 @@ class DmnRequestController extends AbstractActionController
         return $view;
 
     }
+    public function getcountryjsonAction()
+    {
+
+        $response = $this->dbRequest->getCountriesJson();
+
+        return $this->getResponse()->setContent(json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+
+    }
 
     public function geteditcountriesAction()
     {

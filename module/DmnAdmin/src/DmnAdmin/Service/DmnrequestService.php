@@ -880,6 +880,26 @@ class DmnrequestService implements EventManagerAwareInterface
 
         return $response;
     }
+    public function getCountriesJson()
+    {
+
+        $response = $this->cache->getItem('get_countries_json');
+
+        if (is_null($response)) {
+
+            $response = array();
+
+            $data = $this->dbCountry->getCountries()->getArrayResult();
+
+            foreach ($data as $key => $row) {
+                $response[$row['id']] = $row['nameru'];
+            }
+
+            $this->cache->setItem('get_countries_json', $response);
+        }
+
+        return $response;
+    }
 
     /**
      *Get of getCountryById

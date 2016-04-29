@@ -15,7 +15,10 @@
 $this->inlineScript()->captureStart();
 echo <<<JS
    $(function () {
-		var lastSel;
+		var lastSel, country;
+		$.getJSON("dmnrequest/getcountryjson", function(data){
+		    country=data;
+		});
 	  	$("#requestlist_n").jqGrid({
 			regional : 'ru',
 	  		url: "dmnexrequest/getrequestnumber",	  		
@@ -102,24 +105,27 @@ echo <<<JS
 	  		           {name:'executor',index:'executor', width:'10%', sortable:false, editable:false},
 					   {name:'destinationiso',index:'destinationiso', width:'7%',editable:true, editrules: {required:true},
                         formatter: function (cellValue) {
-                                                var value = "";
-                                                if(cellValue) {                                                
-                                                if(cellValue==1) {
+                                    var value = "";
+                                    if(cellValue) {
+                                          if (!$.isEmptyObject(country)) {
+                                             value = country[cellValue];
+
+                                          } else if(cellValue==1) {
 													return "Российская Федерация";
-												}else if(cellValue==21){
+										  } else if(cellValue==21){
 													return "Республика Беларусь";
-												}else{
+										  } else{
                                                 	$.ajax({
                                                    		dataType: 'json',
-                                                   		url: "dmnexrequest/getcountrybyid?id="+cellValue,
+                                                   		url: "dmnrequest/getcountrybyid?id="+cellValue,
                                                    		async: false,
-                                                   		success: (function(result) { 
-                                                        	var cObject = result[0];                                                       
+                                                   		success: (function(result) {
+                                                        	var cObject = result[0];
                                                         	value=cObject.nameru;})
-                                                 	});  
-												}       
-                                               }
-                                            return value;
+                                                 	});
+										   }
+                                     }
+                                     return value;
                         }, 
                         unformat: function (cellValue) {
                                             var value = 1;

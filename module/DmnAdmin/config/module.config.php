@@ -76,7 +76,7 @@ return array(
                         'page' =>1                     
                     ),
                 ),               
-            ), 
+            ),
         	'dmnupload' => array('type'    => 'segment',
         				'options' => array(
         						'route'    => '/dmnupload[/:action][/id/:id]',
