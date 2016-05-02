@@ -6,29 +6,6 @@ $(document).ready(function(){
         getstat('dmnstatistics/fusion');
     }
 });
-function HelpDialog(urls) {
-    $("#winpopup").dialog({
-        show: {
-            effect: "blind",
-            duration: 800
-        },
-        position: {
-            my: "center",
-            at: "center",
-            of: window
-        },
-        draggable: true,
-        modal: true,
-        autoOpen: false,
-        height: 500,
-        width: "50%",
-        resizable: false,
-        title: "Помощь"
-    });
-    $("#winpopup").load(urls);
-    $("#winpopup").dialog("open");
-    return false;
-};
 function atoprint(aId) {
     $("#print").hide();
     var atext = document.getElementById(aId).innerHTML;
@@ -47,17 +24,17 @@ function getStatus(block) {
     $.ajax({
         datatype: "json",
         url: "dmnrequest/getstatus",
-        async: false,
+        async: true,
         success: function (data) {
             var response = jQuery.parseJSON(data);
-            var s = '<div class="statsel"><select id="statstatus"><option value="0">Статус</option>';
+            var s = '<select id="statstatus" class="form-control"><option value="0">Статус</option>';
             if (response && response.length) {
                 for (var i = 0, l = response.length; i < l; i++) {
                     var ri = response[i];
                     s += '<option value="' + ri.id + '">' + ri.status + '</option>';
                 }
             }
-            s + "</select></div>";
+            s + "</select>";
             block.append(s);
         },
         error: function (request, status, error) {
@@ -69,17 +46,17 @@ function getExecuters(block) {
     $.ajax({
         datatype: "json",
         url: "dmnrequest/getexecutors",
-        async: false,
+        async: true,
         success: function (data) {
             var response = jQuery.parseJSON(data);
-            var s = '<div class="statsel"><select id="statexecutors"><option value="0">Исполнитель</option>';
+            var s = '<select id="statexecutors" class="form-control"><option value="0">Исполнитель</option>';
             if (response && response.length) {
                 for (var i = 0, l = response.length; i < l; i++) {
                     var ri = response[i];
                     s += '<option value="' + ri.id + '">' + ri.executor + '</option>';
                 }
             }
-            s + "</select></div>";
+            s + "</select>";
             block.append(s);
         },
         error: function (request, status, error) {
@@ -91,17 +68,17 @@ function getCountries(block) {
     $.ajax({
         datatype: "json",
         url: "dmnrequest/geteditcountries",
-        async: false,
+        async: true,
         success: function (data) {
             var response = jQuery.parseJSON(data);
-            var s = '<div class="statsel"><select id="statcountries"><option value="0">Страна</option>';
+            var s = '<select id="statcountries" class="form-control"><option value="0">Страна</option>';
             if (response && response.length) {
                 for (var i = 0, l = response.length; i < l; i++) {
                     var ri = response[i];
                     s += '<option value="' + ri.id + '">' + ri.nameru + '</option>';
                 }
             }
-            s + "</select></div>";
+            s + "</select>";
             block.append(s);
         },
         error: function (request, status, error) {
@@ -113,17 +90,17 @@ function getForms(block) {
     $.ajax({
         datatype: "json",
         url: "dmnrequest/getforms",
-        async: false,
+        async: true,
         success: function (data) {
             var response = jQuery.parseJSON(data);
-            var s = '<div class="statsel"><select id="statforms"><option value="0">Форма</option>';
+            var s = '<select id="statforms" class="form-control"><option value="0">Форма</option>';
             if (response && response.length) {
                 for (var i = 0, l = response.length; i < l; i++) {
                     var ri = response[i];
                     s += '<option value="' + ri.id + '">' + ri.forms + '</option>';
                 }
             }
-            s + "</select></div>";
+            s + "</select>";
             block.append(s);
         },
         error: function (request, status, error) {
@@ -135,17 +112,17 @@ function getOrganization(block) {
     $.ajax({
         datatype: "json",
         url: "dmnrequest/getexorganization?id=1",
-        async: false,
+        async: true,
         success: function (data) {
             var response = jQuery.parseJSON(data);
-            var s = '<div class="statsel"><select id="statorganization"><option value="0">Организация</option>';
+            var s = '<select id="statorganization" class="form-control"><option value="0">Организация</option>';
             if (response && response.length) {
                 for (var i = 0, l = response.length; i < l; i++) {
                     var ri = response[i];
                     s += '<option value="' + ri.id + '">' + ri.name + '</option>';
                 }
             }
-            s + "</select></div>";
+            s + "</select>";
             block.append(s);
         },
         error: function (request, status, error) {
@@ -174,7 +151,10 @@ function getstat(href, period, periodview) {
         '<a href="dmnstatistics/xls?' + questions + '" title="Выгрузить в xls"><i class="fa fa-file-excel-o fa-2x"></i></a>  <a href="javascript://" title="Печать" onclick="atoprint(\'imgStat\')"><i class="fa fa-print fa-2x"></i></a></h1>' +
         '<div id="chartContainerClients" class="chartContainer"></div><div id="chartContainerForms" class="chartContainer"></div>' +
         '<div id="chartContainerExecutors" class="chartContainer"></div><div id="chartContainerStatus" class="chartContainer"></div><div id="chartContainerCountry" class="chartContainer"></div>' +
-        '<div id="calendar"></div></div>');
+        '<div id="chartFilter" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" >' +
+        '<div class="modal-dialog modal-sm"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+        '<h4 class="modal-title">Выбирете необходимые параметры</h4></div><div class="modal-body"></div>'+
+        '<div class="modal-footer"></div></div></div></div></div>');
     var caption = {
         'chartContainerClients': 'Отчет по клиентам',
         'chartContainerForms': 'Отчет по формам',
@@ -212,7 +192,18 @@ function getstat(href, period, periodview) {
         }
     });
 };
-
+$(document).delegate("#helpHref", "click", function(){
+    var modalHelp = $("#modalHelp");
+    var href=$("helpHref").data("href");
+    if(modalHelp.length){
+        modalHelp.modal();
+        var modalBody=modalFilter.find('.modal-body');
+        if(modalBody.length)
+        {
+            modalBody.load(href);
+        }
+    }
+});
 $(document).delegate("a#tab2", "click", function () {
     $("a#tab1").removeClass("active");
     $(this).attr("class", "active");
@@ -220,54 +211,70 @@ $(document).delegate("a#tab2", "click", function () {
     return false;
 });
 $(document).delegate('a#selectdate', 'click', function () {
-    var calendar = $("#calendar");
-    calendar.show();
-    if (calendar.length) {
-        $("#show_dates").remove();
-        $("#close_dates").remove();
-        calendar.multiDatesPicker({
-            changeMonth: true,
-            changeYear: true,
-            "autoclose": true,
-            monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-                'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-            monthNamesShort: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн',
-                'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
-            dayNames: ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'],
-            dayNamesShort: ['вск', 'пнд', 'втр', 'срд', 'чтв', 'птн', 'сбт'],
-            dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-            maxPicks: 2,
-            addDates: [today],
-            dateFormat: 'yy-mm-dd'
-        });
-        getStatus(calendar);
-        getExecuters(calendar);
-        getForms(calendar);
-        getOrganization(calendar);
-        getCountries(calendar);
-        calendar.append('<div><button id="show_dates" data-href="' + $(this).data("href") + '">Показать</button><button id="close_dates">X</button></div>');
-    }
+    //calendar.show();
+    var modalFilter = $("#chartFilter");
+    if (modalFilter.length) {
+        modalFilter.modal();
+        var modalBody=modalFilter.find('.modal-body');
+        if(modalBody.length) {
+            modalBody.empty();
+            modalBody.attr('class', 'modal-body');
+            modalBody.multiDatesPicker({
+                changeMonth: true,
+                changeYear: true,
+                "autoclose": true,
+                monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+                    'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                monthNamesShort: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн',
+                    'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+                dayNames: ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'],
+                dayNamesShort: ['вск', 'пнд', 'втр', 'срд', 'чтв', 'птн', 'сбт'],
+                dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+                maxPicks: 2,
+                addDates: [today],
+                dateFormat: 'yy-mm-dd'
+            });
+            getStatus(modalBody);
+            getExecuters(modalBody);
+            getForms(modalBody);
+            getOrganization(modalBody);
+            getCountries(modalBody);
+            var modalFooter= modalFilter.find('.modal-footer');
+            if(modalFooter.length){
+                modalFooter.empty();
+                modalFooter.append('<button type="button" class="btn btn-default"  data-dismiss="modal">Закрыть</button><button type="button" id="show_dates" class="btn btn-primary" data-href="' + $(this).data("href") + '">Показать</button>');
+            }
+        }
+     }
 });
 $(document).delegate('#show_dates', 'click', function (e) {
     e.preventDefault();
-    var href = $(this).data("href");
-    var dates = $('#calendar').multiDatesPicker('getDates');
-    var period = '';
-    var periodview = '';
-    for (d in dates) {
-        period += dates[d] + ' ';
-        periodview += '-' + dateFormat(dates[d], "d, mmmm, yyyy");
+    var modalFilter = $("#chartFilter");
+    if (modalFilter.length) {
+        var modalBody=modalFilter.find('.modal-body');
+        if(modalBody.length) {
+            var href = $(this).data("href");
+            var dates = modalBody.multiDatesPicker('getDates');
+            var period = '';
+            var periodview = '';
+            for (d in dates) {
+                period += dates[d] + ' ';
+                periodview += '-' + dateFormat(dates[d], "d, mmmm, yyyy");
+            }
+            $("#loadImg").show();
+            getstat(href, {
+                'period': period,
+                'executors': $("#statexecutors option:selected").val(),
+                'organization': $("#statorganization option:selected").val(),
+                'forms': $("#statforms option:selected").val(),
+                'status': $("#statstatus option:selected").val(),
+                'country': $("#statcountries option:selected").val()
+            }, periodview);
+        }
+        $( '.modal' ).remove();
+        $( '.modal-backdrop' ).remove();
+        $( 'body' ).removeClass( "modal-open" );
     }
-    $("#loadImg").show();
-    getstat(href, {
-        'period': period,
-        'executors': $("#statexecutors option:selected").val(),
-        'organization': $("#statorganization option:selected").val(),
-        'forms': $("#statforms option:selected").val(),
-        'status': $("#statstatus option:selected").val(),
-        'country': $("#statcountries option:selected").val()
-    }, periodview);
-
 });
 $(document).on('submit', '#loginForm', function(e) {
     $.ajax({

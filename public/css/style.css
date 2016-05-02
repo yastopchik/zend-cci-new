@@ -363,7 +363,7 @@ header h1 {
 .ui-jqdialog.select2-drop {
     padding: 0px;
 }
-
+.ui-jqgrid .ui-jqgrid-bdiv {min-height:150px;}
 .ui-jqdialog .select2-results .select2-result-label {
     padding: 2px;
 }
@@ -454,51 +454,9 @@ header h1 {
     top: 5px;
     z-index: 2
 }
-
-#imgStat #calendar {
-    position: absolute;
-    display: inline;
-    left: 0;
-    top: 30px;
+.modal-body .ui-widget-content {
+    width:100%;
 }
-#imgStat button, #imgStat .statsel select {
-    border-radius: 0;
-    color: #f6961b;
-    text-align: center;
-    text-decoration: none;
-    font-size: 12px;
-    height: 25px;
-}
-#imgStat button#show_dates {
-    width: 195px;    
-}
-#imgStat button#close_dates {
-    width: 25px;   
-}
-#imgStat .statsel {
-	padding:2px;
-}
-#imgStat .statsel select{
-	text-align: left;	
-	width:220px;
-}
-#imgStat button:hover,
-#imgStat button:focus {
-    background-color: #f6961b;
-    color: #ffffff;
-}
-
-#imgStat #tabs {
-    overflow: hidden;
-    position: absolute;
-    left: 0;
-    top: 0;
-    margin: 2px;
-    padding: 0;
-    list-style: none;
-    background-color: #1c3462;
-}
-
 #tabs li {
     text-align: left;
 }

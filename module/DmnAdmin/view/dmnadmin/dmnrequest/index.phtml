@@ -38,8 +38,8 @@ echo <<<JS
 	  		url: "dmnrequest/getrequestnumber",
 	  		datatype: "json", 
 	  		colNames:['ID','№Сертиф.', 'Дата', '№Бланка', 'Форма', 'Файл', 'Статус', 'КолДопЛист', 'Клиент', 'Должность', 'Телефон', 'Организация', 'Исполнитель', 'СтранаНазн', 'Действия'],
-	  		colModel:[ {name:'id',index:'id', width:'2%', searchoptions:{sopt:['eq']}}, 
-	  		           {name:'workorder',index:'workorder', width:'9%', editable:true, searchoptions:{sopt:['eq']}}, 					   
+	  		colModel:[ {name:'id',index:'id', width:'3%', searchoptions:{sopt:['eq']}},
+	  		           {name:'workorder',index:'workorder', width:'8%', editable:true, searchoptions:{sopt:['eq']}},
 	  		           {name:'dateorder',index:'dateorder', width:'6%', editable:true, editrules: {required:true},
 						editoptions: {
 						dataInit: function (elem) {
@@ -73,7 +73,7 @@ echo <<<JS
                         editoptions: {dataUrl: 'dmnrequest/getforms',
 									  style: "width:98%",
 									  buildSelect: function(data) {
-											 var response = jQuery.parseJSON(data);                                             
+											 var response = $.parseJSON(data);                                             
                                              var s = '<select>';
                                              if (response && response.length) {
                                					for (var i = 0, l = response.length; i < l; i++) {
@@ -87,7 +87,7 @@ echo <<<JS
                         searchoptions: {dataUrl: 'dmnrequest/getforms',
 									  style: "width:98%",
 									  buildSelect: function(data) {
-											 var response = jQuery.parseJSON(data);                                             
+											 var response = $.parseJSON(data);                                             
                                              var s = '<select>';
                                              if (response && response.length) {
                                					for (var i = 0, l = response.length; i < l; i++) {
@@ -103,7 +103,7 @@ echo <<<JS
 						editoptions: {dataUrl: 'dmnrequest/getstatus',
 									  style: "width:98%",
 									  buildSelect: function(data) {
-											 var response = jQuery.parseJSON(data);                                             
+											 var response = $.parseJSON(data);                                             
                                              var s = '<select>';
                                              if (response && response.length) {
                                					for (var i = 0, l = response.length; i < l; i++) {
@@ -117,7 +117,7 @@ echo <<<JS
 									   dataUrl: 'dmnrequest/getstatus',
 									   style: "width:98%",
 									   buildSelect: function(data) {
-											 var response = jQuery.parseJSON(data);                                             
+											 var response = $.parseJSON(data);                                             
                                              var s = '<select>';
                                              if (response && response.length) {
                                					for (var i = 0, l = response.length; i < l; i++) {
@@ -138,7 +138,7 @@ echo <<<JS
 						editoptions: {dataUrl: 'dmnrequest/getexecutors',
 									  style: "width:98%",
 									  buildSelect: function(data) {										
-											 var response = jQuery.parseJSON(data);                                             
+											 var response = $.parseJSON(data);                                             
                                              var s = '<select>';
                                              if (response && response.length) {
                                					for (var i = 0, l = response.length; i < l; i++) {
@@ -152,7 +152,7 @@ echo <<<JS
 									   dataUrl: 'dmnrequest/getexecutors',
 									   style: "width:98%",
 									   buildSelect: function(data) {											
-											 var response = jQuery.parseJSON(data);                                             
+											 var response = $.parseJSON(data);                                             
                                              var s = '<select>';
                                              if (response && response.length) {
                                					for (var i = 0, l = response.length; i < l; i++) {
@@ -207,7 +207,7 @@ echo <<<JS
 						editoptions: {dataUrl: 'dmnrequest/geteditcountries',
 									  style: "width:98%",
 									  buildSelect: function(data) {
-											 var response = jQuery.parseJSON(data);
+											 var response = $.parseJSON(data);
                                              var s = '<select>';
                                              if (response && response.length) {
                                					for (var i = 0, l = response.length; i < l; i++) {
@@ -221,7 +221,7 @@ echo <<<JS
 									   dataUrl: 'dmnrequest/geteditcountries',
 									   style: "width:98%",
 									   buildSelect: function(data) {
-											 var response = jQuery.parseJSON(data);
+											 var response = $.parseJSON(data);
                                              var s = '<select>';
                                              if (response && response.length) {
                                					for (var i = 0, l = response.length; i < l; i++) {
@@ -232,7 +232,7 @@ echo <<<JS
                                             return s + "</select>";
                                     }}
 					   },
-						{name:'act',index:'act', width:'7%',sortable:false, search:false}  
+						{name:'act',index:'act', width:'7%',sortable:false, search:false}
 	  		          ], 
 			cmTemplate:{sortable:false}, 
 	  		rowNum:5, 
@@ -262,43 +262,45 @@ echo <<<JS
 	  		autowidth: true,
             shrinkToFit: true, 
 	  		height: '20%',
+	  		minHeight: 100,
 	  		pager: '#prequestlist_n',
 	  		sortname: 'id', 
 	  		multiselect: false,
 	  		viewrecords: true, 
 	  		sortorder: "desc",
 			onSelectCell: function(){
-      			 	var ids = jQuery("#requestlist_n").jqGrid('getGridParam','selrow');	
+      			 	var ids = $("#requestlist_n").jqGrid('getGridParam','selrow');
+
 					if(ids!=null){
-						jQuery("#requestlist").jqGrid('setGridParam',{url:'dmnrequest/getrequest?id='+ids,page:1}); 
-	  					jQuery("#requestlist").jqGrid('setCaption',"Деталицация заявки №: "+ids) 
+						$("#requestlist").jqGrid('setGridParam',{url:'dmnrequest/getrequest?id='+ids,page:1}); 
+	  					$("#requestlist").jqGrid('setCaption',"Деталицация заявки №: "+ids) 
 	  					.trigger('reloadGrid');
-						jQuery("#requestlist_d").jqGrid('setGridParam',{url:'dmnrequest/getrequestdesc?id='+ids,page:1}); 
-	  					jQuery("#requestlist_d").jqGrid('setCaption',"Дополнительная информация по заявке №: "+ids) 
+						$("#requestlist_d").jqGrid('setGridParam',{url:'dmnrequest/getrequestdesc?id='+ids,page:1}); 
+	  					$("#requestlist_d").jqGrid('setCaption',"Дополнительная информация по заявке №: "+ids) 
 	  					.trigger('reloadGrid'); 
 					}else{	  				
 	  				  	ids=0; 
 	  				  	if($("#requestlist").jqGrid('getGridParam','records') >0 ) { 	  					
-	  				  		jQuery("#requestlist").jqGrid('setGridParam',{url:'dmnrequest/getrequest?id='+ids,page:1}); 
-	  				  		jQuery("#requestlist").jqGrid('setCaption',"Деталицация заявки №: "+ids) 
+	  				  		$("#requestlist").jqGrid('setGridParam',{url:'dmnrequest/getrequest?id='+ids,page:1}); 
+	  				  		$("#requestlist").jqGrid('setCaption',"Деталицация заявки №: "+ids) 
 	  				  		.trigger('reloadGrid'); 
 	  				  	}
 						if($("#requestlist_d").jqGrid('getGridParam','records') >0 ) { 
-	  						jQuery("#requestlist_d").jqGrid('setGridParam',{url:'dmnrequest/getrequestdesc?id='+ids,page:1}); 
-	  						jQuery("#requestlist_d").jqGrid('setCaption',"Дополнительная информация по заявке №: "+ids) 
+	  						$("#requestlist_d").jqGrid('setGridParam',{url:'dmnrequest/getrequestdesc?id='+ids,page:1}); 
+	  						$("#requestlist_d").jqGrid('setCaption',"Дополнительная информация по заявке №: "+ids) 
 	  						.trigger('reloadGrid'); 
 	  					} 
 	  				 }    			
    			}, 
 			gridComplete: function(){
-			var ids = jQuery("#requestlist_n").jqGrid('getDataIDs');
+			var ids = $("#requestlist_n").jqGrid('getDataIDs');
 			for(var i=0;i < ids.length;i++){
 				var cl = ids[i];
-				xls = "<a href=\"#\"  onclick=\"DownloadXls('dmnupload/downloadxls?id="+cl+"')\"><img src=\"images/excel.png\" title=\"Выгрузить в xls\"/></a>"; 
+				xls = "<a href=\"#\"  onclick=\"DownloadXls('dmnupload/downloadxls?id="+cl+"')\"><img src=\"images/excel.png\" title=\"Выгрузить в xls\"/></a>";
 				xml = "<a href=\"#\"  onclick=\"DownloadXml('dmnupload/downloadxml?id="+cl+"')\"><img src=\"images/xml.png\" title=\"Выгрузить в xml\"/></a>";
 				print = "<a href=\"#\"  onclick=\"DownloadPrint('dmnupload/downloadprint?id="+cl+"')\"><img src=\"images/PrintPreview.png\" title=\"Выгрузить для печати\"/></a>";
 				lifecycle = "<a href=\"#\"  onclick=\"ShowLife('dmnrequest/getlifecycle?id="+cl+"')\"><img src=\"images/lifecycle.png\" title=\"Жизненный цикл заявки\"/></a>";
-				jQuery("#requestlist_n").jqGrid('setRowData',ids[i],{act:xls+xml+print+lifecycle});
+				$("#requestlist_n").jqGrid('setRowData',ids[i],{act:xls+xml+print+lifecycle});
 			 }
 			}
 	  	});		  	
@@ -348,14 +350,14 @@ echo <<<JS
 		);					  	
 	  	$("#requestlist").jqGrid({
 			regional : 'ru', 	  		
-	  		url:'dmnrequest/getrequest?id=0', 
+	  		url:'dmnrequest/getrequest?id=0',
 	  		datatype: "json", 
 	  		colNames:['Наименование','Значение', 'IdReq'], 
 	  		colModel:[ 
 	  		           {name:'name',index:'name', editable:false, sortable:false, width:'40%'}, 
 	  		           {name:'value',index:'value', editable:true, editrules:{custom: true, 
 																			  custom_func: function (value) {
-            																	return validReq(value,  jQuery("#requestlist").jqGrid('getGridParam','selrow'));
+            																	return validReq(value,  $("#requestlist").jqGrid('getGridParam','selrow'));
         																	 }
 																		 	}, 
 						edittype:"text", sortable:false, width:'60%'}, 	
@@ -373,10 +375,10 @@ echo <<<JS
 	  		multiselect: false,
 			onSelectRow: function(id){ 
       			if(id && id!==lastSel){ 
-					jQuery('#requestlist').jqGrid('restoreRow',lastSel);         			
+					$('#requestlist').jqGrid('restoreRow',lastSel);         			
          			lastSel=id; 
       			} 
-				jQuery('#requestlist').jqGrid('editRow',id,true);      			
+				$('#requestlist').jqGrid('editRow',id,true);      			
    			}, 
 			editurl: "dmnrequest/editrequest",
 	  		caption:"Детализация заявки",
