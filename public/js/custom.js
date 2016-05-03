@@ -214,9 +214,12 @@ $(document).delegate("#changePass", "click", function(){
         if(modalBody.length)
         {
             modalBody.load(href);
-            modalHelp.find('.modal-footer').prepend('<button type="button" id="show_dates" class="btn btn-primary" data-href="' + $(this).data("href") + '">Показать</button>');
+            modalHelp.find('.modal-footer').prepend('<button type="button" class="btn btn-primary" id="changePassSubmit">Изменить</button>');
         }
     }
+});
+$(document).delegate("#changePassSubmit", "click", function(e, data){
+    e.preventDefault();
 });
 $(document).delegate("a#tab2", "click", function () {
     $("a#tab1").removeClass("active");
