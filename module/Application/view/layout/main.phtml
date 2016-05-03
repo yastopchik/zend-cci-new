@@ -40,6 +40,21 @@
 	<section class="main">
 		<?php echo $this->content; ?>
 		<?php echo $this->inlineScript() ?>
+		<div class="modal fade" id="modalHelp" tabindex="-1" role="dialog" aria-labelledby="modalHelp">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="modalHelp">Помощь по использованию ресурса</h4>
+					</div>
+					<div class="modal-body">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
 	</body>
 </html>

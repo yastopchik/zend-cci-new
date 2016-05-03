@@ -194,13 +194,27 @@ function getstat(href, period, periodview) {
 };
 $(document).delegate("#helpHref", "click", function(){
     var modalHelp = $("#modalHelp");
-    var href=$("helpHref").data("href");
+    var href=$(this).data("href");
     if(modalHelp.length){
         modalHelp.modal();
-        var modalBody=modalFilter.find('.modal-body');
+        var modalBody=modalHelp.find('.modal-body');
         if(modalBody.length)
         {
             modalBody.load(href);
+        }
+    }
+});
+$(document).delegate("#changePass", "click", function(){
+    var modalHelp = $("#modalHelp");
+    var href=$(this).data("href");
+    if(modalHelp.length){
+        modalHelp.find('.modal-title').html('Изменить пароль пользователя');
+        modalHelp.modal();
+        var modalBody=modalHelp.find('.modal-body');
+        if(modalBody.length)
+        {
+            modalBody.load(href);
+            modalHelp.find('.modal-footer').prepend('<button type="button" id="show_dates" class="btn btn-primary" data-href="' + $(this).data("href") + '">Показать</button>');
         }
     }
 });

@@ -91,24 +91,25 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Панель управления <i class="fa fa-ellipsis-v"></i> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <?php if ((($route == "dmnrequest") && ($action == "index")) || (($route == "dmnexrequest") && ($action == "index")) || (($route == "requests") && ($action == "index"))) { ?>
-                            <li><a href="#" data-toggle="modal"  id="helpHref"
+                            <li><a href="#"  id="helpHref"
                                    data-href="<?php echo $this->url('application', array('action' => 'help', 'id' => '2')); ?>"><i class="fa fa-info"></i> Помощь</a>
                             </li>
                         <?php } elseif ((($route == "dmnupload") && ($action == "index")) || (($route == "requests") && ($action == "upload")) || (($route == "dmnexrequest") && ($action == "upload"))) { ?>
-                            <li><a href="#" data-toggle="modal"  id="helpHref"
+                            <li><a href="#" id="helpHref"
                                    data-href="<?php echo $this->url('application', array('action' => 'help', 'id' => '4')); ?>"><i class="fa fa-info"></i> Помощь</a>
                             </li>
                         <?php } elseif ((($route == "dmnrequest") && ($action == "add")) || (($route == "requests") && ($action == "add")) || (($route == "dmnexrequest") && ($action == "add"))) { ?>
-                            <li><a href="#" data-toggle="modal"  id="helpHref"
+                            <li><a href="#"  id="helpHref"
                                    data-href="<?php echo $this->url('application', array('action' => 'help', 'id' => '3')); ?>"><i class="fa fa-info"></i> Помощь</a>
                             </li>
                         <?php } else { ?>
-                            <li><a href="#" data-toggle="modal"  id="helpHref"
+                            <li><a href="#"  id="helpHref"
                                    data-href="<?php echo $this->url('application', array('action' => 'help', 'id' => '2')); ?>"><i class="fa fa-info"></i> Помощь</a>
                             </li>
                         <?php } ?>
-
-                        <li><a href="<?php echo $this->url('zfcuser/changepassword'); ?>"><i class="fa fa-user-secret"></i> Сменить пароль</a></li>
+                        <li><a href="#"  id="changePass"
+                               data-href="<?php echo $this->url('zfcuser/changepassword'); ?>"><i class="fa fa-info"></i> Сменить пароль</a>
+                        </li>
                         <li><a href="/maketCT-1.xls"><i class="fa fa-download"></i> Скачать шаблон</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="<?php echo $this->url('zfcuser/logout'); ?>"><i class="fa fa-sign-out"></i> Выйти</a></li>
@@ -133,17 +134,16 @@
                     <img src="<?php echo $this->basePath('/images/495.gif') ?>"/></div>
             </div>
             <div class="modal fade" id="modalHelp" tabindex="-1" role="dialog" aria-labelledby="modalHelp">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="modalHelp">Помощь по сайту</h4>
+                        <h4 class="modal-title">Помощь по использованию ресурса</h4>
                     </div>
                     <div class="modal-body">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
                     </div>
                 </div>
             </div>

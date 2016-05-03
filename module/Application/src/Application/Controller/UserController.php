@@ -3,6 +3,7 @@ namespace Application\Controller;
 
 use ZfcUser\Controller\UserController as ZfcUserController;
 use Zend\Stdlib\ResponseInterface as Response;
+use Zend\View\Model\ViewModel;
 
 class UserController extends ZfcUserController
 {
@@ -88,4 +89,19 @@ class UserController extends ZfcUserController
         //return $this->redirect()->toRoute($this->getUserService()->getRedirectRoute());
 		return array('route'=>$this->getUserService()->getRedirectRoute());
     }
+	public function changepasswordAction()
+	{
+		// if the user isn't logged in, we can't change password
+		if (!$this->zfcUserAuthentication()->hasIdentity()) {
+			// redirect to the login redirect route
+			return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
+		}
+
+		$form = $this->getChangePasswordForm();
+		$view=new ViewModel();
+		$view->setTerminal(true);
+		$view->setTemplate('application/user/changepassword');
+		$view->setVariable('form', $form);
+		return $view;
+	}
 }
