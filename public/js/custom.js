@@ -218,8 +218,30 @@ $(document).delegate("#changePass", "click", function(){
         }
     }
 });
-$(document).delegate("#changePassSubmit", "click", function(e, data){
+$(document).delegate("#changePassSubmit", "click", function(e){
     e.preventDefault();
+    var action =  $('form#changePassForm').attr('action');
+    var modalHelp = $("#modalHelp");
+    $.ajax({
+        url: action,
+        type: 'post',
+        data: $('form#changePassForm').serialize(),
+        success: function(response) {
+            var rpcResponse = JSON.parse(response);
+            $("#loadImg").hide();
+            if (typeof(rpcResponse.error) != 'undefined') {
+                Message.error(rpcResponse.error.message);
+            } else {
+                Message.success('Пароль успешно изменен!');
+                modalHelp.modal('hide')
+                $( '.modal' ).remove();
+                $( '.modal-backdrop' ).remove();
+                $( 'body' ).removeClass( "modal-open" );
+            }
+
+        },
+    });
+    var form = $('form#changePassForm').serialize();
 });
 $(document).delegate("a#tab2", "click", function () {
     $("a#tab1").removeClass("active");

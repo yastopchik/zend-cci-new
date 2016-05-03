@@ -96,8 +96,20 @@ class UserController extends ZfcUserController
 			// redirect to the login redirect route
 			return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
 		}
-
 		$form = $this->getChangePasswordForm();
+		$request=$this->getRequest();
+		if($request->isPost()) {
+			$form->setData($request->getPost());
+			if (!$form->isValid()) {
+				return $this->getResponse()->setContent(json_encode(array('jsonrpc'=>'2.0',
+					'error'=>array('code'=>100, 'message'=>$form->getMessages())), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+			}
+			if (!$this->getUserService()->changePassword($form->getData())) {
+				return $this->getResponse()->setContent(json_encode(array('jsonrpc'=>'2.0',
+					'error'=>array('code'=>100, 'message'=>'Что-то не так. Попробуете изменить пароль позже.')), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+			}
+			return $this->getResponse()->setContent(json_encode(array('success'=>true), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+		}
 		$view=new ViewModel();
 		$view->setTerminal(true);
 		$view->setTemplate('application/user/changepassword');
