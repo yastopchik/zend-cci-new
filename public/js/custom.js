@@ -208,9 +208,11 @@ $(document).delegate("#changePass", "click", function(){
     var modalHelp = $("#modalHelp");
     var href=$(this).data("href");
     if(modalHelp.length){
-        modalHelp.find('.modal-title').html('Изменить пароль пользователя');
+        modalHelp.find('.modal-title').html('Сменить пароль');
         modalHelp.modal();
         var modalBody=modalHelp.find('.modal-body');
+        var modalDialog=modalHelp.find('.modal-dialog');
+        modalDialog.removeClass('modal-lg').addClass('modal-sm');
         if(modalBody.length)
         {
             modalBody.load(href);
@@ -229,7 +231,7 @@ $(document).delegate("#changePassSubmit", "click", function(e){
         success: function(response) {
             var rpcResponse = JSON.parse(response);
             $("#loadImg").hide();
-            if (typeof(rpcResponse.error) != 'undefined') {
+            if (typeof(rpcResponse.error) !== 'undefined') {
                 Message.error(rpcResponse.error.message);
             } else {
                 Message.success('Пароль успешно изменен!');

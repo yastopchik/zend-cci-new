@@ -1,30 +1,30 @@
 ﻿<?php echo $this->headTitle($this->translate('Requests')); ?>
-	<div id="content" class="content">
-		<table id="requestlist_n">
-			<tr>
-				<td></td>
-			</tr>
-		</table>
-		<div id="prequestlist_n"></div>
+    <div id="content" class="content">
+        <table id="requestlist_n">
+            <tr>
+                <td></td>
+            </tr>
+        </table>
+        <div id="prequestlist_n"></div>
 
-		<div id="gridWrapper">
-			<table id="requestlist">
-				<tr>
-					<td></td>
-				</tr>
-			</table>
-			<div id="prequestlist"></div>
+        <div id="gridWrapper">
+            <table id="requestlist">
+                <tr>
+                    <td></td>
+                </tr>
+            </table>
+            <div id="prequestlist"></div>
 
-			<table id="requestlist_d">
-				<tr>
-					<td></td>
-				</tr>
-			</table>
-			<div id="prequestlist_d"></div>
-		</div>
-	</div>
-	<div id="content2" class="content"></div>
-	<div id="content3" class="content"></div>
+            <table id="requestlist_d">
+                <tr>
+                    <td></td>
+                </tr>
+            </table>
+            <div id="prequestlist_d"></div>
+        </div>
+    </div>
+    <div id="content2" class="content"></div>
+    <div id="content3" class="content"></div>
 <?php
 $this->inlineScript()->captureStart();
 echo <<<JS
@@ -36,7 +36,7 @@ echo <<<JS
 	  	$("#requestlist_n").jqGrid({
 			regional : 'ru',
 	  		url: "dmnrequest/getrequestnumber",
-	  		datatype: "json", 
+	  		datatype: "json",
 	  		colNames:['ID','№Сертиф.', 'Дата', '№Бланка', 'Форма', 'Файл', 'Статус', 'КолДопЛист', 'Клиент', 'Должность', 'Телефон', 'Организация', 'Исполнитель', 'СтранаНазн', 'Действия'],
 	  		colModel:[ {name:'id',index:'id', width:'3%', searchoptions:{sopt:['eq']}},
 	  		           {name:'workorder',index:'workorder', width:'8%', editable:true, searchoptions:{sopt:['eq']}},
@@ -63,17 +63,17 @@ echo <<<JS
         				}
     					});}},
 						searchoptions:{sopt:['eq'],
-									   dataInit: function(el) { 
-									   setTimeout(function() { 
+									   dataInit: function(el) {
+									   setTimeout(function() {
 										$(el).datepicker({dateFormat:"dd/mm/yy"}); }, 200);
 						}}
-					   }, 
+					   },
 	  		           {name:'numblank',index:'numblank', width:'6%', editable:true, searchoptions:{sopt:['eq']}},
                        {name:'forms',index:'forms', width:'6%', editable:true,  edittype: 'select', editrules: {required:true},
                         editoptions: {dataUrl: 'dmnrequest/getforms',
 									  style: "width:98%",
 									  buildSelect: function(data) {
-											 var response = $.parseJSON(data);                                             
+											 var response = $.parseJSON(data);
                                              var s = '<select>';
                                              if (response && response.length) {
                                					for (var i = 0, l = response.length; i < l; i++) {
@@ -87,7 +87,7 @@ echo <<<JS
                         searchoptions: {dataUrl: 'dmnrequest/getforms',
 									  style: "width:98%",
 									  buildSelect: function(data) {
-											 var response = $.parseJSON(data);                                             
+											 var response = $.parseJSON(data);
                                              var s = '<select>';
                                              if (response && response.length) {
                                					for (var i = 0, l = response.length; i < l; i++) {
@@ -96,14 +96,14 @@ echo <<<JS
                                				 }
                            					}
                                             return s + "</select>";
-                                    }}, 
+                                    }},
                         },
-                       {name:'file', index:'file', width:'6%', editable:false},	  		          
+                       {name:'file', index:'file', width:'6%', editable:false},
 	  		           {name:'status',index:'status', width:'6%',editable:true, edittype: 'select', stype: 'select', editrules: {required:true},
 						editoptions: {dataUrl: 'dmnrequest/getstatus',
 									  style: "width:98%",
 									  buildSelect: function(data) {
-											 var response = $.parseJSON(data);                                             
+											 var response = $.parseJSON(data);
                                              var s = '<select>';
                                              if (response && response.length) {
                                					for (var i = 0, l = response.length; i < l; i++) {
@@ -117,7 +117,7 @@ echo <<<JS
 									   dataUrl: 'dmnrequest/getstatus',
 									   style: "width:98%",
 									   buildSelect: function(data) {
-											 var response = $.parseJSON(data);                                             
+											 var response = $.parseJSON(data);
                                              var s = '<select>';
                                              if (response && response.length) {
                                					for (var i = 0, l = response.length; i < l; i++) {
@@ -130,15 +130,15 @@ echo <<<JS
 					   },
                        {name:'numdoplist', index:'numdoplist', width:'5%', editable:true, search:false,editrules: {required:true, maxValue:'2', minValue:'1'},},
 					   {name:'name',index:'name', width:'6%', editable:false, cellattr: function (rowId, tv, rawObject, cm, rdata) { return 'style="white-space: normal;"' }},
-	  		           {name:'position',index:'position', width:'5%',editable:false, searchoptions:{sopt:['eq']}},  
-	  		           {name:'phone',index:'phone', width:'5%',editable:false}, 
+	  		           {name:'position',index:'position', width:'5%',editable:false, searchoptions:{sopt:['eq']}},
+	  		           {name:'phone',index:'phone', width:'5%',editable:false},
 	  		           {name:'organization',index:'organization', width:'15%', editable:false, searchoptions:{sopt:['eq']}},
 	  		           {name:'executor',index:'executor', width:'9%', sortable:false, editable:true, edittype: 'select', stype: 'select',
 	  		            editrules: {required:true},
 						editoptions: {dataUrl: 'dmnrequest/getexecutors',
 									  style: "width:98%",
-									  buildSelect: function(data) {										
-											 var response = $.parseJSON(data);                                             
+									  buildSelect: function(data) {
+											 var response = $.parseJSON(data);
                                              var s = '<select>';
                                              if (response && response.length) {
                                					for (var i = 0, l = response.length; i < l; i++) {
@@ -147,12 +147,12 @@ echo <<<JS
                                				 }
                            					}
                                             return s + "</select>";
-                                    }}, 
+                                    }},
 						searchoptions:{sopt:['eq'],
 									   dataUrl: 'dmnrequest/getexecutors',
 									   style: "width:98%",
-									   buildSelect: function(data) {											
-											 var response = $.parseJSON(data);                                             
+									   buildSelect: function(data) {
+											 var response = $.parseJSON(data);
                                              var s = '<select>';
                                              if (response && response.length) {
                                					for (var i = 0, l = response.length; i < l; i++) {
@@ -233,9 +233,9 @@ echo <<<JS
                                     }}
 					   },
 						{name:'act',index:'act', width:'7%',sortable:false, search:false}
-	  		          ], 
-			cmTemplate:{sortable:false}, 
-	  		rowNum:5, 
+	  		          ],
+			cmTemplate:{sortable:false},
+	  		rowNum:5,
 	  		rowList:[5,10,20,30],
 			cellEdit:true,
 			cellsubmit : "remote",
@@ -260,38 +260,38 @@ echo <<<JS
             },
 	  		caption: "Заявки",
 	  		autowidth: true,
-            shrinkToFit: true, 
+            shrinkToFit: true,
 	  		height: '20%',
 	  		minHeight: 100,
 	  		pager: '#prequestlist_n',
-	  		sortname: 'id', 
+	  		sortname: 'id',
 	  		multiselect: false,
-	  		viewrecords: true, 
+	  		viewrecords: true,
 	  		sortorder: "desc",
 			onSelectCell: function(){
       			 	var ids = $("#requestlist_n").jqGrid('getGridParam','selrow');
 
 					if(ids!=null){
-						$("#requestlist").jqGrid('setGridParam',{url:'dmnrequest/getrequest?id='+ids,page:1}); 
-	  					$("#requestlist").jqGrid('setCaption',"Деталицация заявки №: "+ids) 
+						$("#requestlist").jqGrid('setGridParam',{url:'dmnrequest/getrequest?id='+ids,page:1});
+	  					$("#requestlist").jqGrid('setCaption',"Деталицация заявки №: "+ids)
 	  					.trigger('reloadGrid');
-						$("#requestlist_d").jqGrid('setGridParam',{url:'dmnrequest/getrequestdesc?id='+ids,page:1}); 
-	  					$("#requestlist_d").jqGrid('setCaption',"Дополнительная информация по заявке №: "+ids) 
-	  					.trigger('reloadGrid'); 
-					}else{	  				
-	  				  	ids=0; 
-	  				  	if($("#requestlist").jqGrid('getGridParam','records') >0 ) { 	  					
-	  				  		$("#requestlist").jqGrid('setGridParam',{url:'dmnrequest/getrequest?id='+ids,page:1}); 
-	  				  		$("#requestlist").jqGrid('setCaption',"Деталицация заявки №: "+ids) 
-	  				  		.trigger('reloadGrid'); 
+						$("#requestlist_d").jqGrid('setGridParam',{url:'dmnrequest/getrequestdesc?id='+ids,page:1});
+	  					$("#requestlist_d").jqGrid('setCaption',"Дополнительная информация по заявке №: "+ids)
+	  					.trigger('reloadGrid');
+					}else{
+	  				  	ids=0;
+	  				  	if($("#requestlist").jqGrid('getGridParam','records') >0 ) {
+	  				  		$("#requestlist").jqGrid('setGridParam',{url:'dmnrequest/getrequest?id='+ids,page:1});
+	  				  		$("#requestlist").jqGrid('setCaption',"Деталицация заявки №: "+ids)
+	  				  		.trigger('reloadGrid');
 	  				  	}
-						if($("#requestlist_d").jqGrid('getGridParam','records') >0 ) { 
-	  						$("#requestlist_d").jqGrid('setGridParam',{url:'dmnrequest/getrequestdesc?id='+ids,page:1}); 
-	  						$("#requestlist_d").jqGrid('setCaption',"Дополнительная информация по заявке №: "+ids) 
-	  						.trigger('reloadGrid'); 
-	  					} 
-	  				 }    			
-   			}, 
+						if($("#requestlist_d").jqGrid('getGridParam','records') >0 ) {
+	  						$("#requestlist_d").jqGrid('setGridParam',{url:'dmnrequest/getrequestdesc?id='+ids,page:1});
+	  						$("#requestlist_d").jqGrid('setCaption',"Дополнительная информация по заявке №: "+ids)
+	  						.trigger('reloadGrid');
+	  					}
+	  				 }
+   			},
 			gridComplete: function(){
 			var ids = $("#requestlist_n").jqGrid('getDataIDs');
 			for(var i=0;i < ids.length;i++){
@@ -303,18 +303,18 @@ echo <<<JS
 				$("#requestlist_n").jqGrid('setRowData',ids[i],{act:xls+xml+print+lifecycle});
 			 }
 			}
-	  	});		  	
+	  	});
 	  	$("#requestlist_n").jqGrid('navGrid',"#prequestlist_n", {edit:false,add:false,del:false, search:true},
-		 {   
+		 {
             jqModal:true,
-            savekey: [true,13], 
+            savekey: [true,13],
             navkeys: [true,38,40],
-            width: '50%',  
+            width: '50%',
             reloadAfterSubmit:true,
-			closeAfterEdit:true, 
-			beforeShowForm: function (form) {				
+			closeAfterEdit:true,
+			beforeShowForm: function (form) {
 				var dlgDiv = $("#editmodrequestlist_n");
-        		var parentDiv = dlgDiv.parent(); 
+        		var parentDiv = dlgDiv.parent();
         		var dlgWidth = dlgDiv.width();
         		var parentWidth = parentDiv.width();
         		var dlgHeight = dlgDiv.height();
@@ -324,14 +324,14 @@ echo <<<JS
         		dlgDiv[0].style.top =  Math.round(  parentTop  + (parentHeight-dlgHeight)/2  ) + "px";
         		dlgDiv[0].style.left = Math.round(  parentLeft + (parentWidth-dlgWidth  )/2 )  + "px";
 		  }
-        }, 
+        },
         {   jqModal:true,
             reloadAfterSubmit:true,
-			closeAfterEdit:true, 
+			closeAfterEdit:true,
 			width: '50%',
-			beforeShowForm: function (form) {				
+			beforeShowForm: function (form) {
 				var dlgDiv = $("#editmodrequestlist_n");
-        		var parentDiv = dlgDiv.parent(); 
+        		var parentDiv = dlgDiv.parent();
         		var dlgWidth = dlgDiv.width();
         		var parentWidth = parentDiv.width();
         		var dlgHeight = dlgDiv.height();
@@ -340,46 +340,46 @@ echo <<<JS
         		var parentLeft = parentDiv.offset().left;
         		dlgDiv[0].style.top =  Math.round(  parentTop  + (parentHeight-dlgHeight)/2  ) + "px";
         		dlgDiv[0].style.left = Math.round(  parentLeft + (parentWidth-dlgWidth  )/2 )  + "px";
-		 },		 
+		 },
         },
 		{},
-		{		closeOnEscape:true, 
-				multipleSearch:true, 
+		{		closeOnEscape:true,
+				multipleSearch:true,
 				closeAfterSearch:true,
-		 }		
-		);					  	
+		 }
+		);
 	  	$("#requestlist").jqGrid({
-			regional : 'ru', 	  		
+			regional : 'ru',
 	  		url:'dmnrequest/getrequest?id=0',
-	  		datatype: "json", 
-	  		colNames:['Наименование','Значение', 'IdReq'], 
-	  		colModel:[ 
-	  		           {name:'name',index:'name', editable:false, sortable:false, width:'40%'}, 
-	  		           {name:'value',index:'value', editable:true, editrules:{custom: true, 
+	  		datatype: "json",
+	  		colNames:['Наименование','Значение', 'IdReq'],
+	  		colModel:[
+	  		           {name:'name',index:'name', editable:false, sortable:false, width:'40%'},
+	  		           {name:'value',index:'value', editable:true, editrules:{custom: true,
 																			  custom_func: function (value) {
             																	return validReq(value,  $("#requestlist").jqGrid('getGridParam','selrow'));
         																	 }
-																		 	}, 
-						edittype:"text", sortable:false, width:'60%'}, 	
-					   {name:'idreq',index:'idreq', hidden: true , editable: true,  editoptions: { dataInit: function(element) { $(element).attr("readonly", "readonly"); } }} 		           
-	  		         ], 
-	  		rowNum:15,			
-			cmTemplate:{sortable:false},  		
-	  		pager: '#prequestlist', 
-	  		sortname: 'item', 
+																		 	},
+						edittype:"text", sortable:false, width:'60%'},
+					   {name:'idreq',index:'idreq', hidden: true , editable: true,  editoptions: { dataInit: function(element) { $(element).attr("readonly", "readonly"); } }}
+	  		         ],
+	  		rowNum:15,
+			cmTemplate:{sortable:false},
+	  		pager: '#prequestlist',
+	  		sortname: 'item',
 	  		autowidth: true,
-            shrinkToFit: true, 
+            shrinkToFit: true,
 	  		height: '100%',
-	  		viewrecords: true, 
-	  		sortorder: "asc", 
+	  		viewrecords: true,
+	  		sortorder: "asc",
 	  		multiselect: false,
-			onSelectRow: function(id){ 
-      			if(id && id!==lastSel){ 
-					$('#requestlist').jqGrid('restoreRow',lastSel);         			
-         			lastSel=id; 
-      			} 
-				$('#requestlist').jqGrid('editRow',id,true);      			
-   			}, 
+			onSelectRow: function(id){
+      			if(id && id!==lastSel){
+					$('#requestlist').jqGrid('restoreRow',lastSel);
+         			lastSel=id;
+      			}
+				$('#requestlist').jqGrid('editRow',id,true);
+   			},
 			editurl: "dmnrequest/editrequest",
 	  		caption:"Детализация заявки",
 	  		gridComplete: function() {
@@ -388,21 +388,21 @@ echo <<<JS
 	  	            $("#gridWrapper").hide();
 	  	        }
 	  	        else {
-	  	            $('#gridWrapper').show();	  	            
+	  	            $('#gridWrapper').show();
 	  	        }
 	        }
-	  	});	  	
+	  	});
 	  	$("#requestlist").jqGrid('navGrid',"#prequestlist", {edit:false,add:false,del:false, search:false},
-		{   
+		{
             jqModal:true,
-            savekey: [true,13], 
+            savekey: [true,13],
             navkeys: [true,38,40],
-            width: '50%',   
+            width: '50%',
             reloadAfterSubmit:true,
 			closeAfterEdit:true,
-			beforeShowForm: function (form) {				
+			beforeShowForm: function (form) {
 				var dlgDiv = $("#editmodrequestlist");
-        		var parentDiv = dlgDiv.parent(); 
+        		var parentDiv = dlgDiv.parent();
         		var dlgWidth = dlgDiv.width();
         		var parentWidth = parentDiv.width();
         		var dlgHeight = dlgDiv.height();
@@ -411,15 +411,15 @@ echo <<<JS
         		var parentLeft = parentDiv.offset().left;
         		dlgDiv[0].style.top =  Math.round(  parentTop  + (parentHeight-dlgHeight)/2  ) + "px";
         		dlgDiv[0].style.left = Math.round(  parentLeft + (parentWidth-dlgWidth  )/2 )  + "px";
-		  } 
-        }, 
+		  }
+        },
         {   jqModal:true,
             reloadAfterSubmit:true,
 			closeAfterEdit:true,
 			width: '50%',
-			beforeShowForm: function (form) {				
+			beforeShowForm: function (form) {
 				var dlgDiv = $("#editmodrequestlist");
-        		var parentDiv = dlgDiv.parent(); 
+        		var parentDiv = dlgDiv.parent();
         		var dlgWidth = dlgDiv.width();
         		var parentWidth = parentDiv.width();
         		var dlgHeight = dlgDiv.height();
@@ -428,47 +428,47 @@ echo <<<JS
         		var parentLeft = parentDiv.offset().left;
         		dlgDiv[0].style.top =  Math.round(  parentTop  + (parentHeight-dlgHeight)/2  ) + "px";
         		dlgDiv[0].style.left = Math.round(  parentLeft + (parentWidth-dlgWidth  )/2 )  + "px";
-		  } 
-        });			
+		  }
+        });
 		$("#requestlist_d").jqGrid({
-			regional : 'ru', 	  		
-	  		url:'dmnrequest/getrequestdesc?id=0', 
-	  		datatype: "json", 
-	  		colNames:['Id','П/н №', 'К-во мест и вид упак.', 'Описание товара','Критерий', 'Кол-во товара', 'Ед.изм.', 'Номер и дата счета-фактуры'], 
-	  		colModel:[ {name:'id',index:'id', width:'2%', hidden: true}, 
-	  		           {name:'paragraph',index:'paragraph', width:'5%', editable:true}, 
-	  		           {name:'seats',index:'seats', width:'20%', editable:true, edittype:"textarea", editoptions:{rows:"2",cols:"30"}}, 
-	  		           {name:'description',index:'description', width:'32%', editable:true, edittype:"textarea", editoptions:{rows:"3",cols:"30"}}, 
-	  		           {name:'hscode',index:'hscode', width:'6%', editable:true, edittype:"textarea", editoptions:{rows:"2",cols:"30"}}, 
-	  		           {name:'quantity',index:'quantity', width:'15%', editable:true, edittype:"textarea", editoptions:{rows:"2",cols:"30"}}, 
-	  		           {name:'unit',index:'unit', width:'10%', editable:true, edittype:"textarea", editoptions:{rows:"2",cols:"30"}}, 
-	  		           {name:'invoce',index:'invoce', width:'10%', editable:true, edittype:"textarea", editoptions:{rows:"2",cols:"30"}}		
-	  		         ], 
-			cmTemplate:{sortable:false}, 
+			regional : 'ru',
+	  		url:'dmnrequest/getrequestdesc?id=0',
+	  		datatype: "json",
+	  		colNames:['Id','П/н №', 'К-во мест и вид упак.', 'Описание товара','Критерий', 'Кол-во товара', 'Ед.изм.', 'Номер и дата счета-фактуры'],
+	  		colModel:[ {name:'id',index:'id', width:'2%', hidden: true},
+	  		           {name:'paragraph',index:'paragraph', width:'5%', editable:true},
+	  		           {name:'seats',index:'seats', width:'20%', editable:true, edittype:"textarea", editoptions:{rows:"2",cols:"30"}},
+	  		           {name:'description',index:'description', width:'32%', editable:true, edittype:"textarea", editoptions:{rows:"3",cols:"30"}},
+	  		           {name:'hscode',index:'hscode', width:'6%', editable:true, edittype:"textarea", editoptions:{rows:"2",cols:"30"}},
+	  		           {name:'quantity',index:'quantity', width:'15%', editable:true, edittype:"textarea", editoptions:{rows:"2",cols:"30"}},
+	  		           {name:'unit',index:'unit', width:'10%', editable:true, edittype:"textarea", editoptions:{rows:"2",cols:"30"}},
+	  		           {name:'invoce',index:'invoce', width:'10%', editable:true, edittype:"textarea", editoptions:{rows:"2",cols:"30"}}
+	  		         ],
+			cmTemplate:{sortable:false},
 	  		rowNum:15,
 	  		autowidth: true,
-            shrinkToFit: true, 
+            shrinkToFit: true,
 	  		height: '100%',
-	  		rowList:[10,20,30], 
-	  		pager: '#prequestlist_d', 
-	  		sortname: 'item', 
-	  		viewrecords: true, 
-	  		sortorder: "asc", 
-	  		multiselect: false, 
+	  		rowList:[10,20,30],
+	  		pager: '#prequestlist_d',
+	  		sortname: 'item',
+	  		viewrecords: true,
+	  		sortorder: "asc",
+	  		multiselect: false,
 			editurl: "dmnrequest/editrequestdesc",
-	  		caption:"Дополнительная информация по заявке"	  		
-	  	}); 
+	  		caption:"Дополнительная информация по заявке"
+	  	});
 	  	$("#requestlist_d").jqGrid('navGrid','#prequestlist_d',{add:false,edit:true,del:false, search:false},
-		 {   
+		 {
             jqModal:true,
-            savekey: [true,13], 
+            savekey: [true,13],
             navkeys: [true,38,40],
-            width: '50%',  
+            width: '50%',
             reloadAfterSubmit:true,
 			closeAfterEdit:true,
-			beforeShowForm: function (form) {				
+			beforeShowForm: function (form) {
 				var dlgDiv = $("#editmodrequestlist_d");
-        		var parentDiv = dlgDiv.parent(); 
+        		var parentDiv = dlgDiv.parent();
         		var dlgWidth = dlgDiv.width();
         		var parentWidth = parentDiv.width();
         		var dlgHeight = dlgDiv.height();
@@ -477,15 +477,15 @@ echo <<<JS
         		var parentLeft = parentDiv.offset().left;
         		dlgDiv[0].style.top =  Math.round(  parentTop  + (parentHeight-dlgHeight)/2  ) + "px";
         		dlgDiv[0].style.left = Math.round(  parentLeft + (parentWidth-dlgWidth  )/2 )  + "px";
-		  } 
-        }, 
+		  }
+        },
         {   jqModal:true,
             reloadAfterSubmit:true,
-			closeAfterEdit:true, 
-			width: '50%', 
-			beforeShowForm: function (form) {				
+			closeAfterEdit:true,
+			width: '50%',
+			beforeShowForm: function (form) {
 				var dlgDiv = $("#editmodrequestlist_d");
-        		var parentDiv = dlgDiv.parent(); 
+        		var parentDiv = dlgDiv.parent();
         		var dlgWidth = dlgDiv.width();
         		var parentWidth = parentDiv.width();
         		var dlgHeight = dlgDiv.height();

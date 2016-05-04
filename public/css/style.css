@@ -520,6 +520,30 @@ ul.tabs li a.active {
     background-color: #ffffff;
     border: none;
 }
+/*error*/
+.jGrowl.top-right {
+    right: 0px;
+    top: 90px;
+}
+.jGrowl .ui-state-highlight {
+    border: none;
+    background: none;
+    color: #ffffff;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+.message-success {
+    background-color: green!important
+}
+
+.message-error {
+    background-color: brown!important
+}
+
+.message-info {
+    background-color: #000!important
+}
 /*help
 -------------------------------------------------*/
 #help {

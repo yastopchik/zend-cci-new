@@ -102,7 +102,7 @@ class UserController extends ZfcUserController
 			$form->setData($request->getPost());
 			if (!$form->isValid()) {
 				return $this->getResponse()->setContent(json_encode(array('jsonrpc'=>'2.0',
-					'error'=>array('code'=>100, 'message'=>$form->getMessages())), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+					'error'=>array('code'=>100, 'message'=>$this->getErrorMessage($form->getMessages()))), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 			}
 			if (!$this->getUserService()->changePassword($form->getData())) {
 				return $this->getResponse()->setContent(json_encode(array('jsonrpc'=>'2.0',
@@ -115,5 +115,14 @@ class UserController extends ZfcUserController
 		$view->setTemplate('application/user/changepassword');
 		$view->setVariable('form', $form);
 		return $view;
+	}
+	public function getErrorMessage(array $message): array{
+		$error = array();
+		foreach ($message as $value){
+			foreach($value as $val){
+			    $error[]=$val;
+			}
+		}
+		return $error;
 	}
 }

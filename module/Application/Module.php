@@ -11,12 +11,26 @@ namespace Application;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Zend\I18n\Translator\Translator;
+use Zend\Mvc\I18n\Translator as Translate;
+use Zend\Validator\AbstractValidator;
 
 class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
         $e->getApplication()->getServiceManager()->get('translator');
+        $translatorI = new Translator();
+        $translatorI->setLocale('ru');
+        $translator = new Translate($translatorI);
+        $translator->setLocale(\Locale::acceptFromHttp('ru_RU'));
+        $translator->addTranslationFile(
+            'phpArray',
+            './vendor/zendframework/zend-i18n-resources/languages/ru/Zend_Validate.php',
+            'default',
+            'ru_RU'
+        );
+        AbstractValidator::setDefaultTranslator($translator);
         $eventManager = $e->getApplication()->getEventManager();
         $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, function (MvcEvent $event) {
             $viewModel = $event->getViewModel();
