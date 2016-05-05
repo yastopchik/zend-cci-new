@@ -531,7 +531,7 @@ ul.tabs li a.active {
 /*error*/
 .jGrowl.top-right {
     right: 0px;
-    top: 90px;
+    top: 110px;
 }
 .jGrowl .ui-state-highlight {
     border: none;
