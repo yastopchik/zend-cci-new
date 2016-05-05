@@ -1,28 +1,29 @@
 $(function () {
     var lastSel, country;
-    $.getJSON("dmnrequest/getcountryjson", function(data){
-        country=data;
+    $.getJSON("dmnrequest/getcountryjson", function (data) {
+        country = data;
     });
     $("#requestlist_n").jqGrid({
-        regional : 'ru',
+        regional: 'ru',
         url: "dmnrequest/getrequestnumber",
         datatype: "json",
-        colNames:['ID','π—ÂÚËÙ.', 'ƒ‡Ú‡', 'π¡Î‡ÌÍ‡', '‘ÓÏ‡', '‘‡ÈÎ', '—Ú‡ÚÛÒ', ' ÓÎƒÓÔÀËÒÚ', ' ÎËÂÌÚ', 'ƒÓÎÊÌÓÒÚ¸', '“ÂÎÂÙÓÌ', 'Œ„‡ÌËÁ‡ˆËˇ', '»ÒÔÓÎÌËÚÂÎ¸', '—Ú‡Ì‡Õ‡ÁÌ', 'ƒÂÈÒÚ‚Ëˇ'],
-        colModel:[ {name:'id',index:'id', width:'3%', searchoptions:{sopt:['eq']}},
-            {name:'workorder',index:'workorder', width:'8%', editable:true, searchoptions:{sopt:['eq']}},
-            {name:'dateorder',index:'dateorder', width:'6%', editable:true, editrules: {required:true},
+        colNames: ['ID', '‚Ññ–°–µ—Ä—Ç–∏—Ñ.', '–î–∞—Ç–∞', '‚Ññ–ë–ª–∞–Ω–∫–∞', '–§–æ—Ä–º–∞', '–§–∞–π–ª', '–°—Ç–∞—Ç—É—Å', '–ö–æ–ª–î–æ–ø–õ–∏—Å—Ç', '–ö–ª–∏–µ–Ω—Ç', '–î–æ–ª–∂–Ω–æ—Å—Ç—å', '–¢–µ–ª–µ—Ñ–æ–Ω', '–û—Ä–≥–∞–Ω–∏–∑–∞—Ü–∏—è', '–ò—Å–ø–æ–ª–Ω–∏—Ç–µ–ª—å', '–°—Ç—Ä–∞–Ω–∞–ù–∞–∑–Ω', '–î–µ–π—Å—Ç–≤–∏—è'],
+        colModel: [{name: 'id', index: 'id', width: '3%', searchoptions: {sopt: ['eq']}},
+            {name: 'workorder', index: 'workorder', width: '8%', editable: true, searchoptions: {sopt: ['eq']}},
+            {
+                name: 'dateorder', index: 'dateorder', width: '6%', editable: true, editrules: {required: true},
                 editoptions: {
                     dataInit: function (elem) {
                         $(elem).datepicker({
-                            dateFormat:"dd/mm/yy",
-                            dayNamesMin: [ "œÌ", "¬Ú", "—", "◊Ú", "œÚ", "—·", "¬Ò" ],
-                            monthNamesShort: [ "ﬂÌ‚", "‘Â‚", "Ã‡", "¿Ô", "Ã‡È", "»˛Ì", "»˛Î", "¿‚„", "—ÂÌ", "ŒÍÚ", "ÕÓˇ", "ƒÂÍ" ],
+                            dateFormat: "dd/mm/yy",
+                            dayNamesMin: ["–ü–Ω", "–í—Ç", "–°—Ä", "–ß—Ç", "–ü—Ç", "–°–±", "–í—Å"],
+                            monthNamesShort: ["–Ø–Ω–≤", "–§–µ–≤", "–ú–∞—Ä", "–ê–ø—Ä", "–ú–∞–π", "–ò—é–Ω", "–ò—é–ª", "–ê–≤–≥", "–°–µ–Ω", "–û–∫—Ç", "–ù–æ—è", "–î–µ–∫"],
                             changeYear: true,
                             changeMonth: true,
-                            onSelect: function() {
+                            onSelect: function () {
                                 if (this.id.substr(0, 3) === "gs_") {
                                     // in case of searching toolbar
-                                    setTimeout(function(){
+                                    setTimeout(function () {
                                         myGrid[0].triggerToolbar();
                                     }, 50);
                                 } else {
@@ -31,18 +32,30 @@ $(function () {
                                     $(this).trigger('change');
                                 }
                             }
-                        });}},
-                searchoptions:{sopt:['eq'],
-                    dataInit: function(el) {
-                        setTimeout(function() {
-                            $(el).datepicker({dateFormat:"dd/mm/yy"}); }, 200);
-                    }}
+                        });
+                    }
+                },
+                searchoptions: {
+                    sopt: ['eq'],
+                    dataInit: function (el) {
+                        setTimeout(function () {
+                            $(el).datepicker({dateFormat: "dd/mm/yy"});
+                        }, 200);
+                    }
+                }
             },
-            {name:'numblank',index:'numblank', width:'6%', editable:true, searchoptions:{sopt:['eq']}},
-            {name:'forms',index:'forms', width:'6%', editable:true,  edittype: 'select', editrules: {required:true},
-                editoptions: {dataUrl: 'dmnrequest/getforms',
+            {name: 'numblank', index: 'numblank', width: '6%', editable: true, searchoptions: {sopt: ['eq']}},
+            {
+                name: 'forms',
+                index: 'forms',
+                width: '6%',
+                editable: true,
+                edittype: 'select',
+                editrules: {required: true},
+                editoptions: {
+                    dataUrl: 'dmnrequest/getforms',
                     style: "width:98%",
-                    buildSelect: function(data) {
+                    buildSelect: function (data) {
                         var response = $.parseJSON(data);
                         var s = '<select>';
                         if (response && response.length) {
@@ -52,11 +65,13 @@ $(function () {
                             }
                         }
                         return s + "</select>";
-                    }},
+                    }
+                },
                 stype: 'select',
-                searchoptions: {dataUrl: 'dmnrequest/getforms',
+                searchoptions: {
+                    dataUrl: 'dmnrequest/getforms',
                     style: "width:98%",
-                    buildSelect: function(data) {
+                    buildSelect: function (data) {
                         var response = $.parseJSON(data);
                         var s = '<select>';
                         if (response && response.length) {
@@ -66,27 +81,22 @@ $(function () {
                             }
                         }
                         return s + "</select>";
-                    }},
+                    }
+                },
             },
-            {name:'file', index:'file', width:'6%', editable:false},
-            {name:'status',index:'status', width:'6%',editable:true, edittype: 'select', stype: 'select', editrules: {required:true},
-                editoptions: {dataUrl: 'dmnrequest/getstatus',
-                    style: "width:98%",
-                    buildSelect: function(data) {
-                        var response = $.parseJSON(data);
-                        var s = '<select>';
-                        if (response && response.length) {
-                            for (var i = 0, l = response.length; i < l; i++) {
-                                var ri = response[i];
-                                s += '<option value="' + ri.id + '">' + ri.status + '</option>';
-                            }
-                        }
-                        return s + "</select>";
-                    }},
-                searchoptions:{sopt:['eq'],
+            {name: 'file', index: 'file', width: '6%', editable: false},
+            {
+                name: 'status',
+                index: 'status',
+                width: '6%',
+                editable: true,
+                edittype: 'select',
+                stype: 'select',
+                editrules: {required: true},
+                editoptions: {
                     dataUrl: 'dmnrequest/getstatus',
                     style: "width:98%",
-                    buildSelect: function(data) {
+                    buildSelect: function (data) {
                         var response = $.parseJSON(data);
                         var s = '<select>';
                         if (response && response.length) {
@@ -96,32 +106,58 @@ $(function () {
                             }
                         }
                         return s + "</select>";
-                    }}
-            },
-            {name:'numdoplist', index:'numdoplist', width:'5%', editable:true, search:false,editrules: {required:true, maxValue:'2', minValue:'1'},},
-            {name:'name',index:'name', width:'6%', editable:false, cellattr: function (rowId, tv, rawObject, cm, rdata) { return 'style="white-space: normal;"' }},
-            {name:'position',index:'position', width:'5%',editable:false, searchoptions:{sopt:['eq']}},
-            {name:'phone',index:'phone', width:'5%',editable:false},
-            {name:'organization',index:'organization', width:'15%', editable:false, searchoptions:{sopt:['eq']}},
-            {name:'executor',index:'executor', width:'9%', sortable:false, editable:true, edittype: 'select', stype: 'select',
-                editrules: {required:true},
-                editoptions: {dataUrl: 'dmnrequest/getexecutors',
+                    }
+                },
+                searchoptions: {
+                    sopt: ['eq'],
+                    dataUrl: 'dmnrequest/getstatus',
                     style: "width:98%",
-                    buildSelect: function(data) {
+                    buildSelect: function (data) {
                         var response = $.parseJSON(data);
                         var s = '<select>';
                         if (response && response.length) {
                             for (var i = 0, l = response.length; i < l; i++) {
                                 var ri = response[i];
-                                s += '<option value="' + ri.id + '">' + ri.executor + '</option>';
+                                s += '<option value="' + ri.id + '">' + ri.status + '</option>';
                             }
                         }
                         return s + "</select>";
-                    }},
-                searchoptions:{sopt:['eq'],
+                    }
+                }
+            },
+            {
+                name: 'numdoplist',
+                index: 'numdoplist',
+                width: '5%',
+                editable: true,
+                search: false,
+                editrules: {required: true, maxValue: '2', minValue: '1'},
+            },
+            {
+                name: 'name',
+                index: 'name',
+                width: '6%',
+                editable: false,
+                cellattr: function (rowId, tv, rawObject, cm, rdata) {
+                    return 'style="white-space: normal;"'
+                }
+            },
+            {name: 'position', index: 'position', width: '5%', editable: false, searchoptions: {sopt: ['eq']}},
+            {name: 'phone', index: 'phone', width: '5%', editable: false},
+            {name: 'organization', index: 'organization', width: '15%', editable: false, searchoptions: {sopt: ['eq']}},
+            {
+                name: 'executor',
+                index: 'executor',
+                width: '9%',
+                sortable: false,
+                editable: true,
+                edittype: 'select',
+                stype: 'select',
+                editrules: {required: true},
+                editoptions: {
                     dataUrl: 'dmnrequest/getexecutors',
                     style: "width:98%",
-                    buildSelect: function(data) {
+                    buildSelect: function (data) {
                         var response = $.parseJSON(data);
                         var s = '<select>';
                         if (response && response.length) {
@@ -131,27 +167,50 @@ $(function () {
                             }
                         }
                         return s + "</select>";
-                    }},
+                    }
+                },
+                searchoptions: {
+                    sopt: ['eq'],
+                    dataUrl: 'dmnrequest/getexecutors',
+                    style: "width:98%",
+                    buildSelect: function (data) {
+                        var response = $.parseJSON(data);
+                        var s = '<select>';
+                        if (response && response.length) {
+                            for (var i = 0, l = response.length; i < l; i++) {
+                                var ri = response[i];
+                                s += '<option value="' + ri.id + '">' + ri.executor + '</option>';
+                            }
+                        }
+                        return s + "</select>";
+                    }
+                },
             },
-            {name:'destinationiso',index:'destinationiso', width:'7%',editable:true, editrules: {required:true},
+            {
+                name: 'destinationiso',
+                index: 'destinationiso',
+                width: '7%',
+                editable: true,
+                editrules: {required: true},
                 formatter: function (cellValue) {
                     var value = "";
-                    if(cellValue) {
+                    if (cellValue) {
                         if (!$.isEmptyObject(country)) {
                             value = country[cellValue];
 
-                        } else if(cellValue==1) {
-                            return "–ÓÒÒËÈÒÍ‡ˇ ‘Â‰Â‡ˆËˇ";
-                        } else if(cellValue==21){
-                            return "–ÂÒÔÛ·ÎËÍ‡ ¡ÂÎ‡ÛÒ¸";
-                        } else{
+                        } else if (cellValue == 1) {
+                            return "–†–æ—Å—Å–∏–π—Å–∫–∞—è –§–µ–¥–µ—Ä–∞—Ü–∏—è";
+                        } else if (cellValue == 21) {
+                            return "–†–µ—Å–ø—É–±–ª–∏–∫–∞ –ë–µ–ª–∞—Ä—É—Å—å";
+                        } else {
                             $.ajax({
                                 dataType: 'json',
-                                url: "dmnrequest/getcountrybyid?id="+cellValue,
+                                url: "dmnrequest/getcountrybyid?id=" + cellValue,
                                 async: false,
-                                success: (function(result) {
+                                success: (function (result) {
                                     var cObject = result[0];
-                                    value=cObject.nameru;})
+                                    value = cObject.nameru;
+                                })
                             });
                         }
                     }
@@ -159,12 +218,12 @@ $(function () {
                 },
                 unformat: function (cellValue) {
                     var value = 1;
-                    if(cellValue) {
+                    if (cellValue) {
                         $.ajax({
                             dataType: 'json',
-                            url: "dmnrequest/getcountrybyname?rows="+cellValue,
+                            url: "dmnrequest/getcountrybyname?rows=" + cellValue,
                             async: false,
-                            success: (function(result) {
+                            success: (function (result) {
                                 var cObject = result[0];
                                 value = cObject.id;
                             })
@@ -173,24 +232,12 @@ $(function () {
                     return value;
 
                 },
-                edittype: 'select', stype: 'select',
-                editoptions: {dataUrl: 'dmnrequest/geteditcountries',
-                    style: "width:98%",
-                    buildSelect: function(data) {
-                        var response = $.parseJSON(data);
-                        var s = '<select>';
-                        if (response && response.length) {
-                            for (var i = 0, l = response.length; i < l; i++) {
-                                var ri = response[i];
-                                s += '<option value="' + ri.id + '">' + ri.nameru + '</option>';
-                            }
-                        }
-                        return s + "</select>";
-                    }},
-                searchoptions:{sopt:['eq'],
+                edittype: 'select',
+                stype: 'select',
+                editoptions: {
                     dataUrl: 'dmnrequest/geteditcountries',
                     style: "width:98%",
-                    buildSelect: function(data) {
+                    buildSelect: function (data) {
                         var response = $.parseJSON(data);
                         var s = '<select>';
                         if (response && response.length) {
@@ -200,27 +247,50 @@ $(function () {
                             }
                         }
                         return s + "</select>";
-                    }}
+                    }
+                },
+                searchoptions: {
+                    sopt: ['eq'],
+                    dataUrl: 'dmnrequest/geteditcountries',
+                    style: "width:98%",
+                    buildSelect: function (data) {
+                        var response = $.parseJSON(data);
+                        var s = '<select>';
+                        if (response && response.length) {
+                            for (var i = 0, l = response.length; i < l; i++) {
+                                var ri = response[i];
+                                s += '<option value="' + ri.id + '">' + ri.nameru + '</option>';
+                            }
+                        }
+                        return s + "</select>";
+                    }
+                }
             },
-            {name:'act',index:'act', width:'7%',sortable:false, search:false}
+            {name: 'act', index: 'act', width: '7%', sortable: false, search: false}
         ],
-        cmTemplate:{sortable:false},
-        rowNum:5,
-        rowList:[5,10,20,30],
-        cellEdit:true,
-        cellsubmit : "remote",
-        cellurl : "dmnrequest/editrequestnumber",
+        cmTemplate: {sortable: false},
+        rowNum: 5,
+        rowList: [5, 10, 20, 30],
+        cellEdit: true,
+        cellsubmit: "remote",
+        cellurl: "dmnrequest/editrequestnumber",
         /*editurl: "dmnrequest/editrequestnumber",*/
-        afterSaveCell: function(rowid,name,val,iRow,iCol) {
-            if(name.localeCompare("status")==0 && val==4){
-                var isSentEmail = confirm("¬˚ ËÁÏÂÌËÎË ÒÚ‡ÚÛÒ Ì‡ ‰ÂÈÒÚ‚ÛÂÚ. ŒÚÔ‡‚ËÚ¸ email Á‡Í‡Á˜ËÍÛ?")
-                if(isSentEmail && !isNaN(rowid)){
+        afterSaveCell: function (rowid, name, val, iRow, iCol) {
+            if (name.localeCompare("status") == 0 && val == 4) {
+                var isSentEmail = confirm("–í—ã –∏–∑–º–µ–Ω–∏–ª–∏ —Å—Ç–∞—Ç—É—Å –Ω–∞ –¥–µ–π—Å—Ç–≤—É–µ—Ç. –û—Ç–ø—Ä–∞–≤–∏—Ç—å email –∑–∞–∫–∞–∑—á–∏–∫—É?")
+                if (isSentEmail && !isNaN(rowid)) {
                     $.ajax({
-                        url:'dmnrequest/sendmail?id='+rowid,
-                        data: ({_search : true, filters:JSON.stringify({'groupOp':'AND','rules':[{'field':'id','op':'eq','data':rowid}]})}),
+                        url: 'dmnrequest/sendmail?id=' + rowid,
+                        data: ({
+                            _search: true,
+                            filters: JSON.stringify({
+                                'groupOp': 'AND',
+                                'rules': [{'field': 'id', 'op': 'eq', 'data': rowid}]
+                            })
+                        }),
                         async: false,
-                        successes: function(data){
-                            Message.success('œËÒ¸ÏÓ ÛÒÔÂ¯ÌÓ ÓÚÔ‡‚ÎÂÌÓ Á‡Í‡Á˜ËÍÛ');
+                        successes: function (data) {
+                            Message.success('–ü–∏—Å—å–º–æ —É—Å–ø–µ—à–Ω–æ –æ—Ç–ø—Ä–∞–≤–ª–µ–Ω–æ –∑–∞–∫–∞–∑—á–∏–∫—É');
                         }
                     });
                 } else {
@@ -228,7 +298,7 @@ $(function () {
                 }
             }
         },
-        caption: "«‡ˇ‚ÍË",
+        caption: "–ó–∞—è–≤–∫–∏",
         autowidth: true,
         shrinkToFit: true,
         height: '20%',
@@ -238,49 +308,53 @@ $(function () {
         multiselect: false,
         viewrecords: true,
         sortorder: "desc",
-        onSelectCell: function(){
-            var ids = $("#requestlist_n").jqGrid('getGridParam','selrow');
-            if(ids!=null){
-                $("#requestlist").jqGrid('setGridParam',{url:'dmnrequest/getrequest?id='+ids,page:1});
-                $("#requestlist").jqGrid('setCaption',"ƒÂÚ‡ÎËˆ‡ˆËˇ Á‡ˇ‚ÍË π: "+ids)
+        onSelectCell: function () {
+            var ids = $("#requestlist_n").jqGrid('getGridParam', 'selrow');
+            if (ids != null) {
+                $("#requestlist").jqGrid('setGridParam', {url: 'dmnrequest/getrequest?id=' + ids, page: 1});
+                $("#requestlist").jqGrid('setCaption', "–î–µ—Ç–∞–ª–∏—Ü–∞—Ü–∏—è –∑–∞—è–≤–∫–∏ ‚Ññ: " + ids)
                     .trigger('reloadGrid');
-                $("#requestlist_d").jqGrid('setGridParam',{url:'dmnrequest/getrequestdesc?id='+ids,page:1});
-                $("#requestlist_d").jqGrid('setCaption',"ƒÓÔÓÎÌËÚÂÎ¸Ì‡ˇ ËÌÙÓÏ‡ˆËˇ ÔÓ Á‡ˇ‚ÍÂ π: "+ids)
+                $("#requestlist_d").jqGrid('setGridParam', {url: 'dmnrequest/getrequestdesc?id=' + ids, page: 1});
+                $("#requestlist_d").jqGrid('setCaption', "–î–æ–ø–æ–ª–Ω–∏—Ç–µ–ª—å–Ω–∞—è –∏–Ω—Ñ–æ—Ä–º–∞—Ü–∏—è –ø–æ –∑–∞—è–≤–∫–µ ‚Ññ: " + ids)
                     .trigger('reloadGrid');
-            }else{
-                ids=0;
-                if($("#requestlist").jqGrid('getGridParam','records') >0 ) {
-                    $("#requestlist").jqGrid('setGridParam',{url:'dmnrequest/getrequest?id='+ids,page:1});
-                    $("#requestlist").jqGrid('setCaption',"ƒÂÚ‡ÎËˆ‡ˆËˇ Á‡ˇ‚ÍË π: "+ids)
+            } else {
+                ids = 0;
+                if ($("#requestlist").jqGrid('getGridParam', 'records') > 0) {
+                    $("#requestlist").jqGrid('setGridParam', {url: 'dmnrequest/getrequest?id=' + ids, page: 1});
+                    $("#requestlist").jqGrid('setCaption', "–î–µ—Ç–∞–ª–∏—Ü–∞—Ü–∏—è –∑–∞—è–≤–∫–∏ ‚Ññ: " + ids)
                         .trigger('reloadGrid');
                 }
-                if($("#requestlist_d").jqGrid('getGridParam','records') >0 ) {
-                    $("#requestlist_d").jqGrid('setGridParam',{url:'dmnrequest/getrequestdesc?id='+ids,page:1});
-                    $("#requestlist_d").jqGrid('setCaption',"ƒÓÔÓÎÌËÚÂÎ¸Ì‡ˇ ËÌÙÓÏ‡ˆËˇ ÔÓ Á‡ˇ‚ÍÂ π: "+ids)
+                if ($("#requestlist_d").jqGrid('getGridParam', 'records') > 0) {
+                    $("#requestlist_d").jqGrid('setGridParam', {url: 'dmnrequest/getrequestdesc?id=' + ids, page: 1});
+                    $("#requestlist_d").jqGrid('setCaption', "–î–æ–ø–æ–ª–Ω–∏—Ç–µ–ª—å–Ω–∞—è –∏–Ω—Ñ–æ—Ä–º–∞—Ü–∏—è –ø–æ –∑–∞—è–≤–∫–µ ‚Ññ: " + ids)
                         .trigger('reloadGrid');
                 }
             }
         },
-        gridComplete: function(){
+        gridComplete: function () {
             var ids = $("#requestlist_n").jqGrid('getDataIDs');
-            for(var i=0;i < ids.length;i++){
+            for (var i = 0; i < ids.length; i++) {
                 var cl = ids[i];
-                xls = "<a href=\"#\"  onclick=\"DownloadXls('dmnupload/downloadxls?id="+cl+"')\"><img src=\"images/excel.png\" title=\"¬˚„ÛÁËÚ¸ ‚ xls\"/></a>";
-                xml = "<a href=\"#\"  onclick=\"DownloadXml('dmnupload/downloadxml?id="+cl+"')\"><img src=\"images/xml.png\" title=\"¬˚„ÛÁËÚ¸ ‚ xml\"/></a>";
-                print = "<a href=\"#\"  onclick=\"DownloadPrint('dmnupload/downloadprint?id="+cl+"')\"><img src=\"images/PrintPreview.png\" title=\"¬˚„ÛÁËÚ¸ ‰Îˇ ÔÂ˜‡ÚË\"/></a>";
-                lifecycle = "<a href=\"#\"  onclick=\"ShowLife('dmnrequest/getlifecycle?id="+cl+"')\"><img src=\"images/lifecycle.png\" title=\"∆ËÁÌÂÌÌ˚È ˆËÍÎ Á‡ˇ‚ÍË\"/></a>";
-                $("#requestlist_n").jqGrid('setRowData',ids[i],{act:xls+xml+print+lifecycle});
+                prints = '<a href="#"  class="btn btn-danger btn-sm download" data-type="text" data-href="dmnupload/downloadprint?id=' + cl + '">'+
+                        '<i class="fa fa-print" title="–í—ã–≥—Ä—É–∑–∏—Ç—å –¥–ª—è –ø–µ—á–∞—Ç–∏" aria-hidden="true"></i></a>';
+                xls = '<a href="#"  class="btn btn-success btn-sm download" data-type="text" data-href="dmnupload/downloadxls?id=' + cl + '">'+
+                      '<i class="fa fa-file-excel-o" title="–í—ã–≥—Ä—É–∑–∏—Ç—å –≤ xls —à–∞–±–ª–æ–Ω" aria-hidden="true"></i></a>';
+                xml = '<a href="#"  class="btn btn-warning btn-sm download" data-type="xml" data-href="dmnupload/downloadxml?id=' + cl + '">'+
+                       '<i class="fa fa-file-code-o" title="–í—ã–≥—Ä—É–∑–∏—Ç—å –≤ xml" aria-hidden="true"></i></a>';
+                lifecycle = '<a href="#" class="btn btn-primary btn-sm lifecycle"  data-href="dmnrequest/getlifecycle?id=' + cl + '">'+
+                            '<i class="fa fa-life-ring" title="–ñ–∏–∑–Ω–µ–Ω–Ω—ã–π —Ü–∏–∫–ª –∑–∞—è–≤–∫–∏" aria-hidden="true"></i></a>';
+                $("#requestlist_n").jqGrid('setRowData', ids[i], {act: prints + xls+ lifecycle});
             }
         }
     });
-    $("#requestlist_n").jqGrid('navGrid',"#prequestlist_n", {edit:false,add:false,del:false, search:true},
+    $("#requestlist_n").jqGrid('navGrid', "#prequestlist_n", {edit: false, add: false, del: false, search: true},
         {
-            jqModal:true,
-            savekey: [true,13],
-            navkeys: [true,38,40],
+            jqModal: true,
+            savekey: [true, 13],
+            navkeys: [true, 38, 40],
             width: '50%',
-            reloadAfterSubmit:true,
-            closeAfterEdit:true,
+            reloadAfterSubmit: true,
+            closeAfterEdit: true,
             beforeShowForm: function (form) {
                 var dlgDiv = $("#editmodrequestlist_n");
                 var parentDiv = dlgDiv.parent();
@@ -290,13 +364,14 @@ $(function () {
                 var parentHeight = parentDiv.height();
                 var parentTop = parentDiv.offset().top;
                 var parentLeft = parentDiv.offset().left;
-                dlgDiv[0].style.top =  Math.round(  parentTop  + (parentHeight-dlgHeight)/2  ) + "px";
-                dlgDiv[0].style.left = Math.round(  parentLeft + (parentWidth-dlgWidth  )/2 )  + "px";
+                dlgDiv[0].style.top = Math.round(parentTop + (parentHeight - dlgHeight) / 2) + "px";
+                dlgDiv[0].style.left = Math.round(parentLeft + (parentWidth - dlgWidth  ) / 2) + "px";
             }
         },
-        {   jqModal:true,
-            reloadAfterSubmit:true,
-            closeAfterEdit:true,
+        {
+            jqModal: true,
+            reloadAfterSubmit: true,
+            closeAfterEdit: true,
             width: '50%',
             beforeShowForm: function (form) {
                 var dlgDiv = $("#editmodrequestlist_n");
@@ -307,14 +382,15 @@ $(function () {
                 var parentHeight = parentDiv.height();
                 var parentTop = parentDiv.offset().top;
                 var parentLeft = parentDiv.offset().left;
-                dlgDiv[0].style.top =  Math.round(  parentTop  + (parentHeight-dlgHeight)/2  ) + "px";
-                dlgDiv[0].style.left = Math.round(  parentLeft + (parentWidth-dlgWidth  )/2 )  + "px";
+                dlgDiv[0].style.top = Math.round(parentTop + (parentHeight - dlgHeight) / 2) + "px";
+                dlgDiv[0].style.left = Math.round(parentLeft + (parentWidth - dlgWidth  ) / 2) + "px";
             },
         },
         {},
-        {		closeOnEscape:true,
-            multipleSearch:true,
-            closeAfterSearch:true,
+        {
+            closeOnEscape: true,
+            multipleSearch: true,
+            closeAfterSearch: true,
         }
     );
 });

@@ -18,23 +18,13 @@
         ->offsetSetStylesheet(6, $this->basePath() . '/components/jqGrid/css/ui.jqgrid.css')
         ->offsetSetStylesheet(7, $this->basePath() . '/css/style.css');
     ?>
-    <!-- Scripts -->
-    <?php echo $this->headScript()
-        ->offsetSetFile(1, $this->basePath() . '/components/jquery/dist/jquery.min.js')
-        ->offsetSetFile(2, $this->basePath() . '/components/jGrowl/jquery.jgrowl.min.js')
-        ->offsetSetFile(3, $this->basePath() . '/components/bootstrap/dist/js/bootstrap.min.js')
-        ->offsetSetFile(4, $this->basePath() . '/components/jquery-ui/jquery-ui.min.js')
-        ->offsetSetFile(5, $this->basePath() . '/components/jqGrid/js/i18n/grid.locale-ru.js')
-        ->offsetSetFile(6, $this->basePath() . '/components/jqGrid/js/jquery.jqGrid.min.js')
-        ->offsetSetFile(7, $this->basePath() . '/js/custom.js');
-    ?>
 </head>
 <body id="layout">
 <header>
     <section class="col-lg-10 col-lg-offset-1 col-md-12 col-sm-12 col-xs-12 brand">
         <div class="logo visible-md-block visible-lg-block visible-sm-block">
-            <span class="rus">Белорусская <br /> торгово-промышленная палата <br />Могилевское отделение</span>
-            <span class="eng">Belarusian  <br />Chamber of Commerce and Industry<br />Mogilev branch</span>
+            <span class="rus">Белорусская <br/> торгово-промышленная палата <br/>Могилевское отделение</span>
+            <span class="eng">Belarusian  <br/>Chamber of Commerce and Industry<br/>Mogilev branch</span>
         </div>
         <div class="logo-xs visible-xs-block">
             <span class="rus">Белорусская торгово-промышленная палата Могилевское отделение</span>
@@ -45,7 +35,8 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Меню</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -84,35 +75,44 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php if (isset($identity) && ($identity instanceof \Zend\Authentication\AuthenticationService)
-                    && ($identity->getIdentity() instanceof \DmnDatabase\Entity\CciZfUser)) { ?>
+                    && ($identity->getIdentity() instanceof \DmnDatabase\Entity\CciZfUser)
+                ) { ?>
                     <li><a href="#"><?php echo $identity->getIdentity()->getDisplayName(); ?></a></li>
                 <?php } ?>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Панель управления <i class="fa fa-ellipsis-v"></i> <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Панель управления <i class="fa fa-ellipsis-v"></i> <span
+                            class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <?php if ((($route == "dmnrequest") && ($action == "index")) || (($route == "dmnexrequest") && ($action == "index")) || (($route == "requests") && ($action == "index"))) { ?>
-                            <li><a href="#"  id="helpHref"
-                                   data-href="<?php echo $this->url('application', array('action' => 'help', 'id' => '2')); ?>"><i class="fa fa-info"></i> Помощь</a>
+                            <li><a href="#" id="helpHref"
+                                   data-href="<?php echo $this->url('application', array('action' => 'help', 'id' => '2')); ?>"><i
+                                        class="fa fa-info"></i> Помощь</a>
                             </li>
                         <?php } elseif ((($route == "dmnupload") && ($action == "index")) || (($route == "requests") && ($action == "upload")) || (($route == "dmnexrequest") && ($action == "upload"))) { ?>
                             <li><a href="#" id="helpHref"
-                                   data-href="<?php echo $this->url('application', array('action' => 'help', 'id' => '4')); ?>"><i class="fa fa-info"></i> Помощь</a>
+                                   data-href="<?php echo $this->url('application', array('action' => 'help', 'id' => '4')); ?>"><i
+                                        class="fa fa-info"></i> Помощь</a>
                             </li>
                         <?php } elseif ((($route == "dmnrequest") && ($action == "add")) || (($route == "requests") && ($action == "add")) || (($route == "dmnexrequest") && ($action == "add"))) { ?>
-                            <li><a href="#"  id="helpHref"
-                                   data-href="<?php echo $this->url('application', array('action' => 'help', 'id' => '3')); ?>"><i class="fa fa-info"></i> Помощь</a>
+                            <li><a href="#" id="helpHref"
+                                   data-href="<?php echo $this->url('application', array('action' => 'help', 'id' => '3')); ?>"><i
+                                        class="fa fa-info"></i> Помощь</a>
                             </li>
                         <?php } else { ?>
-                            <li><a href="#"  id="helpHref"
-                                   data-href="<?php echo $this->url('application', array('action' => 'help', 'id' => '2')); ?>"><i class="fa fa-info"></i> Помощь</a>
+                            <li><a href="#" id="helpHref"
+                                   data-href="<?php echo $this->url('application', array('action' => 'help', 'id' => '2')); ?>"><i
+                                        class="fa fa-info"></i> Помощь</a>
                             </li>
                         <?php } ?>
-                        <li><a href="#"  id="changePass"
-                               data-href="<?php echo $this->url('zfcuser/changepassword'); ?>"><i class="fa fa-info"></i> Сменить пароль</a>
+                        <li><a href="#" id="changePass"
+                               data-href="<?php echo $this->url('zfcuser/changepassword'); ?>"><i
+                                    class="fa fa-info"></i> Сменить пароль</a>
                         </li>
                         <li><a href="/maketCT-1.xls"><i class="fa fa-download"></i> Скачать шаблон</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="<?php echo $this->url('zfcuser/logout'); ?>"><i class="fa fa-sign-out"></i> Выйти</a></li>
+                        <li><a href="<?php echo $this->url('zfcuser/logout'); ?>"><i class="fa fa-sign-out"></i>
+                                Выйти</a></li>
                     </ul>
                 </li>
             </ul>
@@ -123,21 +123,21 @@
 </nav>
 <section class="main">
     <div class="container-fluid">
-    <noscript>Ваш браузер не поддерживает Javascript. Воспользуйтесь следующими рекомендациями <a
-                        href="http://help.yandex.ru/common/browsers-settings/browsers-java-js-settings.xml"
-                        target="_blank">для включения данной функции</a> ,после чего обновите страницу.
-                </noscript>
-              <?php echo $this->content; ?>
-        <?php echo $this->inlineScript() ?>
-            <div id="loadImg">
-                <div id="img">
-                    <img src="<?php echo $this->basePath('/images/495.gif') ?>"/></div>
-            </div>
-            <div class="modal fade" id="modalHelp" tabindex="-1" role="dialog" aria-labelledby="modalHelp">
+        <noscript>Ваш браузер не поддерживает Javascript. Воспользуйтесь следующими рекомендациями <a
+                href="http://help.yandex.ru/common/browsers-settings/browsers-java-js-settings.xml"
+                target="_blank">для включения данной функции</a> ,после чего обновите страницу.
+        </noscript>
+        <?php echo $this->content; ?>
+        <div id="loadImg">
+            <div id="img">
+                <img src="<?php echo $this->basePath('/images/495.gif') ?>"/></div>
+        </div>
+        <div class="modal fade" id="modalHelp" tabindex="-1" role="dialog" aria-labelledby="modalHelp">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">Помощь по использованию ресурса</h4>
                     </div>
                     <div class="modal-body">
@@ -150,5 +150,15 @@
         </div>
     </div>
 </section>
+<!-- Scripts -->
+<?php
+echo $this->inlineScript()->offsetSetFile(1, $this->basePath('/components/jquery/dist/jquery.min.js'))
+    ->offsetSetFile(2, $this->basePath('/components/jGrowl/jquery.jgrowl.min.js'))
+    ->offsetSetFile(3, $this->basePath('/components/bootstrap/dist/js/bootstrap.min.js'))
+    ->offsetSetFile(4, $this->basePath('/components/jquery-ui/jquery-ui.min.js'))
+    ->offsetSetFile(5, $this->basePath('/components/jqGrid/js/i18n/grid.locale-ru.js'))
+    ->offsetSetFile(6, $this->basePath('/components/jqGrid/js/jquery.jqGrid.min.js'))
+    ->offsetSetFile(7, $this->basePath('/js/custom.js'));
+?>
 </body>
 </html>

@@ -282,6 +282,14 @@ header h1 {
     color:#f6961b;
     font-size: 14px;
 }
+#content .btn i {
+    color:#ffffff;
+    font-size: 15px;
+}
+#content .btn-group-sm>.btn, .btn-sm {
+    padding:3px 5px;
+}
+
 .btn-info {
     background: #1c3462;
 	background: -webkit-liner-gradient(top, #1c3462, #304f89);

@@ -1,7 +1,7 @@
 var today = new Date();
-$(document).ready(function(){
-   var fusion = $('#fusion');
-    if (fusion.length){
+$(document).ready(function () {
+    var fusion = $('#fusion');
+    if (fusion.length) {
         $("#loadImg").show();
         getstat('dmnstatistics/fusion');
     }
@@ -132,8 +132,8 @@ function getOrganization(block) {
 }
 function getstat(href, period, periodview) {
     var urls = href;
-    var imgStat=$('#imgStat');
-    if(imgStat.length){
+    var imgStat = $('#imgStat');
+    if (imgStat.length) {
         imgStat.remove();
     }
     var selectdate = '-' + dateFormat(today, "d, mmmm, yyyy");
@@ -153,7 +153,7 @@ function getstat(href, period, periodview) {
         '<div id="chartContainerExecutors" class="chartContainer"></div><div id="chartContainerStatus" class="chartContainer"></div><div id="chartContainerCountry" class="chartContainer"></div>' +
         '<div id="chartFilter" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" >' +
         '<div class="modal-dialog modal-sm"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
-        '<h4 class="modal-title">Выбирете необходимые параметры</h4></div><div class="modal-body"></div>'+
+        '<h4 class="modal-title">Выбирете необходимые параметры</h4></div><div class="modal-body"></div>' +
         '<div class="modal-footer"></div></div></div></div></div>');
     var caption = {
         'chartContainerClients': 'Отчет по клиентам',
@@ -192,43 +192,83 @@ function getstat(href, period, periodview) {
         }
     });
 };
-$(document).delegate("#helpHref", "click", function(){
+function validReq(value, id) {
+    var req = ["0", "2", "6", "8", "11", "14"];
+    var a = req.indexOf(id);
+    if ((a >= 0) && (value.length == 0)) {
+        return [false, "Значение не может быть пустым"];
+    } else {
+        return [true, ""];
+    }
+}
+$(document).delegate(".lifecycle", "click",function(){
     var modalHelp = $("#modalHelp");
-    var href=$(this).data("href");
-    if(modalHelp.length){
+    var href = $(this).data("href");
+    if (modalHelp.length) {
+        modalHelp.find('.modal-title').html('Жизненный цикл заявки');
         modalHelp.modal();
-        var modalBody=modalHelp.find('.modal-body');
-        if(modalBody.length)
-        {
+        var modalBody = modalHelp.find('.modal-body');
+        var modalDialog = modalHelp.find('.modal-dialog');
+        modalDialog.removeClass('modal-lg').addClass('modal-sm');
+        if (modalBody.length) {
             modalBody.load(href);
         }
     }
 });
-$(document).delegate("#changePass", "click", function(){
+$(document).delegate(".download", "click",function(){
+    var href = $(this).data("href");
+    var type = $(this).data("type");
+    $.ajax({
+        url: href,
+        cache: false,
+        dataType: type,
+        success: function (response) {
+            var rpcResponse = JSON.parse(response);
+            $("#loadImg").hide();
+            if (typeof(rpcResponse.error) != 'undefined') {
+                Message.error(rpcResponse.error.message);
+            } else {
+                window.open(href);
+            }
+        }
+    });
+    $("#loadImg").show();
+});
+$(document).delegate("#helpHref", "click", function () {
     var modalHelp = $("#modalHelp");
-    var href=$(this).data("href");
-    if(modalHelp.length){
+    var href = $(this).data("href");
+    if (modalHelp.length) {
+        modalHelp.modal();
+        var modalBody = modalHelp.find('.modal-body');
+        if (modalBody.length) {
+            modalBody.load(href);
+        }
+    }
+});
+$(document).delegate("#changePass", "click", function () {
+    var modalHelp = $("#modalHelp");
+    var href = $(this).data("href");
+    if (modalHelp.length) {
         modalHelp.find('.modal-title').html('Сменить пароль');
         modalHelp.modal();
-        var modalBody=modalHelp.find('.modal-body');
-        var modalDialog=modalHelp.find('.modal-dialog');
+        var modalBody = modalHelp.find('.modal-body');
+        var modalDialog = modalHelp.find('.modal-dialog');
         modalDialog.removeClass('modal-lg').addClass('modal-sm');
-        if(modalBody.length)
-        {
+        if (modalBody.length) {
             modalBody.load(href);
             modalHelp.find('.modal-footer').prepend('<button type="button" class="btn btn-primary" id="changePassSubmit">Изменить</button>');
         }
     }
 });
-$(document).delegate("#changePassSubmit", "click", function(e){
+$(document).delegate("#changePassSubmit", "click", function (e) {
     e.preventDefault();
-    var action =  $('form#changePassForm').attr('action');
+    var action = $('form#changePassForm').attr('action');
     var modalHelp = $("#modalHelp");
     $.ajax({
         url: action,
         type: 'post',
         data: $('form#changePassForm').serialize(),
-        success: function(response) {
+        success: function (response) {
             var rpcResponse = JSON.parse(response);
             $("#loadImg").hide();
             if (typeof(rpcResponse.error) !== 'undefined') {
@@ -236,9 +276,9 @@ $(document).delegate("#changePassSubmit", "click", function(e){
             } else {
                 Message.success('Пароль успешно изменен!');
                 modalHelp.modal('hide')
-                $( '.modal' ).remove();
-                $( '.modal-backdrop' ).remove();
-                $( 'body' ).removeClass( "modal-open" );
+                $('.modal').remove();
+                $('.modal-backdrop').remove();
+                $('body').removeClass("modal-open");
             }
 
         },
@@ -256,8 +296,8 @@ $(document).delegate('a#selectdate', 'click', function () {
     var modalFilter = $("#chartFilter");
     if (modalFilter.length) {
         modalFilter.modal();
-        var modalBody=modalFilter.find('.modal-body');
-        if(modalBody.length) {
+        var modalBody = modalFilter.find('.modal-body');
+        if (modalBody.length) {
             modalBody.empty();
             modalBody.attr('class', 'modal-body');
             modalBody.multiDatesPicker({
@@ -280,20 +320,20 @@ $(document).delegate('a#selectdate', 'click', function () {
             getForms(modalBody);
             getOrganization(modalBody);
             getCountries(modalBody);
-            var modalFooter= modalFilter.find('.modal-footer');
-            if(modalFooter.length){
+            var modalFooter = modalFilter.find('.modal-footer');
+            if (modalFooter.length) {
                 modalFooter.empty();
                 modalFooter.append('<button type="button" class="btn btn-default"  data-dismiss="modal">Закрыть</button><button type="button" id="show_dates" class="btn btn-primary" data-href="' + $(this).data("href") + '">Показать</button>');
             }
         }
-     }
+    }
 });
 $(document).delegate('#show_dates', 'click', function (e) {
     e.preventDefault();
     var modalFilter = $("#chartFilter");
     if (modalFilter.length) {
-        var modalBody=modalFilter.find('.modal-body');
-        if(modalBody.length) {
+        var modalBody = modalFilter.find('.modal-body');
+        if (modalBody.length) {
             var href = $(this).data("href");
             var dates = modalBody.multiDatesPicker('getDates');
             var period = '';
@@ -312,36 +352,36 @@ $(document).delegate('#show_dates', 'click', function (e) {
                 'country': $("#statcountries option:selected").val()
             }, periodview);
         }
-        $( '.modal' ).remove();
-        $( '.modal-backdrop' ).remove();
-        $( 'body' ).removeClass( "modal-open" );
+        $('.modal').remove();
+        $('.modal-backdrop').remove();
+        $('body').removeClass("modal-open");
     }
 });
-$(document).on('submit', '#loginForm', function(e) {
+$(document).on('submit', '#loginForm', function (e) {
     $.ajax({
         type: 'POST',
-        cache    : false,
+        cache: false,
         url: $(this).attr("action"),
         data: $(this).serialize(),
-        success: function(response) {
+        success: function (response) {
             var rpcResponse = JSON.parse(response);
-			$("#loadImg").hide();
+            $("#loadImg").hide();
             if (typeof(rpcResponse.error) != 'undefined') {
                 Message.error(rpcResponse.error.message);
             } else {
                 Message.success('Вы успешно авторизированы');
-                if (typeof(rpcResponse.route) != 'undefined'){
+                if (typeof(rpcResponse.route) != 'undefined') {
                     window.location.href = rpcResponse.route;
                 }
                 location.reload();
             }
 
         },
-        error: function(response) {
+        error: function (response) {
             Message.error(response);
         }
     });
-	$("#loadImg").show();
+    $("#loadImg").show();
     e.preventDefault();
     return false;
 });
@@ -350,22 +390,22 @@ $(document).delegate('#close_dates', 'click', function () {
 });
 /*Messages*/
 Message = {
-    success: function(message) {
+    success: function (message) {
         if (message) {
             $.jGrowl(message, {theme: 'message-success'});
         }
     }
-    ,error: function(message) {
+    , error: function (message) {
         if (message) {
             $.jGrowl(message, {theme: 'message-error'});
         }
     }
-    ,info: function(message) {
+    , info: function (message) {
         if (message) {
             $.jGrowl(message, {theme: 'message-info'});
         }
     }
-    ,close: function() {
+    , close: function () {
         $.jGrowl('close');
     }
 };
