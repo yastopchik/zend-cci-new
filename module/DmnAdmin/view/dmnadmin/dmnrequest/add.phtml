@@ -1,212 +1,25 @@
-<?php echo $this->headTitle($this->translate('Add Request')); ?>
-<div id="content" class="content">
-<table id="requestorg"><tr><td></td></tr></table> 
-<table id="requestlist"><tr><td></td></tr></table> 
-<table id="requestlist_d"><tr><td></td></tr></table> 
-<div id="prequestlist_d"></div>
-<div class="form-group">
-	<input type="button" id="add" class ="btn btn-info addbutton" value="Отправить заявку" />
-</div>
-</div>
-<?php 
-$this->inlineScript()->captureStart();
-echo <<<JS
-   $(function () {
-		var lastSel;
-			$("#requestorg").jqGrid({
-			regional : 'ru',
-			url:'getexorganization?id=0',	  			  		
-	  		datatype: "json", 
-	  		colNames:['Организация', 'Представитель'], 
-	  		colModel:[ 
-	  				   {name:'organization',index:'organization', width:'40%', sortable:false, editable:true, edittype: 'select', 
-							 editoptions: {dataUrl: 'getexorganization?id=1',
-									 	   buildSelect: function(data) {											
-											 var response = jQuery.parseJSON(data);                                             
-                                             var s = '<select>';
-                                             if (response && response.length) {
-                               					for (var i = 0, l = response.length; i < l; i++) {
-                                   				var ri = response[i];
-                                   				s += '<option value="' + ri.id + '">' + ri.name + '</option>';
-                               				 }
-                           					}											
-                                            return s + "</select>";
-                                    },
-									dataEvents :[{
-	            							type: 'change', fn: function(e) {
-	            							var thisval = $(e.target).val();
-											$.ajax({
-  													dataType: "html",
-  													url: 'getexexecutors?id='+thisval,
-  													success: function(data){
-														$("#select#1_name").attr('disable', false);
-    													var response = jQuery.parseJSON(data);                                             
-                                             			var s = '<select>';
-                                             			if (response && response.length) {
-                               								for (var i = 0, l = response.length; i < l; i++) {
-                                   							var ri = response[i];
-                                   							s += '<option value="' + ri.id + '">' + ri.executor + '</option>';
-                               				 				}
-                           								}
-														var res=s + "</select>";
-														$("select#1_executor").html(res);														
-  													},
-											});											 
-										}
-	            					}]
-						}}, 
-					   {name:'executor',index:'executor', width:'60%', sortable:false, editable:true,   edittype:'select',
-						 			editoptions: {dataUrl: 'getexexecutors?id=19',
-									 	   buildSelect: function(data) {											 																					
-											 var response = jQuery.parseJSON(data);                                             
-                                             var s = '<select>';
-                                             if (response && response.length) {
-                               					for (var i = 0, l = response.length; i < l; i++) {
-                                   				var ri = response[i];
-                                   				s += '<option value="' + ri.id + '">' + ri.executor + '</option>';
-                               				 }
-                           					}
-                                            return s + "</select>";
-                                    }}
-						},	  		           
-	  		          ], 
-			cmTemplate:{sortable:false}, 
-	  		rowNum:15,	
-	  		sortname: 'item', 
-	  		autowidth: true,
-            shrinkToFit: true,
-	  		height: '100%',
-			viewrecords: true, 
-	  		onSelectRow: function(id){ 
-      			if(id && id!==lastSel){ 
-					jQuery('#requestorg').jqGrid('restoreRow',lastSel);         			
-         			lastSel=id; 
-      			} 
-				jQuery('#requestorg').jqGrid('editRow',id,true);      			
-   			}, 			
-	  		multiselect: false,		  				
-	  		caption: "Выбор организации"			  	  	
-	  	});				
-	  	$("#requestlist").jqGrid({
-			regional : 'ru', 	  		
-	  		url:'getaddrequest', 
-	  		datatype: "json", 
-	  		colNames:['Наименование','Значение'], 
-	  		colModel:[ 
-	  		           {name:'name',index:'name', editable:false, sortable:false, width:400}, 
-	  		           {name:'value',index:'value', editable:true, editrules:{custom: true, 
-																			  custom_func: function (value) {
-            																	return validReq(value,  jQuery("#requestlist").jqGrid('getGridParam','selrow'));
-        																	 }
-																		 	}, 
-						edittype:"text",  sortable:false, width:560}, 
-					   	           
-	  		         ],			
-	  		rowNum:15,	
-	  		sortname: 'item', 
-	  		autowidth: true,
-            shrinkToFit: true,
-	  		height: '100%',
-			viewrecords: true, 
-	  		sortorder: "asc", 
-	  		multiselect: false,
-			onSelectRow: function(id){ 
-      			if(id && id!==lastSel){ 
-					jQuery('#requestlist').jqGrid('restoreRow',lastSel);         			
-         			lastSel=id; 
-      			} 
-				jQuery('#requestlist').jqGrid('editRow',id,true);      			
-   			}, 
-			editurl: "addrequest",
-	  		caption:"Добавление заявки"	  		
-	  	});	
-		$("#requestlist_d").jqGrid("clearGridData", true).trigger("reloadGrid");
-		$("#requestlist_d").jqGrid({
-			regional : 'ru', 	  		
-	  		url:'getaddrequestdesc', 
-	  		datatype: "json", 
-	  		colNames:['Id','П/н №', 'К-во мест и вид упак.', 'Описание товара','Критерий', 'Кол-во товара', 'Ед.изм.', 'Номер и дата счета-фактуры'], 
-	  		colModel:[ {name:'id',index:'id', width:'2%', hidden: true}, 
-	  		           {name:'paragraph',index:'paragraph', width:'5%', editable:true}, 
-	  		           {name:'seats',index:'seats', width:'20%', editable:true}, 
-	  		           {name:'description',index:'description', width:'32%', editable:true, edittype:"textarea", editoptions:{rows:"3",cols:"30"}}, 
-	  		           {name:'hscode',index:'hscode', width:'6%', editable:true}, 
-	  		           {name:'quantity',index:'quantity', width:'15%', editable:true}, 
-	  		           {name:'unit',index:'unit', width:'10%', editable:true}, 
-	  		           {name:'invoce',index:'invoce', width:'10%', editable:true}			           
-	  		         ], 
-	  		rowNum:10,
-	  		autowidth: true,
-            shrinkToFit: true, 
-	  		height: '100%',
-	  		rowList:[10,20,30], 
-	  		pager: '#prequestlist_d', 
-	  		sortname: 'item', 
-	  		viewrecords: true, 
-	  		sortorder: "asc", 
-	  		multiselect: false, 
-			editurl: "addrequestdesc",
-	  		caption:"Дополнительная информация по заявке"	  		
-	  	}); 
-	  	$("#requestlist_d").jqGrid('navGrid','#prequestlist_d',{add:true,edit:true,del:false, search:false}, 
-	  	{
-            closeAfterEdit: true,			
-            width: '50%',    
-            reloadAfterSubmit:true,
-			beforeShowForm: function (form) {				
-				var dlgDiv = $("#editmodrequestlist_d");
-        		var parentDiv = dlgDiv.parent(); 
-        		var dlgWidth = dlgDiv.width();
-        		var parentWidth = parentDiv.width();        		
-        		var parentLeft = parentDiv.offset().left;   
-				dlgDiv[0].style.top =  "100px";      		
-        		dlgDiv[0].style.left = Math.round(  parentLeft + (parentWidth-dlgWidth  )/2 )  + "px";
-		  },
-        },
-        {
-            closeAfterAdd: true,
-			rowID : "new_row",
-			position: "last",
-        	useDefValues: true,
-            width: '50%',   
-            reloadAfterSubmit:true,
-			beforeShowForm: function (form) {				
-				var dlgDiv = $("#editmodrequestlist_d");
-        		var parentDiv = dlgDiv.parent(); 
-        		var dlgWidth = dlgDiv.width();
-        		var parentWidth = parentDiv.width();        		
-        		var parentLeft = parentDiv.offset().left;  
-				dlgDiv[0].style.top =  "100px";     		
-        		dlgDiv[0].style.left = Math.round(  parentLeft + (parentWidth-dlgWidth  )/2 )  + "px";
-		  },
-        }
-		);
-});
-jQuery("#add").click( function() { 		
-		var executor=$("select#1_executor option:selected").attr('value');
-		if (executor === undefined || executor === null){
-			alert('Не выбраны организация и клиент')
-		}else{		
-		$.ajax({
-  			dataType: 'json',
-  			url: 'save?id='+executor,
-  			success: function(jsondata){
-    			$("#loadImg").hide();
-				$(location).attr('href', '/dmnrequest');		
-  			}
-		});
-		$("#loadImg").show();
-}});
-function validReq (value, id) { 
-	var req = ["1","3","7","9","12","14","15", "16"];
-	var a = req.indexOf(id);
-	if((a>=0) && (value.length == 0)){
-    	return [false, "Not Empty"]; 
-	}else{    	
-		return [true, ""];  
-	}
-}
-
-JS;
-$this->inlineScript()->captureEnd();
+<?php echo $this->headTitle($this->translate('Add Request'));
+$this->inlineScript()
+    ->offsetSetFile(101, $this->basePath('/js/dmn/indexa1.js'));
 ?>
+<div id="content" class="content">
+    <table id="requestorg">
+        <tr>
+            <td></td>
+        </tr>
+    </table>
+    <table id="requestlist">
+        <tr>
+            <td></td>
+        </tr>
+    </table>
+    <table id="requestlist_d">
+        <tr>
+            <td></td>
+        </tr>
+    </table>
+    <div id="prequestlist_d"></div>
+    <div class="form-group">
+        <input type="button" id="add" class="btn btn-info addbutton" value="Отправить заявку"/>
+    </div>
+</div>

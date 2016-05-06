@@ -129,7 +129,8 @@ class DmnUploadController extends AbstractActionController
 				$this->upload->setFileName($fileName['workorder']);
 				$writer= $this->upload->downloadXml();				
 			}else{
-				$writer= array('error'=>'Не введен номер сертификата');
+				return $response->setContent(json_encode(array('jsonrpc'=>'2.0', 'error'=>array('code'=>100, 'message'=>'Не введен номер сертификата')), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+
 			}		
 			$xml->setRootName('cert');
 			$response->setContent($xml->convert($writer));

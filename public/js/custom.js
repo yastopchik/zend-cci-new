@@ -192,15 +192,6 @@ function getstat(href, period, periodview) {
         }
     });
 };
-function validReq(value, id) {
-    var req = ["0", "2", "6", "8", "11", "14"];
-    var a = req.indexOf(id);
-    if ((a >= 0) && (value.length == 0)) {
-        return [false, "Значение не может быть пустым"];
-    } else {
-        return [true, ""];
-    }
-}
 $(document).delegate(".lifecycle", "click",function(){
     var modalHelp = $("#modalHelp");
     var href = $(this).data("href");
@@ -291,6 +282,7 @@ $(document).delegate("a#tab2", "click", function () {
     getstat($(this).attr("href"));
     return false;
 });
+
 $(document).delegate('a#selectdate', 'click', function () {
     //calendar.show();
     var modalFilter = $("#chartFilter");
@@ -357,7 +349,7 @@ $(document).delegate('#show_dates', 'click', function (e) {
         $('body').removeClass("modal-open");
     }
 });
-$(document).on('submit', '#loginForm', function (e) {
+$(document).delegate('submit', '#loginForm', function (e) {
     $.ajax({
         type: 'POST',
         cache: false,

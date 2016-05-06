@@ -87,6 +87,7 @@ class UserController extends ZfcUserController
 
         //return $redirect();
         //return $this->redirect()->toRoute($this->getUserService()->getRedirectRoute());
+		$r=$this->getUserService()->getRedirectRoute();
 		return array('route'=>$this->getUserService()->getRedirectRoute());
     }
 	public function changepasswordAction()
