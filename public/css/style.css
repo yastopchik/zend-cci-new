@@ -247,16 +247,18 @@ header h1 {
     font-size: 15px;
 }
 #content .btn-group-sm>.btn, .btn-sm {
-    padding:3px 5px;
+    padding:2px 5px;
 }
 .btn-danger {
     background: #9f1603;
     background: -webkit-linear-gradient(top, #9f1603, #EB2104);
     background: -moz-linear-gradient(top, #9f1603, #EB2104);
     background: -ms-linear-gradient(top, #9f1603, #EB2104);
-    background: -o-linear-gradient(top, #9f1603, #EB2104);   
-    border:1px solid #851203;
-    border-radius: 0px;
+    background: -o-linear-gradient(top, #9f1603, #EB2104);
+    border-width: 2px 0;
+    border-style: solid none;
+    border-color: #EB2104 #000 #851203;
+    border-radius: 3px;
 }
 .btn-danger:hover, .btn-danger:active, .btn-danger:focus{
     background: #EB2104;
@@ -270,9 +272,11 @@ header h1 {
     background: -webkit-linear-gradient(top, #005500, #00A100);
     background: -moz-linear-gradient(top, #005500, #00A100);
     background: -ms-linear-gradient(top, #005500, #00A100);
-    background: -o-linear-gradient(top, #005500, #00A100);    
-    border:1px solid #003B00;
-    border-radius: 0px;
+    background: -o-linear-gradient(top, #005500, #00A100);
+    border-width: 2px 0;
+    border-style: solid none;
+    border-color: #00A100 #000 #003B00;
+    border-radius: 3px;
 }
 .btn-success:hover, .btn-success:active, .btn-success:focus{
     background: #005500;
@@ -286,9 +290,11 @@ header h1 {
     background: -webkit-linear-gradient(top, #e78f08, #f6a828);
     background: -moz-linear-gradient(top, #e78f08, #f6a828);
     background: -ms-linear-gradient(top, #e78f08, #f6a828);
-    background: -o-linear-gradient(top, #e78f08, #f6a828);    
-    border:1px solid #B46F06;
-    border-radius: 0px;
+    background: -o-linear-gradient(top, #e78f08, #f6a828);
+    border-width: 2px 0;
+    border-style: solid none;
+    border-color: #f6a828 #000 #B46F06;
+    border-radius: 3px;
 }
 .btn-warning:hover, .btn-warning:active, .btn-warning:focus{
     background: #f6a828;
@@ -303,8 +309,10 @@ header h1 {
 	background: -moz-linear-gradient(top, #101b2d, #2B4979);
 	background: -ms-linear-gradient(top, #101b2d, #2B4979);
 	background: -o-linear-gradient(top, #101b2d, #2B4979);
-	border-radius: 0px;
-    border:1px solid #121F33;
+    border-width: 2px 0;
+    border-style: solid none;
+    border-color: #2B4979 #000 #121F33;
+    border-radius: 3px;
 }
 .btn-info:hover, .btn-info:active, .btn-info:focus {
     background: #364869;
@@ -442,7 +450,7 @@ header h1 {
 }
 
 .ui-datepicker .ui-datepicker-header {
-    font-size: 0.8em;
+    font-size: 0.9em;
 }
 
 .ui-dialog {
@@ -455,10 +463,9 @@ header h1 {
 }
 
 .ui-dialog a {
-    font-size: 0.8em;
+    font-size: 0.9em;
     text-decoration: none;
 }
-
 .ui-corner-all,
 .ui-corner-top,
 .ui-corner-left,
@@ -470,6 +477,13 @@ header h1 {
 }
 .ui-datepicker .ui-datepicker-title select {
     color: #101b2d;
+}
+.ui-jqdialog .ui-jqdialog-titlebar {
+    height: 25px;
+}
+.fm-button {
+    padding: .6em 1.5em 1.4em .5em;
+    padding-left: 1.9em;
 }
 .plupload_logo {
     background: rgba(0, 0, 0, 0) url("../images/logo_small.png") no-repeat scroll 0 0;

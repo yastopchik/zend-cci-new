@@ -337,7 +337,7 @@ $(function () {
                 var cl = ids[i];
                 prints = '<a href="#"  class="btn btn-danger btn-sm download" data-type="text" data-href="dmnupload/downloadprint?id=' + cl + '">' +
                     '<i class="fa fa-print" title="Выгрузить для печати" aria-hidden="true"></i></a>';
-                xls = '<a href="#"  class="btn btn-info btn-sm download" data-type="text" data-href="dmnupload/downloadxls?id=' + cl + '">' +
+                xls = '<a href="#"  class="btn btn-success btn-sm download" data-type="text" data-href="dmnupload/downloadxls?id=' + cl + '">' +
                     '<i class="fa fa-file-excel-o" title="Выгрузить в xls шаблон" aria-hidden="true"></i></a>';
                 xml = '<a href="#"  class="btn btn-warning btn-sm download" data-type="xml" data-href="dmnupload/downloadxml?id=' + cl + '">' +
                     '<i class="fa fa-file-code-o" title="Выгрузить в xml" aria-hidden="true"></i></a>';

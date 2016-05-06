@@ -349,7 +349,7 @@ $(document).delegate('#show_dates', 'click', function (e) {
         $('body').removeClass("modal-open");
     }
 });
-$(document).delegate('submit', '#loginForm', function (e) {
+$(document).on('submit', '#loginForm', function (e) {
     $.ajax({
         type: 'POST',
         cache: false,

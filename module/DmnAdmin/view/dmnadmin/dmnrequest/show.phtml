@@ -1,19 +1,19 @@
 <?php echo $this->headTitle($this->translate('LifeCycle')); ?>
 
 <div id="gridWrapper">
-<h3><?php echo $this->translate('LifeCycle'); ?></h3>
-<table>       
-   	<?php  foreach($data as $showId) {?>	
-   		<?php  foreach($showId as $key=>$value) {?>
-   		<?php if(strcmp($key, 'id')!=0 && !is_null($value)){ ?>
-   		<tr>
-   		 <td><?php echo $this->translate($key); ?></td> 
-         <td><?php echo $value->format('d.m.Y'); ?></td> 
-        </tr>         
-        <?php 
-			}
-          }
-		}
-		?>
+    <h3><?php echo $this->translate('LifeCycle'); ?></h3>
+    <table>
+        <?php foreach ($data as $showId) { ?>
+            <?php foreach ($showId as $key => $value) { ?>
+                <?php if (strcmp($key, 'id') != 0 && !is_null($value)) { ?>
+                    <tr>
+                        <td><?php echo $this->translate($key); ?></td>
+                        <td><?php echo $value->format('d.m.Y'); ?></td>
+                    </tr>
+                    <?php
+                }
+            }
+        }
+        ?>
     </table>
 </div>
