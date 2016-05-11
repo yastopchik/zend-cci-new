@@ -1,5 +1,5 @@
-<?php echo $this->headTitle($this->translate('Statistics')); 
-           $this->headScript()
+<?php echo $this->headTitle($this->translate('Statistics'));
+$this->inlineScript()
                 ->offsetSetFile(101, $this->basePath() . '/js/charts/fusioncharts.js')
                 ->offsetSetFile(102, $this->basePath() . '/js/charts/fusioncharts.charts.js')
                 ->offsetSetFile(103, $this->basePath() . '/js/charts/fusioncharts.theme.fint.js')

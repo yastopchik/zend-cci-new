@@ -192,21 +192,19 @@ function getstat(href, period, periodview) {
         }
     });
 };
-$(document).delegate(".lifecycle", "click",function(){
+$(document).delegate(".lifecycle", "click", function () {
     var modalHelp = $("#modalHelp");
     var href = $(this).data("href");
     if (modalHelp.length) {
         modalHelp.find('.modal-title').html('Жизненный цикл заявки');
         modalHelp.modal();
         var modalBody = modalHelp.find('.modal-body');
-        var modalDialog = modalHelp.find('.modal-dialog');
-        modalDialog.removeClass('modal-lg').addClass('modal-sm');
         if (modalBody.length) {
             modalBody.load(href);
         }
     }
 });
-$(document).delegate(".download", "click",function(){
+$(document).delegate(".download", "click", function () {
     var href = $(this).data("href");
     var type = $(this).data("type");
     $.ajax({
@@ -214,10 +212,12 @@ $(document).delegate(".download", "click",function(){
         cache: false,
         dataType: type,
         success: function (response) {
-            var rpcResponse = JSON.parse(response);
             $("#loadImg").hide();
-            if (typeof(rpcResponse.error) != 'undefined') {
-                Message.error(rpcResponse.error.message);
+            if (response.substring(0, 1) == '{') {
+                var rpcResponse = JSON.parse(response);
+                if (typeof(rpcResponse.error) != 'undefined') {
+                    Message.error(rpcResponse.error.message);
+                }
             } else {
                 window.open(href);
             }
@@ -243,8 +243,6 @@ $(document).delegate("#changePass", "click", function () {
         modalHelp.find('.modal-title').html('Сменить пароль');
         modalHelp.modal();
         var modalBody = modalHelp.find('.modal-body');
-        var modalDialog = modalHelp.find('.modal-dialog');
-        modalDialog.removeClass('modal-lg').addClass('modal-sm');
         if (modalBody.length) {
             modalBody.load(href);
             modalHelp.find('.modal-footer').prepend('<button type="button" class="btn btn-primary" id="changePassSubmit">Изменить</button>');
