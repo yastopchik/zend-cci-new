@@ -69,51 +69,6 @@ class DmnUploadController extends AbstractActionController
                     }
                 }
 
-
-                /*$post = $request->getPost()->toArray();
-                if (isset($post ["name"])) {
-                    $File = $post ["name"];
-                } elseif (!empty($_FILES)) {
-                    $files = $request->getFiles()->toArray();
-                    $File = $files["file"]["name"];
-                }
-                $this->upload->setFileName($File);
-                $data = array_merge($post, array('fileupload' => $File));
-                $data = array_merge_recursive(
-                    $this->getRequest()->getPost()->toArray(), $this->getRequest()->getFiles()->toArray()
-                );
-                $adapter = $this->upload->getAdapter();
-                $adapter->setDestination($this->upload->getDirectory());
-                $files = $adapter->getFileInfo();
-                foreach ($files as $file => $info) {
-                    $this->upload->setFileName($file);
-                    /*$name = $adapter->getFileName($file);*
-                        throw new \Exception(json_encode("!isUploaded") . implode(" ", $adapter->getMessages()));
-                        continue;
-                    }
-                    $adapter->setValidators($this->upload->setValidate(), $this->getFileName());
-                    if (!$adapter->isValid()) {
-                        throw new \Exception(json_encode("!isValid " . implode(" ", $adapter->getMessages())));
-                        continue;
-                    }
-                    // receive the files into the user directory
-                    $check = $adapter->receive($file); // this has to be on top
-                    if (!$check) {
-                        throw new \Exception(json_encode("! receive" . implode(" ", $adapter->getMessages())));
-                    }
-                    $error = $this->upload->uploadFileToDatabase();
-                    if (is_array($error)) {
-                        foreach ($error as $err) {
-                            if (!$err) {
-                                $this->upload->deleteFileFromDirectory();
-                                return $this->getResponse()->setContent(json_encode(array('success' => true), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-                            } else {
-                                return $this->getResponse()->setContent(json_encode(array('jsonrpc' => '2.0', 'error' => array('code' => 100, 'message' => $err), 'id' => 'id'), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-
-                            }
-                        }
-                    }
-                }*/
                 $this->upload->deleteFileFromDirectory();
             }
         } catch (\Exception $e) {

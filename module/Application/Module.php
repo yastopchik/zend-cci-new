@@ -20,7 +20,7 @@ class Module
     public function onBootstrap(MvcEvent $e)
     {
         $e->getApplication()->getServiceManager()->get('translator');
-        $translatorI = new Translator();
+        /*$translatorI = new Translator();
         $translatorI->setLocale('ru');
         $translator = new Translate($translatorI);
         $translator->setLocale(\Locale::acceptFromHttp('ru_RU'));
@@ -30,7 +30,7 @@ class Module
             'default',
             'ru_RU'
         );
-        AbstractValidator::setDefaultTranslator($translator);
+        AbstractValidator::setDefaultTranslator($translator);*/
         $eventManager = $e->getApplication()->getEventManager();
         $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, function (MvcEvent $event) {
             $viewModel = $event->getViewModel();
