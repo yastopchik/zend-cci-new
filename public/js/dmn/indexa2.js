@@ -51,9 +51,9 @@ $(function () {
             modalHelp.find('.modal-footer').prepend('<button type="button" class="btn btn-primary" id="exSubmit">Выбрать</button>');
         }
     }
-    $('#exSubmit').on('click', function(){
+    $('#exSubmit').on('click', function () {
         exUser = $("select#exUser option:selected").attr('value');
-        if(!!exUser)
+        if (!!exUser)
             modalHelp.modal('hide');
         else
             Message.error('Не выбраны организация или представитель организации');
@@ -64,15 +64,15 @@ $(function () {
         datatype: "json",
         colNames: ['Наименование', 'Значение'],
         colModel: [
-            {name: 'name', index: 'name', editable: false, sortable: false, width: 400},
+            {name: 'name', index: 'name', editable: false, sortable: false, width: '40%'},
             {
                 name: 'value', index: 'value', editable: true, editrules: {
                 custom: true,
                 custom_func: function (value) {
-                    return validReq(value, $("#requestlist").jqGrid('getGridParam', 'selrow'));
+                    return validReq(value, jQuery("#requestlist").jqGrid('getGridParam', 'selrow'));
                 }
             },
-                edittype: "text", sortable: false, width: 560
+                edittype: "text", sortable: false, width: '60%'
             },
 
         ],
@@ -86,21 +86,22 @@ $(function () {
         multiselect: false,
         onSelectRow: function (id) {
             if (id && id !== lastSel) {
-                $('#requestlist').jqGrid('restoreRow', lastSel);
+                jQuery('#requestlist').jqGrid('restoreRow', lastSel);
                 lastSel = id;
             }
-            $('#requestlist').jqGrid('editRow', id, true);
+            jQuery('#requestlist').jqGrid('editRow', id, true);
         },
         editurl: "addrequest",
         caption: "Добавление заявки"
     });
+
     $("#requestlist_d").jqGrid("clearGridData", true).trigger("reloadGrid");
     $("#requestlist_d").jqGrid({
         regional: 'ru',
         url: 'getaddrequestdesc',
         datatype: "json",
         colNames: ['Id', 'П/н №', 'К-во мест и вид упак.', 'Описание товара', 'Критерий', 'Кол-во товара', 'Ед.изм.', 'Номер и дата счета-фактуры'],
-        colModel: [{name: 'id', index: 'id', width: '2%', hidden: true},
+        colModel: [{name: 'id', index: 'id', hidden: true, width: '2%'},
             {name: 'paragraph', index: 'paragraph', width: '5%', editable: true},
             {name: 'seats', index: 'seats', width: '20%', editable: true},
             {
@@ -109,7 +110,7 @@ $(function () {
                 width: '32%',
                 editable: true,
                 edittype: "textarea",
-                editoptions: {rows: "3", cols: "30"}
+                editoptions: {rows: "3", cols: "40"}
             },
             {name: 'hscode', index: 'hscode', width: '6%', editable: true},
             {name: 'quantity', index: 'quantity', width: '15%', editable: true},
@@ -183,7 +184,7 @@ $(function () {
                 success: function(jsondata){
                     $("#loadImg").hide();
                     Message.error('Заявка на сертификат принята');
-                    $(location).attr('href', '/dmnrequest');
+                    $(location).attr('href', '/dmnexrequest');
                 }
             });
         } else {
@@ -194,6 +195,7 @@ $(function () {
     });
 });
 function validReq(value, id) {
+    var req = ["1", "3", "7", "9", "12", "14", "15", "16"];
     var a = req.indexOf(id);
     if ((a >= 0) && (value.length == 0)) {
         Message.error('Значение поля не может быть пустым');

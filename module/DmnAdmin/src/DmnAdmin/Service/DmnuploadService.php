@@ -3,7 +3,6 @@
 namespace DmnAdmin\Service;
 
 use Zend\Cache\Storage\Adapter\Filesystem;
-use Zend\Validator\File\Extension;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use DmnAdmin\Options\ExcelOptionsInterface;
 use DmnAdmin\Options\XmlOptionsInterface;
@@ -12,7 +11,6 @@ use DmnDatabase\Service\Exception\RuntimeException;
 use DmnDatabase\Validator\NoObjectExistsJoin;
 use DmnDatabase\Service\OrganizationService;
 use DmnLog\Service\LogService;
-use Zend\File\Transfer\Adapter\Http;
 use \PHPExcel, \PHPExcel_STYLE_ALIGNMENT, \PHPExcel_STYLE_FILL, \PHPExcel_Style_Border;
 
 class DmnuploadService
@@ -32,6 +30,10 @@ class DmnuploadService
      * @var $cache
      */
     protected $cache;
+    /**
+     * @var _fsConfig
+     */
+    protected $_fsConfig;
     /**
      *
      * @var $fileName
@@ -330,13 +332,78 @@ class DmnuploadService
     }
 
     /**
+     * Save file to Database
+     * @param Array fileArr
+     */
+    public function saveFile(array $fileArr)
+    {
+        $adapter = new \Zend\File\Transfer\Adapter\Http();
+        $directory = realpath(dirname('.')) . DIRECTORY_SEPARATOR . $this->getDirectory() . DIRECTORY_SEPARATOR;
+        $adapter->setDestination($directory);
+        foreach ($adapter->getFileInfo() as $file) {
+            $this->setFileName($fileArr['name']);
+            // file uploaded & is valid
+            if (!$adapter->isUploaded($file['name'])) {
+                return json_encode(['jsonrpc' => '2.0', 'error' => ['code' => 100, 'message' => [$adapter->getMessages()]]], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+            }
+            $adapter->setValidators($this->setValidate(), $file['name']);
+            if (!$adapter->isValid()) {
+                return json_encode(['jsonrpc' => '2.0', 'error' => ['code' => 100, 'message' => [$adapter->getMessages()]]], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+            }
+            $adapter->addFilter('Rename', ['target' => $directory . $fileArr['name'], 'overwrite' => true]);
+            // receive the files into the user directory
+            $check = $adapter->receive($file['name']); // this has to be on top
+            if (!$check) {
+                return json_encode(['jsonrpc' => '2.0', 'error' => ['code' => 100, 'message' => [$adapter->getMessages()]]], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+            }
+            $error = $this->uploadFileToDatabase();
+            if (is_array($error)) {
+                foreach ($error as $err) {
+                    if (!$err) {
+                        $this->deleteFileFromDirectory();
+                        return json_encode(['success' => true], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+                    } else {
+                        return json_encode(['jsonrpc' => '2.0', 'error' => ['code' => 100, 'message' => $err]], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+                    }
+                }
+            }
+        }
+        $this->deleteFileFromDirectory();
+    }
+
+    /**
+     * Set Validators To File Upload
+     * @return array
+     */
+    public function setValidate()
+    {
+        if (!is_null($this->id))
+            $userId = intval($this->id);
+        else
+            $userId = $this->authUserId;
+
+        $minFileSize = $this->getFsConfig()['minFileSize'];
+        $maxFileSize = $this->getFsConfig()['maxFileSize'];
+        $size = new \Zend\Validator\File\Size(['min' => $minFileSize, 'max' => $maxFileSize]);
+        $extension = new \Zend\Validator\File\Extension(['extension' => ['xls', 'xlsx']]);
+        /*$exist = new NoObjectExistsJoin(array('object_repository' => $this->requestService->getDbRequest()->getEntityManager()->getRepository($this->requestService->getDbRequest()->getEntityNameRequestNumber()),
+            'fields' => 'i.file',
+            'exclude' => array('j.id' => $userId),
+            'join' => $this->requestService->getDbRequest()->getEntityUser(),
+            'on' => 'i.userid',
+            'messages' => array(NoObjectExistsJoin::ERROR_OBJECT_FOUND => "У клиента в Базе Данных уже присутствует файл с таким именем! Переименуйте его.")
+        ));*/
+        return [$size, $extension/*, $exist*/];
+    }
+
+    /**
      *Upload File To Database
      * @return true|false
      */
     public function uploadFileToDatabase($save = false)
     {
         if (!is_null($this->fileName)) {
-            $path = $this->getFileName();
+            $path = realpath(dirname('.')) . DIRECTORY_SEPARATOR . $this->getDirectory() . DIRECTORY_SEPARATOR . $this->getFileName();
             $this->logger->info('Загрузка заявки: пользователь -' . $this->authUserId . ', файл -' . $path);
             //Get Data From Excel
             $objReader = \PHPExcel_IOFactory::createReaderForFile($path);
@@ -370,9 +437,11 @@ class DmnuploadService
                 }
                 //Description
                 $requestDescriptionOptions = $this->getExcelOptions()->getRequestDescriptionOptions();
-                if (!is_null($requestDescriptionOptions)) {
+                if (!is_null($requestDescriptionOptions))
+                {
                     $row = $requestDescriptionOptions['options']['row'];
-                    while ($row <= $highestRow) {
+                    while ($row <= $highestRow)
+                    {
                         $keysRd = $row - $requestDescriptionOptions['options']['row'];
                         $data['rd']['rows'][$keysRd]['id'] = $keysRd;
                         $data['rd']['rows'][$keysRd]['cell'] = array();
@@ -391,7 +460,7 @@ class DmnuploadService
                                     if ($break == 7) {
                                         unset($data['rd']['rows'][$keysRd]);
                                         $save = $this->requestService->getDbRequest()->saveRequest($data);
-                                        $this->logger->info('Загрузка успешна: пользователь -' . $this->authUserId);
+                                        $this->logger->info('Загрузка произведена: пользователь -' . $this->authUserId);
                                         return $save;
                                     }
                                 }
@@ -405,14 +474,14 @@ class DmnuploadService
                 //save
                 $save = $this->requestService->getDbRequest()->saveRequest($data);
                 if ($save)
-                    $save = array('error' => false);
+                    $save = ['error' => false];
                 else {
-                    $save = array('error' => 'Ошибка при загрузке данных! Попробуйте еще раз.');
+                    $save = ['error' => ['Ошибка при загрузке данных! Попробуйте еще раз.']];
                 }
             } else {
-                $save = array('error' => 'Не верный формат файла xls файла!');
+                $save = ['error' => ['Загружаемый файл не совпадает с шаблоном']];
             }
-            $this->logger->info('Загрузка успешна: пользователь -' . $this->authUserId);
+            $this->logger->info('Загрузка произведена: пользователь -' . $this->authUserId);
         }
         return $save;
     }
@@ -746,7 +815,7 @@ class DmnuploadService
     {
 
         $this->logger->info('Удаление файла в директории  -' . $this->authUserId . ', файл -' . $this->getFileName());
-        $path = $path = $this->getDirectory() . '/' . $this->getFileName();
+        $path = realpath(dirname('.')) . DIRECTORY_SEPARATOR . $this->getDirectory() . DIRECTORY_SEPARATOR . $this->getFileName();
         $op_dir = opendir($this->getDirectory());
         if ($op_dir) {
             if (is_file($path)) {
@@ -760,41 +829,15 @@ class DmnuploadService
     ////////////////////////GET SET Methods//////////////////////////////////////////////////////////////
 
     /**
-     * @param array $data , string $fileName
-     * @return adapter
+     * Get filesystem config
      */
-    public function getAdapter()
+    public function getFsConfig()
     {
-        return new Http();
-
-    }
-
-    /**
-     * @return array
-     */
-    public function setValidate()
-    {
-        if (!is_null($this->id))
-            $userId = intval($this->id);
-        else
-            $userId = $this->authUserId;
-
-        $size = new \Zend\Validator\File\Size(array('max' => 1000000));
-
-        $fexist = new NoObjectExistsJoin(array('object_repository' => $this->requestService->getDbRequest()->getEntityManager()->getRepository($this->requestService->getDbRequest()->getEntityNameRequestNumber()),
-            'fields' => 'i.file',
-            'exclude' => array('j.id' => $userId),
-            'join' => $this->requestService->getDbRequest()->getEntityUser(),
-            'on' => 'i.userid',
-            'messages' => array(NoObjectExistsJoin::ERROR_OBJECT_FOUND => "У клиента в Базе Данных уже присутствует файл с таким именем! Если это не ошибка, переименуйте его.")
-        ));
-
-        $extension = new Extension(array('extension' => array('xls', 'xlsx'),
-
-            'messages' => array(Extension::FALSE_EXTENSION => "Файл не имеет расширение 'xls', 'xlsx'")));
-
-
-        return [$size, $extension, $fexist];
+        if (!$this->_fsConfig) {
+            $config = $this->getServiceLocator()->get('Config');
+            $this->_fsConfig = $config['filesystem']['file'];
+        }
+        return $this->_fsConfig;
     }
 
     public function delTree($dir)

@@ -2,8 +2,8 @@
 namespace DmnAdmin\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use DmnAdmin\Service\DmnuploadService;
 use Zend\View\Model\ViewModel;
+use DmnAdmin\Service\DmnuploadService;
 
 class DmnUploadController extends AbstractActionController
 {
@@ -14,6 +14,10 @@ class DmnUploadController extends AbstractActionController
         $this->upload = $upload;
     }
 
+    /**
+     * Upload File into the Database
+     * @return Json|ViewModel
+     */
     public function indexAction()
     {
         $view = new ViewModel();
@@ -24,57 +28,13 @@ class DmnUploadController extends AbstractActionController
             'Cache-Control' => 'no-store, no-cache, must-revalidate',
         ));
         $request = $this->getRequest();
-        //if select organization and client controller get user id
-        try {
-            if ($request->isPost()) {
+        if ($request->isPost()) {
+                //if select organization and client controller get user id
                 $this->upload->setId($this->getRequest()->getQuery()->get('id', null));
-                $postArr = $request->getPost()->toArray();
                 $fileArr = $this->params()->fromFiles('file');
-                $formData = array_merge(
-                    $postArr, //POST
-                    array('file' => $fileArr['name'])
-                );
-                $adapter = new \Zend\File\Transfer\Adapter\Http();
-                $adapter->setDestination($this->upload->getDirectory());
-                $size = new \Zend\Validator\File\Size(array('min' => 1)); // minimum bytes filesize, max too..
-                $extension = new \Zend\Validator\File\Extension(array('extension' => array('xls', 'xlsx')));
-                $adapter->setValidators(array($size, $extension), $fileArr['name']);
-                $files = $adapter->getFileInfo();
-                foreach ($files as $file => $info) {
-                    $this->upload->setFileName($adapter->getFileName($file));
-                    // file uploaded & is valid
-                    if (!$adapter->isUploaded($file)) {
-                        return $this->getResponse()->setContent(json_encode(array('jsonrpc' => '2.0', 'error' => array('code' => 100, 'message' => $adapter->getMessages())), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-                        continue;
-                    }
-                    if (!$adapter->isValid($file)) {
-                        return $this->getResponse()->setContent(json_encode(array('jsonrpc' => '2.0', 'error' => array('code' => 100, 'message' => $adapter->getMessages())), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-                        continue;
-                    }
-                    // receive the files into the user directory
-                    $check = $adapter->receive($file); // this has to be on top
-                    if (!$check) {
-                        return $this->getResponse()->setContent(json_encode(array('jsonrpc' => '2.0', 'error' => array('code' => 100, 'message' => $adapter->getMessages())), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-                    }
-                    $error = $this->upload->uploadFileToDatabase();
-                    if (is_array($error)) {
-                        foreach ($error as $err) {
-                            if (!$err) {
-                                $this->upload->deleteFileFromDirectory();
-                                return $this->getResponse()->setContent(json_encode(array('success' => true), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-                            } else {
-                                return $this->getResponse()->setContent(json_encode(array('jsonrpc' => '2.0', 'error' => array('code' => 100, 'message' => $err), 'id' => 'id'), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-                            }
-                        }
-                    }
-                }
-
-                $this->upload->deleteFileFromDirectory();
-            }
-        } catch (\Exception $e) {
-            return $this->getResponse()->setContent(json_encode(array('jsonrpc' => '2.0', 'error' => $e->getMessage()), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-        }
-
+                $response=$this->upload->saveFile($fileArr);
+                return $this->getResponse()->setContent($response);
+         }
         $view->setTemplate('dmnadmin/dmnupload/index');
         return $view;
     }

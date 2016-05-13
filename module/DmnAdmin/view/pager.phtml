@@ -1,41 +1,41 @@
 <?php if ($this->pageCount): ?>
-<div class="paginationControl">
-<!-- Previous page link -->
-<?php if (isset($this->previous)): ?>
-  <a href="<?php 
-  $arr=array_merge($this->params, array('page' => $this->previous));
-  echo $this->url($this->route, $arr); 
-  ?>">
-    < Предыдущая
-  </a> |
-<?php else: ?>
-  <span class="disabled">< Предыдущая</span> |
-<?php endif; ?>
+    <div class="paginationControl">
+        <!-- Previous page link -->
+        <?php if (isset($this->previous)): ?>
+            <a href="<?php
+            $arr = array_merge($this->params, array('page' => $this->previous));
+            echo $this->url($this->route, $arr);
+            ?>">
+                < Предыдущая
+            </a> |
+        <?php else: ?>
+            <span class="disabled">< Предыдущая</span> |
+        <?php endif; ?>
 
-<!-- Numbered page links -->
-<?php foreach ($this->pagesInRange as $page): ?>
-  <?php if ($page != $this->current): ?>
-    <a href="<?php 
-    $arr=array_merge($this->params, array('page' => $page));   
-    $url=$this->url($this->route, $arr);
-    echo $url; ?>">
-        <?php echo $page; ?>
-    </a> |
-  <?php else: ?>
-    <?php echo $page; ?> |
-  <?php endif; ?>
-<?php endforeach; ?>
+        <!-- Numbered page links -->
+        <?php foreach ($this->pagesInRange as $page): ?>
+            <?php if ($page != $this->current): ?>
+                <a href="<?php
+                $arr = array_merge($this->params, array('page' => $page));
+                $url = $this->url($this->route, $arr);
+                echo $url; ?>">
+                    <?php echo $page; ?>
+                </a> |
+            <?php else: ?>
+                <?php echo $page; ?> |
+            <?php endif; ?>
+        <?php endforeach; ?>
 
-<!-- Next page link -->
-<?php if (isset($this->next)): ?>
-  <a href="<?php 
-  $arr=array_merge($this->params, array('page' => $this->next));
-  echo $this->url($this->route, $arr ); ?>">
-    Следующая >
-  </a>
-<?php else: ?>
-  <span class="disabled">Следующая ></span>
-<?php endif; ?>
-</div>
+        <!-- Next page link -->
+        <?php if (isset($this->next)): ?>
+            <a href="<?php
+            $arr = array_merge($this->params, array('page' => $this->next));
+            echo $this->url($this->route, $arr); ?>">
+                Следующая >
+            </a>
+        <?php else: ?>
+            <span class="disabled">Следующая ></span>
+        <?php endif; ?>
+    </div>
 <?php endif; ?>
 

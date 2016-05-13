@@ -1,14 +1,15 @@
 <h3><?php echo $this->translate('Please select the country'); ?></h3>
-<?php if(!empty($response)){ ?> 
-     <table> 
-        
-     <?php  foreach($response as $row) 
-     {  
-         ?>
-       <tr><td><a href="<?php echo $this->url('dmnrequest', array('action' => 'updatecountry', 'countryId'=>$row['id'], 'id'=>$id)); ?>">
-               <?php echo $row['nameru']?></a></td> 
-           </tr>  
-  
-<?php } ?> 
-</table>
+<?php if (!empty($response)) { ?>
+    <table>
+
+        <?php foreach ($response as $row) {
+            ?>
+            <tr>
+                <td>
+                    <a href="<?php echo $this->url('dmnrequest', array('action' => 'updatecountry', 'countryId' => $row['id'], 'id' => $id)); ?>">
+                        <?php echo $row['nameru'] ?></a></td>
+            </tr>
+
+        <?php } ?>
+    </table>
 <?php } ?>

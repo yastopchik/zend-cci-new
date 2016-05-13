@@ -55,7 +55,7 @@ $(function () {
         if(!!exUser)
             modalHelp.modal('hide');
         else
-            Message.error('Не выбраны организация и представитель организации');
+            Message.error('Не выбраны организация или представитель организации');
     })
     var uploader = $('#uploader');
     if (uploader.length) {
@@ -90,20 +90,23 @@ $(function () {
         });
         var uploader = uploader.plupload('getUploader');
         uploader.bind('BeforeUpload', function (up, file) {
-            if (exUser)
-                up.settings.url = up.settings.url + "?id=" + exUser;
+            if (exUser){
+                var splitSetting = up.settings.url.split('?');
+                up.settings.url = splitSetting[0] + "?id=" + exUser;
+            }
             else
-                Message.error('Не выбран сотрудник организации');
+                Message.error('Не выбраны организация или представитель организации');
         });
         uploader.bind('FileUploaded', function (up, file, response) {
             response = jQuery.parseJSON(response.response);
-            if (typeof response.error !== 'undefined') {
-                if (typeof response.error.code !== 'undefined') {
-                    uploader.trigger('Error', {
-                        code: response.error.code,
-                        message: response.error.message,
-                        details: response.details,
-                        file: file
+            if (!!response.error) {
+                if (!!response.error.code) {
+                    $.each(response.error.message, function(i, val) {
+                        uploader.trigger('Error', {
+                            code: response.error.code,
+                            message: val
+                        });
+
                     });
                 }
             }

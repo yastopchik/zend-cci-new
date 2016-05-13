@@ -1,11 +1,11 @@
 $(function () {
     var lastSel, country;
-    $.getJSON("dmnrequest/getcountryjson", function (data) {
+    $.getJSON("dmnexrequest/getcountryjson", function (data) {
         country = data;
     });
     $("#requestlist_n").jqGrid({
         regional: 'ru',
-        url: "dmnrequest/getrequestnumber",
+        url: "dmnexrequest/getrequestnumber",
         datatype: "json",
         colNames: ['ID', '№Сертиф.', 'Дата', '№Бланка', 'Форма', 'Файл', 'Статус', 'КолДопЛист', 'Клиент', 'Должность', 'Телефон', 'Организация', 'Исполнитель', 'СтранаНазн', 'Действия'],
         colModel: [{name: 'id', index: 'id', width: '3%', searchoptions: {sopt: ['eq']}},
@@ -44,7 +44,7 @@ $(function () {
                     }
                 }
             },
-            {name: 'numblank', index: 'numblank', width: '6%', editable: true, searchoptions: {sopt: ['eq']}},
+            {name: 'numblank', index: 'numblank', width: '7%', editable: true, searchoptions: {sopt: ['eq']}},
             {
                 name: 'forms',
                 index: 'forms',
@@ -53,7 +53,7 @@ $(function () {
                 edittype: 'select',
                 editrules: {required: true},
                 editoptions: {
-                    dataUrl: 'dmnrequest/getforms',
+                    dataUrl: 'dmnexrequest/getforms',
                     style: "width:98%",
                     buildSelect: function (data) {
                         var response = $.parseJSON(data);
@@ -69,7 +69,7 @@ $(function () {
                 },
                 stype: 'select',
                 searchoptions: {
-                    dataUrl: 'dmnrequest/getforms',
+                    dataUrl: 'dmnexrequest/getforms',
                     style: "width:98%",
                     buildSelect: function (data) {
                         var response = $.parseJSON(data);
@@ -84,7 +84,7 @@ $(function () {
                     }
                 },
             },
-            {name: 'file', index: 'file', width: '6%', editable: false},
+            {name: 'file', index: 'file', width: '5%', editable: false},
             {
                 name: 'status',
                 index: 'status',
@@ -94,7 +94,7 @@ $(function () {
                 stype: 'select',
                 editrules: {required: true},
                 editoptions: {
-                    dataUrl: 'dmnrequest/getstatus',
+                    dataUrl: 'dmnexrequest/getstatus',
                     style: "width:98%",
                     buildSelect: function (data) {
                         var response = $.parseJSON(data);
@@ -110,7 +110,7 @@ $(function () {
                 },
                 searchoptions: {
                     sopt: ['eq'],
-                    dataUrl: 'dmnrequest/getstatus',
+                    dataUrl: 'dmnexrequest/getstatus',
                     style: "width:98%",
                     buildSelect: function (data) {
                         var response = $.parseJSON(data);
@@ -145,47 +145,7 @@ $(function () {
             {name: 'position', index: 'position', width: '5%', editable: false, searchoptions: {sopt: ['eq']}},
             {name: 'phone', index: 'phone', width: '5%', editable: false},
             {name: 'organization', index: 'organization', width: '15%', editable: false, searchoptions: {sopt: ['eq']}},
-            {
-                name: 'executor',
-                index: 'executor',
-                width: '9%',
-                sortable: false,
-                editable: true,
-                edittype: 'select',
-                stype: 'select',
-                editrules: {required: true},
-                editoptions: {
-                    dataUrl: 'dmnrequest/getexecutors',
-                    style: "width:98%",
-                    buildSelect: function (data) {
-                        var response = $.parseJSON(data);
-                        var s = '<select>';
-                        if (response && response.length) {
-                            for (var i = 0, l = response.length; i < l; i++) {
-                                var ri = response[i];
-                                s += '<option value="' + ri.id + '">' + ri.executor + '</option>';
-                            }
-                        }
-                        return s + "</select>";
-                    }
-                },
-                searchoptions: {
-                    sopt: ['eq'],
-                    dataUrl: 'dmnrequest/getexecutors',
-                    style: "width:98%",
-                    buildSelect: function (data) {
-                        var response = $.parseJSON(data);
-                        var s = '<select>';
-                        if (response && response.length) {
-                            for (var i = 0, l = response.length; i < l; i++) {
-                                var ri = response[i];
-                                s += '<option value="' + ri.id + '">' + ri.executor + '</option>';
-                            }
-                        }
-                        return s + "</select>";
-                    }
-                },
-            },
+            {name: 'executor', index: 'executor', width: '10%', sortable: false, editable: false},
             {
                 name: 'destinationiso',
                 index: 'destinationiso',
@@ -205,7 +165,7 @@ $(function () {
                         } else {
                             $.ajax({
                                 dataType: 'json',
-                                url: "dmnrequest/getcountrybyid?id=" + cellValue,
+                                url: "dmnexrequest/getcountrybyid?id=" + cellValue,
                                 async: false,
                                 success: (function (result) {
                                     var cObject = result[0];
@@ -221,7 +181,7 @@ $(function () {
                     if (cellValue) {
                         $.ajax({
                             dataType: 'json',
-                            url: "dmnrequest/getcountrybyname?rows=" + cellValue,
+                            url: "dmnexrequest/getcountrybyname?rows=" + cellValue,
                             async: false,
                             success: (function (result) {
                                 var cObject = result[0];
@@ -235,7 +195,7 @@ $(function () {
                 edittype: 'select',
                 stype: 'select',
                 editoptions: {
-                    dataUrl: 'dmnrequest/geteditcountries',
+                    dataUrl: 'dmnexrequest/geteditcountries',
                     style: "width:98%",
                     buildSelect: function (data) {
                         var response = $.parseJSON(data);
@@ -251,7 +211,7 @@ $(function () {
                 },
                 searchoptions: {
                     sopt: ['eq'],
-                    dataUrl: 'dmnrequest/geteditcountries',
+                    dataUrl: 'dmnexrequest/geteditcountries',
                     style: "width:98%",
                     buildSelect: function (data) {
                         var response = $.parseJSON(data);
@@ -273,14 +233,13 @@ $(function () {
         rowList: [5, 10, 20, 30],
         cellEdit: true,
         cellsubmit: "remote",
-        cellurl: "dmnrequest/editrequestnumber",
-        /*editurl: "dmnrequest/editrequestnumber",*/
+        cellurl: "dmnexrequest/editrequestnumber",
         afterSaveCell: function (rowid, name, val, iRow, iCol) {
             if (name.localeCompare("status") == 0 && val == 4) {
                 var isSentEmail = confirm("Вы изменили статус на действует. Отправить email заказчику?")
                 if (isSentEmail && !isNaN(rowid)) {
                     $.ajax({
-                        url: 'dmnrequest/sendmail?id=' + rowid,
+                        url: 'dmnexrequest/sendmail?id=' + rowid,
                         data: ({
                             _search: true,
                             filters: JSON.stringify({
@@ -288,7 +247,7 @@ $(function () {
                                 'rules': [{'field': 'id', 'op': 'eq', 'data': rowid}]
                             })
                         }),
-                        async: false,
+                        dataType: 'json',
                         successes: function (data) {
                             Message.success('Письмо успешно отправлено заказчику');
                         }
@@ -311,21 +270,20 @@ $(function () {
         onSelectCell: function () {
             var ids = $("#requestlist_n").jqGrid('getGridParam', 'selrow');
             if (ids != null) {
-                $("#requestlist").jqGrid('setGridParam', {url: 'dmnrequest/getrequest?id=' + ids, page: 1});
+                $("#requestlist").jqGrid('setGridParam', {url: 'dmnexrequest/getrequest?id=' + ids, page: 1});
                 $("#requestlist").jqGrid('setCaption', "Деталицация заявки №: " + ids)
                     .trigger('reloadGrid');
-                $("#requestlist_d").jqGrid('setGridParam', {url: 'dmnrequest/getrequestdesc?id=' + ids, page: 1});
+                $("#requestlist_d").jqGrid('setGridParam', {url: 'dmnexrequest/getrequestdesc?id=' + ids, page: 1});
                 $("#requestlist_d").jqGrid('setCaption', "Дополнительная информация по заявке №: " + ids)
                     .trigger('reloadGrid');
             } else {
                 ids = 0;
                 if ($("#requestlist").jqGrid('getGridParam', 'records') > 0) {
-                    $("#requestlist").jqGrid('setGridParam', {url: 'dmnrequest/getrequest?id=' + ids, page: 1});
-                    $("#requestlist").jqGrid('setCaption', "Деталицация заявки №: " + ids)
-                        .trigger('reloadGrid');
+                    $("#requestlist").jqGrid('setGridParam', {url: 'dmnexrequest/getrequest?id=' + ids, page: 1});
+                    $("#requestlist").jqGrid('setCaption', "Деталицация заявки №: " + ids).trigger('reloadGrid');
                 }
                 if ($("#requestlist_d").jqGrid('getGridParam', 'records') > 0) {
-                    $("#requestlist_d").jqGrid('setGridParam', {url: 'dmnrequest/getrequestdesc?id=' + ids, page: 1});
+                    $("#requestlist_d").jqGrid('setGridParam', {url: 'dmnexrequest/getrequestdesc?id=' + ids, page: 1 });
                     $("#requestlist_d").jqGrid('setCaption', "Дополнительная информация по заявке №: " + ids)
                         .trigger('reloadGrid');
                 }
@@ -335,17 +293,18 @@ $(function () {
             var ids = $("#requestlist_n").jqGrid('getDataIDs');
             for (var i = 0; i < ids.length; i++) {
                 var cl = ids[i];
-                prints = '<a href="#"  class="btn btn-danger btn-sm download" data-type="text" data-href="dmnupload/downloadprint?id=' + cl + '">' +
+                prints = '<a href="#"  class="btn btn-danger btn-sm download" data-type="text" data-href="dmnexrequest/downloadprint?id=' + cl + '">' +
                     '<i class="fa fa-print" title="Выгрузить для печати" aria-hidden="true"></i></a>';
-                xls = '<a href="#"  class="btn btn-success btn-sm download" data-type="text" data-href="dmnupload/downloadxls?id=' + cl + '">' +
+                xls = '<a href="#"  class="btn btn-success btn-sm download" data-type="text" data-href="dmnexrequest/downloadxls?id=' + cl + '">' +
                     '<i class="fa fa-file-excel-o" title="Выгрузить в xls шаблон" aria-hidden="true"></i></a>';
-                xml = '<a href="#"  class="btn btn-warning btn-sm download" data-type="xml" data-href="dmnupload/downloadxml?id=' + cl + '">' +
+                xml = '<a href="#"  class="btn btn-warning btn-sm download" data-type="xml" data-href="dmnexrequest/downloadxml?id=' + cl + '">' +
                     '<i class="fa fa-file-code-o" title="Выгрузить в xml" aria-hidden="true"></i></a>';
-                lifecycle = '<a href="#" class="btn btn-warning btn-sm lifecycle"  data-href="dmnrequest/getlifecycle?id=' + cl + '">' +
+                lifecycle = '<a href="#" class="btn btn-warning btn-sm lifecycle"  data-href="dmnexrequest/getlifecycle?id=' + cl + '">' +
                     '<i class="fa fa-life-ring" title="Жизненный цикл заявки" aria-hidden="true"></i></a>';
                 $("#requestlist_n").jqGrid('setRowData', ids[i], {act: prints + xls + lifecycle});
             }
-        }
+        },
+        /*editurl: "dmnexrequest/editrequestnumber",	  */
     });
     $("#requestlist_n").jqGrid('navGrid', "#prequestlist_n", {edit: false, add: false, del: false, search: true},
         {
@@ -395,7 +354,7 @@ $(function () {
     );
     $("#requestlist").jqGrid({
         regional: 'ru',
-        url: 'dmnrequest/getrequest?id=0',
+        url: 'dmnexrequest/getrequest?id=0',
         datatype: "json",
         colNames: ['Наименование', 'Значение', 'IdReq'],
         colModel: [
@@ -434,7 +393,7 @@ $(function () {
             }
             $('#requestlist').jqGrid('editRow', id, true);
         },
-        editurl: "dmnrequest/editrequest",
+        editurl: "dmnexrequest/editrequest",
         caption: "Детализация заявки",
         gridComplete: function () {
             var recs = parseInt($("#requestlist").getGridParam("records"), 10);
@@ -487,10 +446,10 @@ $(function () {
         });
     $("#requestlist_d").jqGrid({
         regional: 'ru',
-        url: 'dmnrequest/getrequest?id=0',
+        url: 'dmnexrequest/getrequestdesc?id=0',
         datatype: "json",
         colNames: ['Id', 'П/н №', 'К-во мест и вид упак.', 'Описание товара', 'Критерий', 'Кол-во товара', 'Ед.изм.', 'Номер и дата счета-фактуры'],
-        colModel: [{name: 'id', index: 'id', width: '2%', hidden: true},
+        colModel: [{name: 'id', index: 'id', hidden: true, width: '2%'},
             {name: 'paragraph', index: 'paragraph', width: '5%', editable: true},
             {
                 name: 'seats',
@@ -552,7 +511,7 @@ $(function () {
         viewrecords: true,
         sortorder: "asc",
         multiselect: false,
-        editurl: "dmnrequest/editrequestdesc",
+        editurl: "dmnexrequest/editrequestdesc",
         caption: "Дополнительная информация по заявке"
     });
     $("#requestlist_d").jqGrid('navGrid', '#prequestlist_d', {add: false, edit: true, del: false, search: false},
