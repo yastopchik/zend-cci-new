@@ -87,14 +87,14 @@ class DmnExrequestController extends AbstractActionController
         if (!is_null($id)) {
             $upload = $this->dbRequest->getUploadService();
             $upload->setId($id);
-            $fileName = $upload->getFileNameById();
-            if (!empty($fileName['workorder'])) {
+            $requestNumber = $upload->getRequestNumberWithValidate();
+            if (($requestNumber === null) || (is_string($requestNumber))) {
+                return $response->setContent($requestNumber, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+            } else {
                 ob_start();
-                $upload->downloadPrint();
+                $upload->downloadPrint($requestNumber);
                 $excelOutput = ob_get_clean();
                 $response->setContent($excelOutput);
-            } else {
-                return $response->setContent('errorНе введен номер сертификата');
             }
         }
         return $response;

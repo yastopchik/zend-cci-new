@@ -437,11 +437,9 @@ class DmnuploadService
                 }
                 //Description
                 $requestDescriptionOptions = $this->getExcelOptions()->getRequestDescriptionOptions();
-                if (!is_null($requestDescriptionOptions))
-                {
+                if (!is_null($requestDescriptionOptions)) {
                     $row = $requestDescriptionOptions['options']['row'];
-                    while ($row <= $highestRow)
-                    {
+                    while ($row <= $highestRow) {
                         $keysRd = $row - $requestDescriptionOptions['options']['row'];
                         $data['rd']['rows'][$keysRd]['id'] = $keysRd;
                         $data['rd']['rows'][$keysRd]['cell'] = array();
@@ -564,7 +562,7 @@ class DmnuploadService
      *Downlod file request in xls format
      * @return outputXls
      */
-    public function downloadPrint()
+    public function downloadPrint(array $requestNumber)
     {
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //$this->authUserId=6;
@@ -574,7 +572,7 @@ class DmnuploadService
             $objPHPExcel = new PHPExcel();
             $this->cache->setItem('objPHPExcelPrint', $objPHPExcel);
         }
-        $rn = $this->convertRequestNumberToNeeds($this->requestService->getDbRequest()->getRequestNumberById($this->id)->getArrayResult(), true);
+        $rn = $this->convertRequestNumberToNeeds($requestNumber, true);
         if (!empty($rn)) {
             foreach ($rn as $rnId) {
                 $this->printObject->setExcelObject($objPHPExcel, $this->getPrintOptionsByFormsId($rnId['formsid']), $this->getFileName());
@@ -669,6 +667,39 @@ class DmnuploadService
     public function getRequestNumbersByStatus()
     {
         return $this->requestService->getDbRequest()->getRequestNumbersByStatus()->getArrayResult();
+    }
+
+    /**
+     * Get request Number into the array
+     * @return array || NULL
+     */
+    public function getRequestNumberById()
+    {
+        if (null !== $this->id)
+            return $this->requestService->getDbRequest()->getRequestNumberById($this->id)->getArrayResult();
+        else
+            return null;
+    }
+
+    public function getRequestNumberWithValidate()
+    {
+        $requestNumber = $this->getRequestNumberById();
+        if ($requestNumber !== null) {
+            foreach ($requestNumber as $row) {
+                foreach ($row as $key => $value) {
+                    if (($key == 'workorder') && (empty($value))) {
+                        return json_encode(['jsonrpc' => '2.0', 'error' => ['code' => 100, 'message' => 'Не введен номер сертификата']], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+                    } else if (($key == 'destinationiso') && (empty($value))) {
+                        return json_encode(['jsonrpc' => '2.0', 'error' => ['code' => 100, 'message' => 'Не выбрана страна назначения']], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+                    } else if (($key == 'numblank') && (empty($value))) {
+                        return json_encode(['jsonrpc' => '2.0', 'error' => ['code' => 100, 'message' => 'Не введен номер бланка']], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+                    }
+                }
+            }
+            return $requestNumber;
+        } else {
+            return json_encode(['jsonrpc' => '2.0', 'error' => ['code' => 100, 'message' => 'Не выбрана заявка']], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        }
     }
 
     /**

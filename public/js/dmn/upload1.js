@@ -111,7 +111,7 @@ $(function () {
                 }
             }
             if ((uploader.total.uploaded + 1) >= uploader.files.length && (typeof response.error === 'undefined')) {
-                window.location = 'http://mogbeltpp';
+                window.location = '/';
             }
         });
     }
