@@ -1,68 +1,15 @@
 <?php echo $this->headTitle('Request/Upload');
-$this->headScript()
-	->offsetSetFile(101, $this->basePath() . '/components/plupload/js/plupload.full.min.js')
-	->offsetSetFile(102, $this->basePath() . '/components/plupload/js/jquery.ui.plupload/jquery.ui.plupload.min.js')
-	->offsetSetFile(103, $this->basePath() . '/components/plupload/js/i18n/ru.js');
 $this->headLink()
-	->appendStylesheet($this->basePath() . '/components/plupload/js/jquery.ui.plupload/css/jquery.ui.plupload.css');
-?><div id="content">
-<div id="uploader">
-	<p>Your browser doesn't have Flash, Silverlight or HTML5 support.</p>
-</div>
-</div>
-<?php 
-$this->inlineScript()->captureStart();
-echo <<<JS
-$(function() {
-	$("#uploader").plupload({
-		// General settings
-		runtimes : 'html5,flash,silverlight,html4',
-		url : 'http://mogbeltpp/requests/upload',
-		// Maximum file size
-		max_file_size : '15mb',		
-		max_file_count: 10,
-		multi_selection:true,
-		chunk_size: '1mb',			
-		resize : {
-			width : 200, 
-			height : 200, 
-			quality : 90,
-			crop: true // crop to exact dimensions
-		},		
-		filters : [
-			{title : "Excel files", extensions : "xls,xlsx"}
-		],			
-		// Sort files
-		sortable: false,
-		dragdrop: false,
-		// Views to activate
-		views: {
-			list: true,
-			thumbs: true, // Show thumbs
-			active: 'thumbs'
-		},
-	});
-		
-	var uploader = $("#uploader").plupload('getUploader');
-	uploader.bind('FileUploaded', function(up, file, response) {
-		response = jQuery.parseJSON(response.response );
-			if (typeof response.error !== 'undefined'){
-		     if (typeof response.error.code !== 'undefined'){		   
-        	    uploader.trigger('Error', {
-            	code : response.error.code,
-            	message : response.error.message,
-            	details : response.details,
-            	file : file
-        	  });
-		     }         	
-			}  
-            if( (uploader.total.uploaded + 1) >= uploader.files.length && (typeof response.error === 'undefined'))
-              {
-                window.location = 'http://mogbeltpp';
-              }
-	});		
-});
-
-JS;
-$this->inlineScript()->captureEnd();
+    ->appendStylesheet($this->basePath() . '/components/plupload/js/jquery.ui.plupload/css/jquery.ui.plupload.css');
+$this->inlineScript()
+    ->offsetSetFile(101, $this->basePath() . '/components/plupload/js/plupload.full.min.js')
+    ->offsetSetFile(102, $this->basePath() . '/components/plupload/js/jquery.ui.plupload/jquery.ui.plupload.min.js')
+    ->offsetSetFile(103, $this->basePath() . '/components/plupload/js/i18n/ru.js')
+    ->offsetSetFile(104, $this->basePath() . '/js/dmn/upload3.js');
 ?>
+<div id="content">
+    <div id="uploader" data-href="<?php echo $this->url('requests', ['action' => 'upload']) ?>">
+        <p>Your browser doesn't have Flash, Silverlight or HTML5 support.</p>
+    </div>
+</div>
+

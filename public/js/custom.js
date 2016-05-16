@@ -219,7 +219,7 @@ $(document).delegate(".download", "click", function () {
                     Message.error(rpcResponse.error.message);
                 }
             } else {
-                window.open(href);
+                window.location = href;
             }
         }
     });

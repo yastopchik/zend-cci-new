@@ -72,14 +72,13 @@ class DmnUploadController extends AbstractActionController
         $id = $this->params()->fromQuery('id', 0);
         if (!is_null($id)) {
             $this->upload->setId($id);
-            $fileName = $this->upload->getFileNameById();
-            if (!empty($fileName['workorder'])) {
-                ob_start();
-                $this->upload->downloadPrint();
-                $excelOutput = ob_get_clean();
-                $response->setContent($excelOutput);
+            $requestNumber = $this->upload->getRequestNumberWithValidate();
+            if (($requestNumber === null) || (is_string($requestNumber))) {
+                return $response->setContent($requestNumber, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
             } else {
-                return $response->setContent(json_encode(array('jsonrpc' => '2.0', 'error' => array('code' => 100, 'message' => 'Не введен номер сертификата')), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+                ob_start();
+                $this->upload->downloadPrint($requestNumber);
+                $excelOutput = ob_get_clean();
             }
         }
         return $response;

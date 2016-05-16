@@ -1,8 +1,10 @@
 <?php echo $this->headTitle($this->translate('LifeCycle')); ?>
-
 <div id="gridWrapper">
-    <h3><?php echo $this->translate('LifeCycle'); ?></h3>
-    <table>
+    <table class="table table-striped">
+        <thead>
+        <tr><th><?php echo $this->translate('Статус');?></th><th><?php echo $this->translate('Дата');?></th></tr>
+        </thead>
+        <tbody>
         <?php foreach ($data as $showId) { ?>
             <?php foreach ($showId as $key => $value) { ?>
                 <?php if (strcmp($key, 'id') != 0 && !is_null($value)) { ?>
@@ -15,5 +17,6 @@
             }
         }
         ?>
+        </tbody>
     </table>
 </div>
