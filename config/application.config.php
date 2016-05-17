@@ -5,6 +5,7 @@ return array(
     	'ZfcUser',
     	'BjyAuthorize',
     	'BjyProfiler',
+        'DBSessionStorage',
         'Application',
     	'DmnAdmin',
     	'DmnExecutor',
@@ -13,8 +14,7 @@ return array(
     	'DmnLog',
     	'DmnMail',
         'DoctrineModule',
-        'DoctrineORMModule',
-    	'DBSessionStorage',
+        'DoctrineORMModule'
         //'ZendDeveloperTools'
     		
     ),

@@ -1,63 +1,6 @@
 var req = ["0", "2", "6", "8", "11", "14"];
 $(function () {
-    var lastSel, exUser;
-    var modalHelp = $("#modalHelp");
-    if (modalHelp.length) {
-        var modalDialog = modalHelp.find('.modal-dialog');
-        modalDialog.removeClass('modal-lg').addClass('');
-        modalDialog.find('.close').remove();
-        modalDialog.find('#buttonClose').remove();
-        modalHelp.find('.modal-title').html('Выбирете необходимые данные');
-        modalHelp.modal();
-        var modalBody = modalHelp.find('.modal-body');
-        if (modalBody.length) {
-            modalBody.append('<label for="exOrg">Организация:</label><select class="form-control" id="exOrg"></select>');
-            $.ajax({
-                url: 'getexorganization?id=1',
-                dataType: 'text',
-                success: function (response) {
-                    response = JSON.parse(response);
-                    $('#exOrg').append('<option value="0">--Необходимо выбрать организацию--</option>');
-                    if (response.length) {
-                        for (var i = 0, l = response.length; i < l; i++) {
-                            var ri = response[i];
-                            $('#exOrg').append('<option value="' + ri.id + '">' + ri.name + '</option>');
-                        }
-                    }
-                },
-            });
-            $("#exOrg").change(function () {
-                var selectedVal = $("#exOrg :selected").val();
-                var selectExUser = modalBody.find('#exUser');
-                var exUser;
-                if (!selectExUser.length) {
-                    modalBody.append('<label for="exUser">Предстваитель:</label><select class="form-control" id="exUser"></select>');
-                }
-                selectExUser.empty();
-                $.ajax({
-                    url: 'getexexecutors?id=' + selectedVal,
-                    dataType: 'text',
-                    success: function (response) {
-                        response = JSON.parse(response);
-                        if (response.length) {
-                            for (var i = 0, l = response.length; i < l; i++) {
-                                var ri = response[i];
-                                $('#exUser').append('<option value="' + ri.id + '">' + ri.executor + '</option>');
-                            }
-                        }
-                    },
-                });
-            })
-            modalHelp.find('.modal-footer').prepend('<button type="button" class="btn btn-primary" id="exSubmit">Выбрать</button>');
-        }
-    }
-    $('#exSubmit').on('click', function(){
-        exUser = $("select#exUser option:selected").attr('value');
-        if(!!exUser)
-            modalHelp.modal('hide');
-        else
-            Message.error('Не выбраны организация или представитель организации');
-    })
+    var lastSel;
     $("#requestlist").jqGrid({
         regional: 'ru',
         url: 'getaddrequest',
@@ -162,35 +105,28 @@ $(function () {
             },
         }
     );
-    $('#add').on("click", function () {
-        var requestlist = $('#requestlist');
-        var validate;
-        if (requestlist.length){
-            req.forEach(function(item) {
-                validate=requestlist.find('tr#'+item).find('td[aria-describedby="requestlist_value"]').text();
-                if (validate.length <= 1){
-                    Message.error(requestlist.find('tr#'+item).find('td[aria-describedby="requestlist_name"]').text() + ' - не заполнено!');
-                    return false;
-                }
-            });
-        }
-        var obj = $(this);
-        if (!!exUser){
-            $("#loadImg").show();
-            $.ajax({
-                dataType: 'json',
-                url: 'save?id='+exUser,
-                success: function(jsondata){
-                    $("#loadImg").hide();
-                    Message.success('Заявка на сертификат принята');
-                    $(location).attr('href', '/dmnrequest');
-                }
-            });
-        } else {
-            $("#loadImg").hide();
-            Message.error('Не выбраны организация и клиент');
-            return false;
-        }
+});
+$('#add').on("click", function () {
+    var requestlist = $('#requestlist');
+    var validate;
+    if (requestlist.length){
+        req.forEach(function(item) {
+            validate=requestlist.find('tr#'+item).find('td[aria-describedby="requestlist_value"]').text();
+            if (validate.length <= 1){
+                Message.error(requestlist.find('tr#'+item).find('td[aria-describedby="requestlist_name"]').text() + ' - не заполнено!');
+                return false;
+            }
+        });
+    }
+    $("#loadImg").show();
+    $.ajax({
+         dataType: 'json',
+            url: 'save',
+            success: function(jsondata){
+                $("#loadImg").hide();
+                Message.success('Заявка на сертификат принята');
+                $(location).attr('href', '/requests');
+            }
     });
 });
 function validReq(value, id) {

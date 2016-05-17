@@ -192,13 +192,15 @@ function getstat(href, period, periodview) {
         }
     });
 };
-$(document).delegate(".lifecycle", "click", function () {
+$(document).delegate(".lifecycle", "click", function (e) {
+    e.preventDefault();
     var modalHelp = $("#modalHelp");
+    var modalBody = modalHelp.find('.modal-body');
+    modalHelp.find('.modal-title').html('Жизненный цикл заявки');
     var href = $(this).data("href");
     if (modalHelp.length) {
-        modalHelp.find('.modal-title').html('Жизненный цикл заявки');
+        modalBody.empty();
         modalHelp.modal();
-        var modalBody = modalHelp.find('.modal-body');
         if (modalBody.length) {
             modalBody.load(href);
         }
@@ -225,27 +227,34 @@ $(document).delegate(".download", "click", function () {
     });
     $("#loadImg").show();
 });
-$(document).delegate("#helpHref", "click", function () {
+$(document).delegate("#helpHref", "click", function (e) {
+    e.preventDefault();
     var modalHelp = $("#modalHelp");
+    var modalBody = modalHelp.find('.modal-body');
+    modalHelp.find('.modal-title').html('Помощь по использованию ресурса');
     var href = $(this).data("href");
     if (modalHelp.length) {
+        modalBody.empty();
         modalHelp.modal();
-        var modalBody = modalHelp.find('.modal-body');
         if (modalBody.length) {
             modalBody.load(href);
         }
     }
 });
-$(document).delegate("#changePass", "click", function () {
+$(document).delegate("#changePass", "click", function (e) {
+    e.preventDefault();
     var modalHelp = $("#modalHelp");
+    var modalBody = modalHelp.find('.modal-body');
     var href = $(this).data("href");
     if (modalHelp.length) {
         modalHelp.find('.modal-title').html('Сменить пароль');
         modalHelp.modal();
-        var modalBody = modalHelp.find('.modal-body');
         if (modalBody.length) {
+            modalBody.empty();
             modalBody.load(href);
-            modalHelp.find('.modal-footer').prepend('<button type="button" class="btn btn-primary" id="changePassSubmit">Изменить</button>');
+            var changePassSubmit=modalHelp.find('.modal-footer').find('#changePassSubmit');
+            if(changePassSubmit.length==0)
+                modalHelp.find('.modal-footer').prepend('<button type="button" class="btn btn-primary" id="changePassSubmit">Изменить</button>');
         }
     }
 });

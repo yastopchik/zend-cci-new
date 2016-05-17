@@ -2,8 +2,8 @@
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Application\Service\RequestsService;
 use Zend\View\Model\ViewModel;
+use Application\Service\RequestsService;
 
 
 class RequestsController extends AbstractActionController
@@ -38,44 +38,12 @@ class RequestsController extends AbstractActionController
     			'Cache-Control' => 'no-store, no-cache, must-revalidate',
     	));
     	$upload=$this->requestsService->getUploadService();
-    	//For the executor set his authentication id
-    	$upload->setAuth($this->requestsService->getAuth());
     	$request = $this->getRequest();
     	if ($request->isPost()) {
-    		$post = $request->getPost()->toArray();
-    		if (isset($post ["name"])) {
-    			$File = $post ["name"];
-    		} elseif (!empty($_FILES)) {
-    			$files=$request->getFiles()->toArray();
-    			$File = $files["file"]["name"];
-    		}
-    		$upload->setFileName($File);
-    		$data = array_merge( $post,  array('fileupload'=> $File));
-    		$adapter=$upload->getAdapter($data);
-    		if (isset($adapter)&&($adapter->isValid())){
-    			$adapter->setDestination($upload->getDirectory());
-    		    if ($adapter->receive($File)) {	  		    
-	  			$error=$upload->uploadFileToDatabase();
-	  			if(is_array($error)){
-	  			    foreach ($error as $err){
-	  			        if(!$err){
-	  			            $upload->deleteFileFromDirectory();
-	  			            return $this->getResponse()->setContent(json_encode(array('success'=>true), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-	  			        }else{
-	  			            return $this->getResponse()->setContent(json_encode(array('jsonrpc'=>'2.0', 'error'=>array('code'=>100, 'message'=>$err),'id'=>'id'), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-	  			            
-	  			        }
-	  			    }
-	  			}	  			
-	  		 }
-    		}else{
-    			$dataError = $adapter->getMessages();
-    			foreach($dataError as $key=>$row){
-    		  	
-    				return $this->getResponse()->setContent(json_encode(array('jsonrpc'=>'2.0', 'error'=>array('code'=>100, 'message'=>$row),'id'=>'id'), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-    			}
-    		}
-    		$upload->deleteFileFromDirectory();
+			$upload->setAuth($this->requestsService->getAuth());
+			$fileArr = $this->params()->fromFiles('file');
+			$response=$upload->saveFile($fileArr);
+			return $this->getResponse()->setContent($response);
     	}
     	$view->setTemplate('application/requests/upload');
     	return $view;

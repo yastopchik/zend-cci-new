@@ -11,8 +11,8 @@
  * 
  */
 return array(
-    'zf2-db-session'=>array(
-        'sessionConfig' => array(
+    'zf2-db-session'=>[
+        'sessionConfig' => [
             'cache_expire' => 3600,
             //'cookie_domain' => 'localhost',
             'name' => 'request',
@@ -22,6 +22,9 @@ return array(
             'cookie_secure' => false,//когда включиться https поставить true
             'remember_me_seconds' => 3600,
             'use_cookies' => true,
-        )
-    )
+        ],
+        'serviceConfig'=>[
+            'base64Encode'=>false
+        ]
+    ]
 );

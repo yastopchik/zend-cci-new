@@ -175,7 +175,6 @@ $(function () {
                 }
             });
         }
-        var obj = $(this);
         if (!!exUser){
             $("#loadImg").show();
             $.ajax({
@@ -183,7 +182,7 @@ $(function () {
                 url: 'save?id='+exUser,
                 success: function(jsondata){
                     $("#loadImg").hide();
-                    Message.error('Заявка на сертификат принята');
+                    Message.success('Заявка на сертификат принята');
                     $(location).attr('href', '/dmnexrequest');
                 }
             });
@@ -195,7 +194,6 @@ $(function () {
     });
 });
 function validReq(value, id) {
-    var req = ["1", "3", "7", "9", "12", "14", "15", "16"];
     var a = req.indexOf(id);
     if ((a >= 0) && (value.length == 0)) {
         Message.error('Значение поля не может быть пустым');
