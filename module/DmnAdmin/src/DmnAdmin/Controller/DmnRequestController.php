@@ -425,7 +425,7 @@ class DmnRequestController extends AbstractActionController
     public function archreqAction()
     {
         $response = $this->getResponse();
-        $this->dbRequest->requestToArchive(new \DateTime('NOW'));
+        $this->dbRequest->requestToArchive(date('Y-m-d',strtotime(new \DateTime('NOW') . "-1 year")));
         return $response;
     }
 
