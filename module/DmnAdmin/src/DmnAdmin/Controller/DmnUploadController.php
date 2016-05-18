@@ -118,7 +118,6 @@ class DmnUploadController extends AbstractActionController
         $response = $this->getResponse();
         $date = new \DateTime('NOW');
         $data = $this->upload->getRequestNumbersByDate($date);
-
         if (is_array($data) && count($data) > 0) {
             $directory = '1C/download/' . $date->format('d_m_Y');
             if (is_dir($directory))

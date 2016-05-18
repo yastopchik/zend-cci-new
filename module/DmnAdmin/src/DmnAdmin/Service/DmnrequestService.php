@@ -1130,6 +1130,10 @@ class DmnrequestService implements EventManagerAwareInterface
         return $response;
 
     }
+    public function requestToArchive()
+    {
+        return $this->dbRequest->requestToArchive();
+    }
 
 }
 

@@ -47,6 +47,13 @@ class RequestService
         }
         return $this->mapperRequest->fillXmlUnloading($value, $date);
     }
+    public function requestToArchive($date)
+    {
+        if (!$date instanceof \DateTime) {
+            throw new \InvalidArgumentException('Value isn\'t  a date');
+        }
+        return $this->mapperRequest->requestToArchive($date);
+    }
 
     public function getRequestByRequestId($requestId)
     {

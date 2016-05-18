@@ -1,6 +1,45 @@
-﻿    <li class="<?php echo ((($route == "dmnrequest")&&($action=="index"))? "active" : "")?>"><a href="<?php echo $this->url('dmnrequest', array('action' => 'index')); ?>" id="view"><i class="fa fa-list"></i> <?php echo $this->translate('View'); ?></a></li>
-    <li class="<?php echo ((($route == "dmnupload")&&($action=="index"))? "active" : "")?>"><a href="<?php echo $this->url('dmnupload', array('action' => 'index')); ?>" id="upload"><i class="fa fa-upload"></i> <?php echo $this->translate('Upload'); ?></a></li>
-    <li class="<?php echo ((($route == "dmnrequest")&&($action=="add"))? "active" : "")?>"><a href="<?php echo $this->url('dmnrequest', array('action' => 'add')); ?>" id="addition"><i class="fa fa-plus-square"></i> <?php echo $this->translate('Add'); ?></a></li>
-    <li class="<?php echo ((($route == "dmnuser")&&($action=="index"))? "active" : "")?>"><a href="<?php echo $this->url('dmnuser', array('action' => 'index')); ?>" id="users"><i class="fa fa-users"></i> <?php echo $this->translate('Clients'); ?></a></a></li>
-    <li class="<?php echo ((($route == "dmnexecutor")&&($action=="index"))? "active" : "")?>"><a href="<?php echo $this->url('dmnexecutor', array('action' => 'index')); ?>" id="executors"><i class="fa fa-graduation-cap"></i> <?php echo $this->translate('Executors'); ?></a></a></li>
-    <li class="<?php echo ((($route == "dmnstatistics")&&($action=="index"))? "active" : "")?>"><a href="<?php echo $this->url('dmnstatistics', array('action' => 'index')); ?>" id="statistics"><i class="fa fa-bar-chart"></i> <?php echo $this->translate('Statistics'); ?></a></li>
+﻿<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+       aria-expanded="false"><i class="fa fa-database"
+                                aria-hidden="true"></i> <?php echo $this->translate('Sertificates'); ?>
+        <span class="caret"></span></a>
+    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+        <li class="<?php echo((($route == "dmnrequest") && ($action == "index")) ? "active" : "") ?>"><a
+                href="<?php echo $this->url('dmnrequest', array('action' => 'index')); ?>" id="view"><i
+                    class="fa fa-list"></i> <?php echo $this->translate('View'); ?></a></li>
+        <li class="<?php echo((($route == "dmnupload") && ($action == "index")) ? "active" : "") ?>"><a
+                href="<?php echo $this->url('dmnupload', array('action' => 'index')); ?>" id="upload"><i
+                    class="fa fa-upload"></i> <?php echo $this->translate('Upload'); ?></a></li>
+        <li class="<?php echo((($route == "dmnrequest") && ($action == "add")) ? "active" : "") ?>"><a
+                href="<?php echo $this->url('dmnrequest', array('action' => 'add')); ?>" id="addition"><i
+                    class="fa fa-plus-square"></i> <?php echo $this->translate('Add'); ?></a></li>
+        <li role="separator" class="divider"></li>
+        <li class="dropdown-submenu">
+            <a tabindex="-1" href="#">
+                <i class="fa fa-calendar" aria-hidden="true"></i> <?php echo $this->translate('Archive'); ?>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="<?php echo((($route == "requests") && ($action == "archive")) ? "active" : "") ?>"><a
+                        href="<?php echo $this->url('requests', array('action' => 'archive', 'id' => '2015')); ?>"
+                        id="view"><i
+                            class="fa fa-list"></i> 2015</a></li>
+            </ul>
+        </li>
+    </ul>
+</li>
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+       aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i> <?php echo $this->translate('Management'); ?>
+        <span class="caret"></span></a>
+    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+        <li class="<?php echo((($route == "dmnuser") && ($action == "index")) ? "active" : "") ?>"><a
+                href="<?php echo $this->url('dmnuser', array('action' => 'index')); ?>" id="users"><i
+                    class="fa fa-users"></i> <?php echo $this->translate('Clients'); ?></a></a></li>
+        <li class="<?php echo((($route == "dmnexecutor") && ($action == "index")) ? "active" : "") ?>"><a
+                href="<?php echo $this->url('dmnexecutor', array('action' => 'index')); ?>" id="executors"><i
+                    class="fa fa-graduation-cap"></i> <?php echo $this->translate('Executors'); ?></a></a></li>
+        <li class="<?php echo((($route == "dmnstatistics") && ($action == "index")) ? "active" : "") ?>"><a
+                href="<?php echo $this->url('dmnstatistics', array('action' => 'index')); ?>" id="statistics"><i
+                    class="fa fa-bar-chart"></i> <?php echo $this->translate('Statistics'); ?></a></li>
+    </ul>
+</li>

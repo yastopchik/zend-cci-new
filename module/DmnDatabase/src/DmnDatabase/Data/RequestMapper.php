@@ -7,7 +7,6 @@ use Doctrine\ORM\QueryBuilder;
 
 class RequestMapper extends AbstractMapper implements RequestMapperInterface
 {
-
     protected $roleId = 2;
     /**
      * @dependency_table CciCountry
@@ -17,6 +16,10 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
      * @dependency_table CciLifecycle
      */
     private $entityNameLifecycle = 'DmnDatabase\Entity\CciLifecycle';
+    /**
+     * @dependency_table CciLifecycle
+     */
+    private $entityNameLifecycleArchive = 'DmnDatabase\Entity\CciLifecycleArchive';
     /**
      * @dependency_table CciStatus
      */
@@ -30,9 +33,21 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
      */
     private $entityNameRequest = 'DmnDatabase\Entity\CciRequest';
     /**
+     * @dependency_table CciRequestArchive
+     */
+    private $entityNameRequestNumberArchive = 'DmnDatabase\Entity\CciRequestNumberArchive';
+    /**
+     * @dependency_table CciRequestArchive
+     */
+    private $entityNameRequestArchive = 'DmnDatabase\Entity\CciRequestArchive';
+    /**
      * @dependency_table CciRequestDescription
      */
     private $entityNameRequestDescription = 'DmnDatabase\Entity\CciRequestDescription';
+    /**
+     * @dependency_table CciRequestDescriptionArchive
+     */
+    private $entityNameRequestDescriptionArchive = 'DmnDatabase\Entity\CciRequestDescriptionArchive';
     /**
      * @dependency_table CciForms
      */
@@ -42,9 +57,31 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
      */
     private $entityNameXmlUnloading = 'DmnDatabase\Entity\CciXmlUnloading';
     /**
+     * @dependency_table CciXmlUnloadingArchive
+     */
+    private $entityNameXmlUnloadingArchive = 'DmnDatabase\Entity\CciXmlUnloadingArchive';
+    /**
      * @dependency_table CciStatistics
      */
     private $entityNameStatistic = 'DmnDatabase\Entity\CciStatistic';
+
+    /**
+     * @param $entityName
+     * @param $entityValue
+     */
+    public function __set($entityName, $entityValue)
+    {
+        $this->$entityName = $entityValue;
+    }
+
+    /**
+     * @param $entityName
+     * @return mixed
+     */
+    public function __get($entityName)
+    {
+        return $this->$entityName;
+    }
 
     /**
      *
@@ -56,7 +93,7 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
 
         $em = $this->doctrineEntity;
         $query = $em->createQueryBuilder()
-            ->from($this->entityNameRequestDescription, 'rd')
+            ->from($this->__get('entityNameRequestDescription'), 'rd')
             ->select("rd, rd.id, rd.paragraph, rd.seats, rd.description, rd.hscode, rd.quantity, rd.unit, rd.invoce")
             ->join('rd.sertificateid', 'rq')
             ->where("rq.sertificatenumid =:id")
@@ -77,7 +114,7 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
 
         $em = $this->doctrineEntity;
         $query = $em->createQueryBuilder()
-            ->from($this->entityNameRequest, 'rq')
+            ->from($this->__get('entityNameRequest'), 'rq')
             ->select("rq, rq.id, rq.consignor, rq.exporter, rq.consignee, rq.importer,
     			 rq.transport, rq.servicemark, rq.adressconsignor, rq.adressexporter,
     			 rq.adressconsignee, rq.adressimporter, rq.itinerary, rq.unpconsignor,
@@ -100,7 +137,7 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
 
         $em = $this->doctrineEntity;
         $query = $em->createQueryBuilder()
-            ->from($this->entityNameRequestNumber, 'rn')
+            ->from($this->__get('entityNameRequestNumber'), 'rn')
             ->select("rn.id, rn.workorder")
             ->where("rn.dateacceped >= '" . $beginDate . "'")
             ->andWhere("rn.dateacceped <='" . $endDate . "'")
@@ -124,9 +161,9 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
         }
         $em = $this->doctrineEntity;
         $query = $em->createQueryBuilder()
-            ->from($this->entityNameRequestNumber, 'rn')
+            ->from($this->__get('entityNameRequestNumber'), 'rn')
             ->select("rn.id, rn.workorder")
-            ->leftJoin($this->entityNameXmlUnloading, 'x', \Doctrine\ORM\Query\Expr\Join::WITH, 'x.sertificatenumid	 = rn.id')
+            ->leftJoin($this->__get('entityNameXmlUnloading'), 'x', \Doctrine\ORM\Query\Expr\Join::WITH, 'x.sertificatenumid	 = rn.id')
             ->where($params)
             ->andWhere('x.sertificatenumid is NULL')
             ->orderBy('rn.id', 'ASC')
@@ -143,9 +180,9 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
     {
         $em = $this->doctrineEntity;
         try {
-            $x = new $this->entityNameXmlUnloading;
+            $x = new $this->__get('entityNameXmlUnloading');
             $x->setDateunloading($date);
-            $x->setSertificatenumid($em->find($this->entityNameRequestNumber, $value['id']));
+            $x->setSertificatenumid($em->find($this->__get('entityNameRequestNumber'), $value['id']));
             $em->persist($x);
             $em->flush();
         } catch (Exception $e) {
@@ -165,7 +202,7 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
 
         $em = $this->doctrineEntity;
         $query = $em->createQueryBuilder()
-            ->from($this->entityNameRequestNumber, 'rn')
+            ->from($this->__get('entityNameRequestNumber'), 'rn')
             ->select("rn.workorder")
             ->where("rn.id =:id")
             ->setParameter('id', $requestId)
@@ -180,10 +217,9 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
      */
     public function getRequestNumber($search)
     {
-
         $em = $this->doctrineEntity;
         $query = $em->createQueryBuilder()
-            ->from($this->entityNameRequestNumber, 'rn')
+            ->from($this->__get('entityNameRequestNumber'), 'rn')
             ->select("rn, rn.id, rn.workorder, rn.dateorder, rn.numblank, f.forms, rn.file, p.id as priorityid, p.priority,
     			  s.id as statusid, s.status, u.id as userid,  rn.numdoplist, u.name, u.position, u.phone as phone, o.name as organization, 
     			  rez.id as isresident, e.id as executorid, e.name as executor, rn.destinationiso, e.position as execposition, 
@@ -200,12 +236,9 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
             $query = $this->convertSearchToWhere($query, $search);
         if (!is_null($this->authUserId))
             $query = $this->convertAuthToWhere($query);
-
         $result = $query->orderBy('rn.id', 'DESC')
             ->getQuery();
-
         return $result;
-
     }
 
     /**
@@ -291,10 +324,9 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
      */
     public function getRequestNumberById($requestId)
     {
-
         $em = $this->doctrineEntity;
         $query = $em->createQueryBuilder()
-            ->from($this->entityNameRequestNumber, 'rn')
+            ->from($this->__get('entityNameRequestNumber'), 'rn')
             ->select("rn, rn.id, rn.workorder, rn.dateorder, rn.numblank, f.forms, rn.file, p.id as priorityid, p.priority,
     			  s.id as statusid, s.status, u.id as userid, rn.numdoplist, u.name, u.position, u.phone, o.name as organization, 
     			  rez.id as isresident, e.id as executorid, e.name as executor, rn.destinationiso, e.position as execposition, 
@@ -310,9 +342,7 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
             ->setParameter('id', $requestId)
             ->orderBy('rn.id', 'DESC')
             ->getQuery();
-
         return $query;
-
     }
 
     /**
@@ -321,7 +351,6 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
      */
     public function updateRequestNumber(array $data, $statusid)
     {
-
         $em = $this->doctrineEntity;
         /*if(!is_null($data['destinationiso'])){
             $cointrymapper=new CountryMapper($em);
@@ -333,7 +362,7 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
         if (!is_null($data['id'])) {
             $em->getConnection()->beginTransaction();
             try {
-                $rn = $em->find($this->entityNameRequestNumber, $data['id']);
+                $rn = $em->find($this->__get('entityNameLifecycle'), $data['id']);
                 if ($rn instanceof \DmnDatabase\Entity\CciRequestNumber) {
                     if (!is_null($data['workorder']))
                         $rn->setWorkorder($data['workorder']);
@@ -344,20 +373,20 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
                     if (!is_null($data['numdoplist']) && is_int(intval($data['numdoplist'])))
                         $rn->setNumDopList($data['numdoplist']);
                     /*if(!is_null($data['priority']) && is_int(intval($data['priority'])))
-                    $rn->setPriorityid($em->find($this->entityNamePriority, $data['priority']));*/
+                    $rn->setPriorityid($em->find($this->__get('entityNamePriority'), $data['priority']));*/
                     if (!is_null($data['status']) && is_int(intval($data['status'])))
-                        $rn->setStatusid($em->find($this->entityNameStatus, $data['status']));
+                        $rn->setStatusid($em->find($this->__get('entityNameStatus'), $data['status']));
                     if (!is_null($data['forms']) && is_int(intval($data['forms'])))
-                        $rn->setFormsid($em->find($this->entityNameForms, $data['forms']));
+                        $rn->setFormsid($em->find($this->__get('entityNameForms'), $data['forms']));
                     if (!is_null($data['executor']) && is_int(intval($data['executor'])))
-                        $rn->setExecutorid($em->find($this->entityUser, $data['executor']));
+                        $rn->setExecutorid($em->find($this->__get('entityUser'), $data['executor']));
                     if (!is_null($data['destinationiso']) && is_int(intval($data['destinationiso'])))
                         $rn->setDestinationiso($data['destinationiso']);
                     $em->persist($rn);
                     $em->flush();
                     //Lifecycle if change status
                     if (!is_null($data['status']) && ((($data['status'] >= $statusid) && ($statusid < 9)) || (($data['status'] >= 2) && ($statusid >= 9)))) {
-                        $lc = $em->getRepository($this->entityNameLifecycle)->findOneBy(array('sertificatenumid' => $data['id']));
+                        $lc = $em->getRepository($this->__get('entityNameLifecycle'))->findOneBy(array('sertificatenumid' => $data['id']));
                         if ($lc instanceof \DmnDatabase\Entity\CciLifecycle) {
                             if ($data['status'] == 2)
                                 $lc->setWorking(new \DateTime("now"));
@@ -391,7 +420,6 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
             return true;
         }
         return false;
-
     }
 
     /**
@@ -400,12 +428,11 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
      */
     public function updateRequestDescription(array $data)
     {
-
         $em = $this->doctrineEntity;
         if (!is_null($data['id'])) {
             $em->getConnection()->beginTransaction();
             try {
-                $rd = $em->find($this->entityNameRequestDescription, $data['id']);
+                $rd = $em->find($this->__get('entityNameRequestDescription'), $data['id']);
                 if ($rd instanceof \DmnDatabase\Entity\CciRequestDescription) {
                     if (!is_null($data['description']))
                         $rd->setDescription($data['description']);
@@ -433,7 +460,6 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
             return true;
         }
         return false;
-
     }
 
     /**
@@ -442,9 +468,8 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
      */
     public function updateRequest(array $data)
     {
-
         $em = $this->doctrineEntity;
-        $col = $em->getClassMetadata($this->entityNameRequest)->getFieldNames();
+        $col = $em->getClassMetadata($this->__get('entityNameRequest'))->getFieldNames();
         $id = $data['id'] + 1;
         if (array_key_exists($id, $col)) {
             $value = 'rd.' . $col[$id];
@@ -452,7 +477,7 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
                 $em->getConnection()->beginTransaction();
                 try {
                     $em->createQueryBuilder()
-                        ->update($this->entityNameRequest, 'rd')
+                        ->update($this->__get('entityNameRequest'), 'rd')
                         ->set($value, '?1')
                         ->setParameter('1', addslashes($data['value']))
                         ->where('rd.id = :id')
@@ -469,7 +494,6 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
             }
         }
         return false;
-
     }
 
     /**
@@ -485,15 +509,16 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
             try {
                 foreach ($data['rn'] as $keyRows => $valueRows) {
                     foreach ($valueRows as $keyId => $valueId) {
-                        $rn = new $this->entityNameRequestNumber;
+                        $rn = $this->__get('entityNameRequestNumber');
+                        $rn = new $rn;
                         $rn->setDateorder(new \DateTime("now"));
                         $rn->setFile($valueId['cell'][4]);
-                        $rn->setExecutorid($em->find($this->entityUser, $valueId['cell'][9]));
-                        $rn->setUserid($em->find($this->entityUser, $valueId['cell'][7]));
-                        $rn->setPriorityid($em->find($this->entityNamePriority, 1));
+                        $rn->setExecutorid($em->find($this->__get('entityUser'), $valueId['cell'][9]));
+                        $rn->setUserid($em->find($this->__get('entityUser'), $valueId['cell'][7]));
+                        $rn->setPriorityid($em->find($this->__get('entityNamePriority'), 1));
                         $rn->setNumDopList(0);
-                        $rn->setStatusid($em->find($this->entityNameStatus, 1));
-                        $rn->setFormsid($em->find($this->entityNameForms, 1));
+                        $rn->setStatusid($em->find($this->__get('entityNameStatus'), 1));
+                        $rn->setFormsid($em->find($this->__get('entityNameForms'), 1));
                         $rn->setDateacceped(new \DateTime("now"));
                         $em->persist($rn);
                         $em->flush();
@@ -502,7 +527,8 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
                     try {
                         if (!is_null($requestNumber)) {
                             //LifeCycle
-                            $lc = new $this->entityNameLifecycle;
+                            $lc = $this->__get('entityNameLifecycle');
+                            $lc = new $lc;
                             $lc->setAcceped(new \DateTime("now"));
                             $lc->setWorking(null);
                             $lc->setIssuance(null);
@@ -513,12 +539,13 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
                             $lc->setDamaged(null);
                             $lc->setSuspended(null);
                             $lc->setNodocuments(null);
-                            $lc->setSertificatenumid($em->find($this->entityNameRequestNumber, $requestNumber));
+                            $lc->setSertificatenumid($em->find($this->__get('entityNameRequestNumber'), $requestNumber));
                             $em->persist($lc);
                             $em->flush();
                             //Request
                             foreach ($data['rq'][$keyRows] as $keyId => $valueId) {
-                                $rq = new $this->entityNameRequest;
+                                $rq = $this->__get('entityNameRequest');
+                                $rq = new $rq;
                                 $rq->setConsignor(addslashes(trim($valueId['cell'][0])));
                                 $rq->setExporter(addslashes(trim($valueId['cell'][1])));
                                 $rq->setConsignee(addslashes(trim($valueId['cell'][2])));
@@ -534,7 +561,7 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
                                 $rq->setUnpexporter(addslashes(trim($valueId['cell'][12])));
                                 $rq->setRepresentation(addslashes(trim($valueId['cell'][13])));
                                 $rq->setFioagent(addslashes(trim($valueId['cell'][14])));
-                                $rq->setSertificatenumid($em->find($this->entityNameRequestNumber, $requestNumber));
+                                $rq->setSertificatenumid($em->find($this->__get('entityNameRequestNumber'), $requestNumber));
                                 $em->persist($rq);
                                 $em->flush();
                                 $request = $rq->getId();
@@ -542,7 +569,8 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
                                     if (!is_null($request)) {
                                         foreach ($data['rd'] as $keyRdRows => $valueRdRows) {
                                             foreach ($valueRdRows as $keyId => $valueId) {
-                                                $rd = new $this->entityNameRequestDescription;
+                                                $rd = $this->__get('entityNameRequestDescription');
+                                                $rd = new $rd;
                                                 $rd->setParagraph(addslashes(trim($valueId['cell'][1])));
                                                 $rd->setSeats(addslashes(trim($valueId['cell'][2])));
                                                 $rd->setDescription(addslashes(trim($valueId['cell'][3])));
@@ -550,7 +578,7 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
                                                 $rd->setQuantity(addslashes(trim($valueId['cell'][5])));
                                                 $rd->setUnit(addslashes(trim($valueId['cell'][6])));
                                                 $rd->setInvoce(addslashes(trim($valueId['cell'][7])));
-                                                $rd->setSertificateid($em->find($this->entityNameRequest, $request));
+                                                $rd->setSertificateid($em->find($this->__get('entityNameRequest'), $request));
                                                 $em->persist($rd);
                                                 $em->flush();
                                             }
@@ -585,10 +613,9 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
      */
     public function getStatusByRequestId($id)
     {
-
         $em = $this->doctrineEntity;
         $query = $em->createQueryBuilder()
-            ->from($this->entityNameRequestNumber, 'rn')
+            ->from($this->__get('entityNameRequestNumber'), 'rn')
             ->select("s.id as statusid")
             ->join("rn.statusid", "s")
             ->where("rn.id =:id")
@@ -597,29 +624,28 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
 
         return $query;
     }
-
     /**
      * param int $requestid
      * @return query getCountryByRequestId
      */
     /*public function getCountryByRequestId($requestid) {
-    
+
     	$em=$this->doctrineEntity;
     	$order=$em->createQueryBuilder()
     	->from($this->entityNameRequestNumber, 'rn')
-    	->select("rn.destinationiso")    	
+    	->select("rn.destinationiso")
     	->where("rn.id =:id")
     	->setParameter('id', $requestid)
     	->getQuery()
-    	->getSingleResult();    	
+    	->getSingleResult();
     	foreach($order as $key=>$iso){
-    		if(!is_null($iso)){	
+    		if(!is_null($iso)){
     		$em=$this->doctrineEntity;
     		$country=$em->createQueryBuilder()
     		->from($this->entityNameCountry, 'co')
     		->select("co.id, co.nameru, co.nameen, co.iso, co.fullnameru, co.dative")
     		->where("co.id =:id")
-    		->setParameter('id', $iso)    		
+    		->setParameter('id', $iso)
     		->getQuery()
     		->getArrayResult();
     		return $country;
@@ -635,14 +661,13 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
     {
         $em = $this->doctrineEntity;
         $country = $em->createQueryBuilder()
-            ->from($this->entityNameCountry, 'co')
+            ->from($this->__get('entityNameCountry'), 'co')
             ->select("co.id, co.nameru, co.nameen, co.iso, co.fullnameru, co.dative")
             ->where("co.id =:id")
             ->setParameter('id', $id)
             ->getQuery()
             ->getArrayResult();
         return $country;
-
     }
 
     /**
@@ -653,17 +678,73 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
     {
         $em = $this->doctrineEntity;
         $country = $em->createQueryBuilder()
-            ->from($this->entityNameCountry, 'co')
+            ->from($this->__get('entityNameCountry'), 'co')
             ->select("co.id, co.nameru, co.nameen, co.iso, co.fullnameru, co.dative")
             ->where("co.nameru =:nameru")
             ->setParameter('nameru', $nameru)
             ->getQuery()
             ->getArrayResult();
         return $country;
-
     }
 
+    public function requestToArchive($date)
+    {
+        $em = $this->doctrineEntity;
+        $em->getConnection()->beginTransaction();
+        /*
+         * INSERT INTO cci_request_number_archive SELECT * FROM `cci_request_number` WHERE `DateOrder` <= '2015-05-15'
+INSERT INTO cci_request_archive SELECT rq.* FROM `cci_request` rq Where rq.SertificateNumID IN (SELECT id FROM `cci_request_number` WHERE `DateOrder` <= '2015-05-15')
+INSERT INTO cci_request_description_archive SELECT rd.* FROM cci_request_description rd WHERE rd.SertificateID IN (SELECT rq.id FROM `cci_request` rq Where rq.SertificateNumID IN (SELECT id FROM `cci_request_number` WHERE `DateOrder` <= '2015-05-15'))
+INSERT INTO cci_xml_unloading_archive SELECT cxu.* FROM cci_xml_unloading cxu Where cxu.SertificateNumID IN (SELECT id FROM `cci_request_number` WHERE `DateOrder` <= '2015-05-15')
+INSERT INTO cci_lifecycle_archive SELECT cla.* FROM cci_lifecycle cla Where cla.SertificateNumID IN (SELECT id FROM `cci_request_number` WHERE `DateOrder` <= '2015-05-15')
 
+DELETE FROM cci_lifecycle Where id IN (SELECT id FROM cci_lifecycle_archive);
+DELETE FROM cci_xml_unloading Where id IN (SELECT id FROM cci_xml_unloading_archive);
+DELETE FROM cci_request_description WHERE id IN (SELECT id FROM cci_request_description_archive);
+DELETE FROM cci_request Where id IN (SELECT id FROM cci_request_archive);
+DELETE FROM cci_request_number Where id IN (SELECT id FROM cci_request_number_archive);*/
+        try {
+            $rn = $em->createQuery("INSERT INTO " . $this->__get('entityNameRequestNumberArchive') .
+                " SELECT * FROM " . $this->__get('entityNameRequestNumber') . " WHERE dateorder <= '" . $date . "' ");
+            $rn->execute();
+            $rq = $em->createQuery("INSERT INTO " . $this->__get('entityNameRequestArchive') .
+                " SELECT rq.* FROM " . $this->__get('entityNameRequest') ." rq Where rq.SertificateNumID IN (".
+                " SELECT id FROM " . $this->__get('entityNameRequestNumber') . " WHERE dateorder <= '" . $date . "')");
+            $rq->execute();
+            $rd = $em->createQuery("INSERT INTO " . $this->__get('entityNameRequestDescriptionArchive') .
+                " SELECT rd.* FROM " . $this->__get('entityNameRequestDescription') ." rd WHERE rd.SertificateID IN (".
+                " SELECT rq.* FROM " . $this->__get('entityNameRequest') ." rq Where rq.SertificateNumID IN (".
+                " SELECT id FROM " . $this->__get('entityNameRequestNumber') . " WHERE dateorder <= '" . $date . "'))");
+            $rd->execute();
+            $lf = $em->createQuery("INSERT INTO " . $this->__get('entityNameLifecycleArchive') .
+                " SELECT cla.* FROM " . $this->__get('entityNameLifecycle') ." cla Where cla.SertificateNumID IN (".
+                " SELECT id FROM " . $this->__get('entityNameRequestNumber') . " dateorder <= '" . $date . "')");
+            $lf->execute();
+            $up = $em->createQuery("INSERT INTO " . $this->__get('entityNameXmlUnloadingArchive') .
+                " SELECT cxu.* FROM " . $this->__get('entityNameXmlUnloadingArchive') ." cxu Where cxu.SertificateNumID IN (".
+                " SELECT id FROM " . $this->__get('entityNameRequestNumber') . " dateorder <= '" . $date . "')");
+            $up->execute();
+            /*Delete*/
+            $lfd = $em->createQuery("DELETE FROM " . $this->__get('entityNameLifecycle') .
+                " Where id IN (SELECT id FROM " . $this->__get('entityNameLifecycleArchive') . ")");
+            $lfd->execute();
+            $upd = $em->createQuery("DELETE FROM " . $this->__get('entityNameXmlUnloading') .
+                " Where id IN (SELECT id FROM " . $this->__get('entityNameXmlUnloadingArchive') . ")");
+            $upd->execute();
+            $rdd = $em->createQuery("DELETE FROM " . $this->__get('entityNameRequestDescription') .
+                " Where id IN (SELECT id FROM " . $this->__get('entityNameRequestDescriptionArchive') . ")");
+            $rdd->execute();
+            $rqd = $em->createQuery("DELETE FROM " . $this->__get('entityNameRequest') .
+                " Where id IN (SELECT id FROM " . $this->__get('entityNameRequestArchive') . ")");
+            $rqd->execute();
+            $rnd = $em->createQuery("DELETE FROM " . $this->__get('entityNameRequest') .
+                " Where id IN (SELECT id FROM " . $this->__get('entityNameRequestNumber') . ")");
+            $rnd->execute();
+            $em->getConnection()->commit();
+        } catch (Exception $e) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $e;
+        }
+    }
 }
-
-?>

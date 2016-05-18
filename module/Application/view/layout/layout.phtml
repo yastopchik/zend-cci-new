@@ -74,48 +74,48 @@
                 } ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="/maketCT-1.xls"><i class="fa fa-download"></i> Скачать шаблон</a></li>
+                <?php if ((($route == "dmnrequest") && ($action == "index")) || (($route == "dmnexrequest") && ($action == "index")) || (($route == "requests") && ($action == "index"))) { ?>
+                    <li><a href="#" id="helpHref"
+                           data-href="<?php echo $this->url('application', array('action' => 'help', 'id' => '2')); ?>">
+                            <i class="fa fa-info-circle" aria-hidden="true"></i> Помощь</a>
+                    </li>
+                <?php } elseif ((($route == "dmnupload") && ($action == "index")) || (($route == "requests") && ($action == "upload")) || (($route == "dmnexrequest") && ($action == "upload"))) { ?>
+                    <li><a href="#" id="helpHref"
+                           data-href="<?php echo $this->url('application', array('action' => 'help', 'id' => '4')); ?>">
+                            <i class="fa fa-info-circle" aria-hidden="true"></i> Помощь</a>
+                    </li>
+                <?php } elseif ((($route == "dmnrequest") && ($action == "add")) || (($route == "requests") && ($action == "add")) || (($route == "dmnexrequest") && ($action == "add"))) { ?>
+                    <li><a href="#" id="helpHref"
+                           data-href="<?php echo $this->url('application', array('action' => 'help', 'id' => '3')); ?>">
+                            <i class="fa fa-info-circle" aria-hidden="true"></i> Помощь</a>
+                    </li>
+                <?php } else { ?>
+                    <li><a href="#" id="helpHref"
+                           data-href="<?php echo $this->url('application', array('action' => 'help', 'id' => '2')); ?>">
+                            <i class="fa fa-info-circle" aria-hidden="true"></i> Помощь</a>
+                    </li>
+                <?php } ?>
                 <?php if (isset($identity) && ($identity instanceof \Zend\Authentication\AuthenticationService)
                     && ($identity->getIdentity() instanceof \DmnDatabase\Entity\CciZfUser)
                 ) { ?>
-                    <li><a href="#" style="pointer-events: none"><i class="fa fa-user" aria-hidden="true"></i>
-                            <?php echo $identity->getIdentity()->getDisplayName(); ?></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i>
+                            <?php echo $identity->getIdentity()->getDisplayName(); ?><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="changePass"
+                                   data-href="<?php echo $this->url('zfcuser/changepassword'); ?>"><i
+                                        class="fa fa-pencil"
+                                        aria-hidden="true"></i>
+                                    Сменить пароль</a>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="<?php echo $this->url('zfcuser/logout'); ?>"><i class="fa fa-sign-out"></i>
+                                    Выйти</a></li>
+                        </ul>
+                    </li>
                 <?php } ?>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Панель управления<span
-                            class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <?php if ((($route == "dmnrequest") && ($action == "index")) || (($route == "dmnexrequest") && ($action == "index")) || (($route == "requests") && ($action == "index"))) { ?>
-                            <li><a href="#" id="helpHref"
-                                   data-href="<?php echo $this->url('application', array('action' => 'help', 'id' => '2')); ?>"><i
-                                        class="fa fa-info"></i>  Помощь</a>
-                            </li>
-                        <?php } elseif ((($route == "dmnupload") && ($action == "index")) || (($route == "requests") && ($action == "upload")) || (($route == "dmnexrequest") && ($action == "upload"))) { ?>
-                            <li><a href="#" id="helpHref"
-                                   data-href="<?php echo $this->url('application', array('action' => 'help', 'id' => '4')); ?>"><i
-                                        class="fa fa-info"></i>  Помощь</a>
-                            </li>
-                        <?php } elseif ((($route == "dmnrequest") && ($action == "add")) || (($route == "requests") && ($action == "add")) || (($route == "dmnexrequest") && ($action == "add"))) { ?>
-                            <li><a href="#" id="helpHref"
-                                   data-href="<?php echo $this->url('application', array('action' => 'help', 'id' => '3')); ?>"><i
-                                        class="fa fa-info"></i>  Помощь</a>
-                            </li>
-                        <?php } else { ?>
-                            <li><a href="#" id="helpHref"
-                                   data-href="<?php echo $this->url('application', array('action' => 'help', 'id' => '2')); ?>"><i
-                                        class="fa fa-info"></i>  Помощь</a>
-                            </li>
-                        <?php } ?>
-                        <li><a href="#" id="changePass"
-                               data-href="<?php echo $this->url('zfcuser/changepassword'); ?>"><i class="fa fa-pencil" aria-hidden="true"></i>
-                                Сменить пароль</a>
-                        </li>
-                        <li><a href="/maketCT-1.xls"><i class="fa fa-download"></i> Скачать шаблон</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="<?php echo $this->url('zfcuser/logout'); ?>"><i class="fa fa-sign-out"></i>
-                                Выйти</a></li>
-                    </ul>
-                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -144,7 +144,8 @@
                     <div class="modal-body">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="buttonClose" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                        <button type="button" id="buttonClose" class="btn btn-default" data-dismiss="modal">Закрыть
+                        </button>
                     </div>
                 </div>
             </div>

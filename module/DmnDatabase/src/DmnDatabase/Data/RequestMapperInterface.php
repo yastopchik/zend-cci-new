@@ -3,7 +3,18 @@
 namespace DmnDatabase\Data;
 
 interface RequestMapperInterface {
-	
+
+	/**
+	 * @param $entityName
+	 * @return mixed
+	 */
+	public function __get($entityName);
+	/**
+	 * @param $entityName
+	 * @param $entityValue
+	 * @return mixed
+	 */
+	public function __set($entityName, $entityValue);
 	/**
 	 * @param integer $requestId	
 	 * @return mixed | NULL
@@ -21,6 +32,11 @@ interface RequestMapperInterface {
 	 * @return query | NULL
 	 */
 	public function fillXmlUnloading($value, $date);
+	/**
+	 * @param DateTime date
+	 * @return query | NULL
+	 */
+	public function requestToArchive($date);
 	/**
 	 * @param Array status	
 	 * @return query | NULL
@@ -89,8 +105,5 @@ interface RequestMapperInterface {
 	/**
 	 * @return query
 	 */
-	public function getDistributerCityByUserId();		
-
+	public function getDistributerCityByUserId();
 }
-
-?>

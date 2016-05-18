@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-26 15:18+0300\n"
-"PO-Revision-Date: 2016-03-14 09:12+0300\n"
+"PO-Revision-Date: 2016-05-18 10:39+0300\n"
 "Last-Translator: vragovR <vragovR@yandex.ru>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en_US\n"
@@ -87,9 +87,21 @@ msgid "Home"
 msgstr "Главная"
 
 # Сертификат
-#: ../view/layout/layout.phtml:26
+#: ../view/layout/layout.phtml:60
 msgid "Sertificate"
 msgstr "Сертификат"
+
+#: ../view/layout/layout.phtml:60
+msgid "Sertificates"
+msgstr "Сертификаты"
+
+#: ../view/layout/layout.phtml:60
+msgid "Management"
+msgstr "Управление"
+
+#: ../view/layout/layout.phtml:60
+msgid "Archive"
+msgstr "Архив"
 
 #: ../view/application/requests/upload.phtml:1
 msgid "Request/Upload"

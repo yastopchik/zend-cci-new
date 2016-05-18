@@ -422,6 +422,12 @@ class DmnRequestController extends AbstractActionController
 
         return $this->getResponse()->setContent(json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
     }
+    public function archreqAction()
+    {
+        $response = $this->getResponse();
+        $this->dbRequest->requestToArchive(new \DateTime('NOW'));
+        return $response;
+    }
 
 
 }
