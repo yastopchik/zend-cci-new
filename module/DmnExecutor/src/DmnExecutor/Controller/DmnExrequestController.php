@@ -29,7 +29,12 @@ class DmnExrequestController extends AbstractActionController
         $view->setTemplate('dmnexecutor/dmnexrequest/add');
         return $view;
     }
-
+    public function archiveAction()
+    {
+        $view = new ViewModel();
+        $view->setTemplate('dmnexecutor/dmnexrequest/archive');
+        return $view;
+    }
     public function uploadAction()
     {
         $view = new ViewModel();

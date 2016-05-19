@@ -17,10 +17,6 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
      */
     private $entityNameLifecycle = 'DmnDatabase\Entity\CciLifecycle';
     /**
-     * @dependency_table CciLifecycle
-     */
-    private $entityNameLifecycleArchive = 'DmnDatabase\Entity\CciLifecycleArchive';
-    /**
      * @dependency_table CciStatus
      */
     private $entityNameStatus = 'DmnDatabase\Entity\CciStatus';
@@ -33,21 +29,9 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
      */
     private $entityNameRequest = 'DmnDatabase\Entity\CciRequest';
     /**
-     * @dependency_table CciRequestArchive
-     */
-    private $entityNameRequestNumberArchive = 'DmnDatabase\Entity\CciRequestNumberArchive';
-    /**
-     * @dependency_table CciRequestArchive
-     */
-    private $entityNameRequestArchive = 'DmnDatabase\Entity\CciRequestArchive';
-    /**
      * @dependency_table CciRequestDescription
      */
     private $entityNameRequestDescription = 'DmnDatabase\Entity\CciRequestDescription';
-    /**
-     * @dependency_table CciRequestDescriptionArchive
-     */
-    private $entityNameRequestDescriptionArchive = 'DmnDatabase\Entity\CciRequestDescriptionArchive';
     /**
      * @dependency_table CciForms
      */
@@ -56,10 +40,6 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
      * @dependency_table CciXmlUnloading
      */
     private $entityNameXmlUnloading = 'DmnDatabase\Entity\CciXmlUnloading';
-    /**
-     * @dependency_table CciXmlUnloadingArchive
-     */
-    private $entityNameXmlUnloadingArchive = 'DmnDatabase\Entity\CciXmlUnloadingArchive';
     /**
      * @dependency_table CciStatistics
      */
@@ -690,59 +670,54 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
     public function requestToArchive($date)
     {
         $em = $this->doctrineEntity;
-        $em->getConnection()->beginTransaction();
-        /*
-         * INSERT INTO cci_request_number_archive SELECT * FROM `cci_request_number` WHERE `DateOrder` <= '2015-05-15'
-INSERT INTO cci_request_archive SELECT rq.* FROM `cci_request` rq Where rq.SertificateNumID IN (SELECT id FROM `cci_request_number` WHERE `DateOrder` <= '2015-05-15')
-INSERT INTO cci_request_description_archive SELECT rd.* FROM cci_request_description rd WHERE rd.SertificateID IN (SELECT rq.id FROM `cci_request` rq Where rq.SertificateNumID IN (SELECT id FROM `cci_request_number` WHERE `DateOrder` <= '2015-05-15'))
-INSERT INTO cci_xml_unloading_archive SELECT cxu.* FROM cci_xml_unloading cxu Where cxu.SertificateNumID IN (SELECT id FROM `cci_request_number` WHERE `DateOrder` <= '2015-05-15')
-INSERT INTO cci_lifecycle_archive SELECT cla.* FROM cci_lifecycle cla Where cla.SertificateNumID IN (SELECT id FROM `cci_request_number` WHERE `DateOrder` <= '2015-05-15')
-
-DELETE FROM cci_lifecycle Where id IN (SELECT id FROM cci_lifecycle_archive);
-DELETE FROM cci_xml_unloading Where id IN (SELECT id FROM cci_xml_unloading_archive);
-DELETE FROM cci_request_description WHERE id IN (SELECT id FROM cci_request_description_archive);
-DELETE FROM cci_request Where id IN (SELECT id FROM cci_request_archive);
-DELETE FROM cci_request_number Where id IN (SELECT id FROM cci_request_number_archive);*/
+        $entityNameRequestNumber=$em->getClassMetadata($this->__get('entityNameRequestNumber'))->getTableName();
+        $entityNameRequest=$em->getClassMetadata($this->__get('entityNameRequest'))->getTableName();
+        $entityNameRequestDescription=$em->getClassMetadata($this->__get('entityNameRequestDescription'))->getTableName();
+        $entityNameLifecycle=$em->getClassMetadata($this->__get('entityNameLifecycle'))->getTableName();
+        $entityNameXmlUnloading=$em->getClassMetadata($this->__get('entityNameXmlUnloading'))->getTableName();
+        $conection=$em->getConnection();
+        $conection->beginTransaction();
         try {
-            $rn = $em->createQuery("INSERT INTO " . $this->__get('entityNameRequestNumberArchive') .
-                " SELECT * FROM " . $this->__get('entityNameRequestNumber') . " WHERE dateorder <= '" . $date . "' ");
-            $rn->execute();
-            $rq = $em->createQuery("INSERT INTO " . $this->__get('entityNameRequestArchive') .
-                " SELECT rq.* FROM " . $this->__get('entityNameRequest') ." rq Where rq.SertificateNumID IN (".
-                " SELECT id FROM " . $this->__get('entityNameRequestNumber') . " WHERE dateorder <= '" . $date . "')");
-            $rq->execute();
-            $rd = $em->createQuery("INSERT INTO " . $this->__get('entityNameRequestDescriptionArchive') .
-                " SELECT rd.* FROM " . $this->__get('entityNameRequestDescription') ." rd WHERE rd.SertificateID IN (".
-                " SELECT rq.* FROM " . $this->__get('entityNameRequest') ." rq Where rq.SertificateNumID IN (".
-                " SELECT id FROM " . $this->__get('entityNameRequestNumber') . " WHERE dateorder <= '" . $date . "'))");
-            $rd->execute();
-            $lf = $em->createQuery("INSERT INTO " . $this->__get('entityNameLifecycleArchive') .
-                " SELECT cla.* FROM " . $this->__get('entityNameLifecycle') ." cla Where cla.SertificateNumID IN (".
-                " SELECT id FROM " . $this->__get('entityNameRequestNumber') . " dateorder <= '" . $date . "')");
-            $lf->execute();
-            $up = $em->createQuery("INSERT INTO " . $this->__get('entityNameXmlUnloadingArchive') .
-                " SELECT cxu.* FROM " . $this->__get('entityNameXmlUnloadingArchive') ." cxu Where cxu.SertificateNumID IN (".
-                " SELECT id FROM " . $this->__get('entityNameRequestNumber') . " dateorder <= '" . $date . "')");
-            $up->execute();
+            $rn = "INSERT INTO " . $entityNameRequestNumber .
+                "_archive SELECT rn.* FROM " . $entityNameRequestNumber . " rn WHERE rn.dateorder <= '" . $date . "' ";
+            $conection->prepare($rn)->execute();
+            $rq = "INSERT INTO " . $entityNameRequest .
+                "_archive SELECT rq.* FROM " . $entityNameRequest ." rq Where rq.SertificateNumID IN (".
+                " SELECT rn.id FROM " . $entityNameRequestNumber . " rn WHERE rn.dateorder <= '" . $date . "')";
+            $conection->prepare($rq)->execute();
+            $rd = "INSERT INTO " . $entityNameRequestDescription .
+                "_archive SELECT rd.* FROM " . $entityNameRequestDescription ." rd WHERE rd.SertificateID IN (".
+                " SELECT rq.id FROM " . $entityNameRequest ." rq Where rq.SertificateNumID IN (".
+                " SELECT rn.id FROM " . $entityNameRequestNumber . " rn WHERE rn.dateorder <= '" . $date . "'))";
+            $conection->prepare($rd)->execute();
+            $lf = "INSERT INTO " . $entityNameLifecycle .
+                "_archive SELECT cla.* FROM " . $entityNameLifecycle ." cla Where cla.SertificateNumID IN (".
+                " SELECT rn.id FROM " . $entityNameRequestNumber . " rn WHERE rn.dateorder <= '" . $date . "')";
+            $conection->prepare($lf)->execute();
+            $up = "INSERT INTO " . $entityNameXmlUnloading .
+                "_archive SELECT cxu.* FROM " . $entityNameXmlUnloading ." cxu Where cxu.SertificateNumID IN (".
+                " SELECT rn.id FROM " . $entityNameRequestNumber . " rn WHERE rn.dateorder <= '" . $date . "')";
+            $conection->prepare($up)->execute();
             /*Delete*/
-            $lfd = $em->createQuery("DELETE FROM " . $this->__get('entityNameLifecycle') .
-                " Where id IN (SELECT id FROM " . $this->__get('entityNameLifecycleArchive') . ")");
-            $lfd->execute();
-            $upd = $em->createQuery("DELETE FROM " . $this->__get('entityNameXmlUnloading') .
-                " Where id IN (SELECT id FROM " . $this->__get('entityNameXmlUnloadingArchive') . ")");
-            $upd->execute();
-            $rdd = $em->createQuery("DELETE FROM " . $this->__get('entityNameRequestDescription') .
-                " Where id IN (SELECT id FROM " . $this->__get('entityNameRequestDescriptionArchive') . ")");
-            $rdd->execute();
-            $rqd = $em->createQuery("DELETE FROM " . $this->__get('entityNameRequest') .
-                " Where id IN (SELECT id FROM " . $this->__get('entityNameRequestArchive') . ")");
-            $rqd->execute();
-            $rnd = $em->createQuery("DELETE FROM " . $this->__get('entityNameRequest') .
-                " Where id IN (SELECT id FROM " . $this->__get('entityNameRequestNumber') . ")");
-            $rnd->execute();
-            $em->getConnection()->commit();
+            $lfd = "DELETE FROM " . $entityNameLifecycle .
+                " Where id IN (SELECT id FROM " . $entityNameLifecycle . "_archive)";
+            $conection->prepare($lfd)->execute();
+            $upd = "DELETE FROM " . $entityNameXmlUnloading .
+                " Where id IN (SELECT id FROM " . $entityNameXmlUnloading . "_archive)";
+            $conection->prepare($upd)->execute();
+            $rdd = "DELETE FROM " . $entityNameRequestDescription .
+                " Where id IN (SELECT id FROM " . $entityNameRequestDescription . "_archive)";
+            $conection->prepare($rdd)->execute();
+            $rqd = "DELETE FROM " . $entityNameRequest .
+                " Where id IN (SELECT id FROM " . $entityNameRequest . "_archive)";
+            $conection->prepare($rqd)->execute();
+            $rnd = "DELETE FROM " . $entityNameRequestNumber .
+                " Where id IN (SELECT id FROM " . $entityNameRequestNumber. "_archive)";
+            $conection->prepare($rnd)->execute();
+
+            $conection->commit();
         } catch (Exception $e) {
-            $em->getConnection()->rollback();
+            $conection->rollback();
             $em->close();
             throw $e;
         }

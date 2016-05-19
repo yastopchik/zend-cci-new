@@ -49,7 +49,8 @@ class RequestService
     }
     public function requestToArchive($date)
     {
-        if (!$date instanceof \DateTime) {
+        if (!preg_match("/^([0-9]{4})-([0-9]{2})-([0-9]{2})$/", $date)) {
+
             throw new \InvalidArgumentException('Value isn\'t  a date');
         }
         return $this->mapperRequest->requestToArchive($date);
@@ -191,6 +192,11 @@ class RequestService
         }
 
         return $this->mapperRequest->setAuthRoleId($authRoleId);
+    }
+    public function setEntity($name)
+    {
+        $value=$this->mapperRequest->__get($name);
+        $this->mapperRequest->__set($name, $value.'Archive');
     }
 
 }

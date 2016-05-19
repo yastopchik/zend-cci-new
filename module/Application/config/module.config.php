@@ -74,18 +74,20 @@ return array(
             ),
             'requests' => array('type'    => 'segment',
                 'options' => array(
-                    'route'    => '/requests[/:action][/page/:page][/id/:id][/countryId/:countryId]',
+                    'route'    => '/requests[/:action][/page/:page][/id/:id][/isarch/:isarch][/countryId/:countryId]',
                     'constraints' => array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',  
                         'id'     => '[0-9]+',
                     	'countryId'    => '[0-9]+',
+                        'isarch'=>'[0-9]',
                     	'page'     => '[0-9]+',
                     ),
                     'defaults' => array(
                         'controller' => 'Application\Controller\Requests',
                         'action'     => 'index',  
-                        'id'     => 0,    
+                        'id'     => 0,
                     	'countryId'    => 0,
+                        'isarch' => 0,
                     	'page' =>1
                     ),
                 ),                                

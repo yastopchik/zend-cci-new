@@ -35,6 +35,12 @@ class DmnRequestController extends AbstractActionController
         $this->dbRequest->clearCache();
         return $this->getResponse()->setContent(json_encode(true, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
     }
+    public function archiveAction()
+    {
+        $view = new ViewModel();
+        $view->setTemplate('dmnadmin/dmnrequest/archive');
+        return $view;
+    }
 
     public function getrequestnumberAction()
     {
@@ -422,12 +428,11 @@ class DmnRequestController extends AbstractActionController
 
         return $this->getResponse()->setContent(json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
     }
+    /*Archve*/
     public function archreqAction()
     {
         $response = $this->getResponse();
-        $this->dbRequest->requestToArchive(date('Y-m-d',strtotime(new \DateTime('NOW') . "-1 year")));
+        $this->dbRequest->requestToArchive();
         return $response;
     }
-
-
 }

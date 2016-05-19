@@ -17,8 +17,7 @@ class IndexController extends AbstractActionController
 	}
 	
 	public function indexAction()
-    {  
-
+    {
     	if($this->getRequest()->isXmlHttpRequest()) {
 		    $forward=$this->forward()->dispatch(static::CONTROLLER_NAME, array('action' => 'authenticate'));
 			return $this->getResponse()->setContent(json_encode($forward->getVariables(), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));

@@ -61,18 +61,20 @@ return array(
         'routes' => array(
             'dmnrequest' => array('type'    => 'segment',
                 'options' => array(
-                    'route'    => '/dmnrequest[/:action][/page/:page][/id/:id][/countryId/:countryId]',
+                    'route'    => '/dmnrequest[/:action][/page/:page][/id/:id][/isarch/:isarch][/countryId/:countryId]',
                     'constraints' => array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+', 
                     	'countryId'    => '[0-9]+',
-                        'page'     => '[0-9]+',                                        
+						'isarch'=>'[0-9]',
+                        'page'     => '[0-9]+'
                     ),
                     'defaults' => array(
                         'controller' => 'DmnAdmin\Controller\DmnRequest',
-                        'action'     => 'index', 
-                    	'countryId'    => 0,
-                        'id' =>0,                                                 
+                        'action'     => 'index',
+						'id' =>0,
+						'countryId'    => 0,
+						'isarch' => 0,
                         'page' =>1                     
                     ),
                 ),               

@@ -28,6 +28,12 @@ class RequestsController extends AbstractActionController
     	$view->setTemplate('application/requests/add');     	
     	return $view;
     }
+	public function archiveAction()
+	{
+		$view = new ViewModel();
+		$view->setTemplate('application/requests/archive');
+		return $view;
+	}
     public function uploadAction()
     {
     	$view = new ViewModel();

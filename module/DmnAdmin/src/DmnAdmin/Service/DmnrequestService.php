@@ -434,6 +434,10 @@ class DmnrequestService implements EventManagerAwareInterface
      */
     public function getRequestNumber()
     {
+        if(!is_null($this->isarch))
+
+            $this->setEntityArchive();
+
         $data = $this->getRequestNumberWithParameters();
 
         $adapter = new DoctrineAdapter(new ORMPaginator($data));
@@ -458,6 +462,9 @@ class DmnrequestService implements EventManagerAwareInterface
     {
 
         //Пока предусмотрена выгрузка только Могилевского Филиала
+        if(!is_null($this->isarch))
+
+            $this->setEntityArchive();
 
         if (is_null($this->date))
             $this->date = new \DateTime('Now');
@@ -474,6 +481,10 @@ class DmnrequestService implements EventManagerAwareInterface
     {
 
         if ($this->id != 0) {
+
+            if(!is_null($this->isarch))
+
+                $this->setEntityArchive();
 
             $data = $this->dbRequest->getRequestByRequestId($this->id);
 
@@ -500,6 +511,10 @@ class DmnrequestService implements EventManagerAwareInterface
     {
 
         if ($this->id != 0) {
+
+            if(!is_null($this->isarch))
+
+                $this->setEntityArchive();
 
             $data = $this->dbRequest->getRequestDescriptionByRequestId($this->id);
 
@@ -769,6 +784,7 @@ class DmnrequestService implements EventManagerAwareInterface
         $this->page = $parametrs->get('page', '');
         $this->rows = $parametrs->get('rows', '');
         $this->id = $parametrs->get('id', null);
+        $this->isarch = $parametrs->get('isarch', null);
         $this->data['filters'] = $parametrs->get('filters', null);
         $this->data['_search'] = $parametrs->get('_search', false);
         $this->data['sidx'] = $parametrs->get('sidx', 'id');
@@ -1132,7 +1148,15 @@ class DmnrequestService implements EventManagerAwareInterface
     }
     public function requestToArchive()
     {
-        return $this->dbRequest->requestToArchive();
+        return $this->dbRequest->requestToArchive(date("Y-m-d", strtotime("-1 year")));
+    }
+    public function setEntityArchive()
+    {
+        $this->dbRequest->setEntity('entityNameRequestNumber');
+        $this->dbRequest->setEntity('entityNameRequest');
+        $this->dbRequest->setEntity('entityNameRequestDescription');
+        $this->dbRequest->setEntity('entityNameXmlUnloading');
+        $this->dbRequest->setEntity('entityNameLifecycle');
     }
 
 }

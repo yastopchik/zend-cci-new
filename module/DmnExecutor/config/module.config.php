@@ -19,18 +19,20 @@ return array(
         'routes' => array(
             'dmnexrequest' => array('type'    => 'segment',
                 'options' => array(
-                    'route'    => '/dmnexrequest[/:action][/page/:page][/id/:id][/countryId/:countryId]',
+                    'route'    => '/dmnexrequest[/:action][/page/:page][/id/:id][/isarch/:isarch][/countryId/:countryId]',
                     'constraints' => array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+', 
                     	'countryId'    => '[0-9]+',
+                        'isarch'=>'[0-9]',
                         'page'     => '[0-9]+',                                        
                     ),
                     'defaults' => array(
                         'controller' => 'DmnExecutor\Controller\DmnExrequest',
                         'action'     => 'index', 
                     	'countryId'    => 0,
-                        'id' =>0,                                                 
+                        'id' =>0,
+                        'isarch' => 0,
                         'page' =>1                     
                     ),
                 ),               
