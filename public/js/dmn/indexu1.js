@@ -14,7 +14,7 @@ $(function () {
                     searchoptions: {sopt: ['eq']},
                     editrules: {required: true, custom: true,
                         custom_func: function (value) {
-                            return validOrg(value, 'name');
+                            return validOrg(value, 'name', 'Поля организация');
                         }
                     }
                 },
@@ -32,7 +32,7 @@ $(function () {
                         dataUrl: 'dmnexecutor/getcity',
                         style: "width:98%",
                         buildSelect: function (data) {
-                            var response = jQuery.parseJSON(data);
+                            var response = $.parseJSON(data);
                             var s = '<select>';
                             if (response && response.length) {
                                 for (var i = 0, l = response.length; i < l; i++) {
@@ -64,9 +64,9 @@ $(function () {
                 },
                 {
                     name: 'unp', index: 'unp', width: '6%', editable: true, searchoptions: {sopt: ['eq']}, editrules: {
-                    minValue: 9, maxValue: 9, integer: true, required: true, custom: true,
+                    integer: true, required: true, custom: true,
                     custom_func: function (value) {
-                        return validOrg(value, 'unp');
+                        return validOrg(value, 'unp', 'Поля УНП');
                     }
                 }
                 },
@@ -94,7 +94,7 @@ $(function () {
                         dataUrl: 'dmnuser/getsez',
                         style: "width:98%",
                         buildSelect: function (data) {
-                            var response = jQuery.parseJSON(data);
+                            var response = $.parseJSON(data);
                             var s = '<select>';
                             if (response && response.length) {
                                 for (var i = 0, l = response.length; i < l; i++) {
@@ -119,17 +119,17 @@ $(function () {
             editurl: "dmnuser/editorguser",
             caption: "Клиенты Торгово-Промышленной Палаты",
             onSelectRow: function () {
-                var ids = jQuery("#orguser").jqGrid('getGridParam', 'selrow');
+                var ids = $("#orguser").jqGrid('getGridParam', 'selrow');
                 if (ids != null) {
-                    jQuery("#user").jqGrid('setGridParam', {url: 'dmnuser/getuser?id=' + ids, page: 1});
-                    jQuery("#user").jqGrid('setGridParam', {editurl: 'dmnuser/edituser?orgId=' + ids});
-                    jQuery("#user").jqGrid('setCaption', "Клиенты Торгово-Промышленной Палаты ")
+                    $("#user").jqGrid('setGridParam', {url: 'dmnuser/getuser?id=' + ids, page: 1});
+                    $("#user").jqGrid('setGridParam', {editurl: 'dmnuser/edituser?orgId=' + ids});
+                    $("#user").jqGrid('setCaption', "Клиенты Торгово-Промышленной Палаты ")
                         .trigger('reloadGrid');
                 } else {
                     ids = 0;
                     if ($("#user").jqGrid('getGridParam', 'records') > 0) {
-                        jQuery("#user").jqGrid('setGridParam', {url: 'dmnuser/getuser?id=' + ids, page: 1});
-                        jQuery("#user").jqGrid('setCaption', "Клиенты  Торгово-Промышленной Палаты")
+                        $("#user").jqGrid('setGridParam', {url: 'dmnuser/getuser?id=' + ids, page: 1});
+                        $("#user").jqGrid('setCaption', "Клиенты  Торгово-Промышленной Палаты")
                             .trigger('reloadGrid');
                     }
                 }
@@ -182,7 +182,7 @@ $(function () {
                     name: 'login', index: 'login', width: '12%', editable: true, editrules: {
                     required: true, custom: true,
                     custom_func: function (value) {
-                        return validLogin(value, 'login');
+                        return validLogin(value, 'login', 'поля Логин');
                     }
                 }
                 },
@@ -190,7 +190,7 @@ $(function () {
                     name: 'email', index: 'email', width: '15%', editable: true, editrules: {
                     required: false, email: true,
                     custom_func: function (value) {
-                        return validEmail(value, 'email');
+                        return validEmail(value, 'email','поля Email');
                     }
                 }
                 },
@@ -198,7 +198,7 @@ $(function () {
                     name: 'executor', index: 'executor', width: '13%', editable: true, editrules: {
                    required: true, custom: true,
                     custom_func: function (value) {
-                        return validExecutor(value, 'position');
+                        return validExecutor(value, 'executor','поля Имя Полное');
                     }
                 }
                 },
@@ -213,7 +213,7 @@ $(function () {
                     name: 'position', index: 'position', width: '15%', editable: true, editrules: {
                     required: true, custom: true,
                     custom_func: function (value) {
-                        return validExecutor(value, 'position');
+                        return validExecutor(value, 'position', 'поля Должность');
                     }
                 }
                 },
@@ -221,7 +221,7 @@ $(function () {
                     name: 'phone', index: 'phone', width: '9%', editable: true, editrules: {
                    required: true, custom: true,
                     custom_func: function (value) {
-                        return validPhone(value, 'phone');
+                        return validPhone(value, 'phone', 'поля Телефон');
                     }
                 }
                 },
@@ -261,7 +261,7 @@ $(function () {
             sortorder: "asc",
             multiselect: false,
             gridComplete: function () {
-                var ids = jQuery("#orguser").jqGrid('getDataIDs');
+                var ids = $("#orguser").jqGrid('getDataIDs');
                 if (ids == 0) {
                     $("#gridWrapper").hide();
                 }
@@ -303,10 +303,10 @@ $(function () {
                 },
             });
     });
-    function validOrg(value, colname) {
+    function validOrg(value, colname, message) {
         var result = null;
         value.trim();
-        var ids = jQuery("#orguser").jqGrid('getGridParam', 'selrow');
+        var ids = $("#orguser").jqGrid('getGridParam', 'selrow');
         $.ajax({
             async: false,
             url: 'dmnuser/noobjectexist',
@@ -319,19 +319,20 @@ $(function () {
                     result = [false, "Такая организация ил УНП уже присутствует!"];
             },
             error: function () {
-                Message.error('Ошибка валидации' + value);
+                Message.error('Ошибка валидации' + message);
+                result = [false, "Такая организация ил УНП уже присутствует!"];
             }
         });
         return result;
     }
 
-    function validLogin(value, colname) {
+    function validLogin(value, colname, message) {
         var result = null;
         value.trim();
-        var ids = jQuery("#user").jqGrid('getGridParam', 'selrow');
+        var ids = $("#user").jqGrid('getGridParam', 'selrow');
         var myLoginEditRegEx = new RegExp("[0-9a-zA-Z]{6,20}", "i");
         if(!myLoginEditRegEx.test(value))
-            return [false, "Значение " + colname + " должно соответствовать регулярному выражению [0-9a-zA-Z]{6,20}"];
+            return [false, "Значение " + message + " должно соответствовать регулярному выражению [0-9a-zA-Z]{6,20}"];
         $.ajax({
             async: false,
             url: 'dmnuser/noobjectexist',
@@ -344,15 +345,16 @@ $(function () {
                     result = [false, "Такой пользователь или email уже присутствует!"];
             },
             error: function () {
-                Message.error('Ошибка валидации' + value);
+                Message.error('Ошибка валидации' + message);
+                result = [false, "Такой пользователь или email уже присутствует!"];
             }
         });
         return result;
     }
 
-    function validEmail(value, colname) {
+    function validEmail(value, colname, message) {
         var result = null;
-        var ids = jQuery("#user").jqGrid('getGridParam', 'selrow');
+        var ids = $("#user").jqGrid('getGridParam', 'selrow');
         value.trim();
         $.ajax({
             async: false,
@@ -363,16 +365,17 @@ $(function () {
                 if (res === "true")
                     result = [true, ""];
                 else
-                    result = [false, "Такой пользователь или email уже присутствует!"];
+                    result = [false, "Такой email уже есть в базе данных у другого пользователя!"];
             },
             error: function () {
-                Message.error('Ошибка валидации' + value);
+                Message.error('Ошибка валидации' + message);
+                result = [false, "Такой email уже есть в базе данных у другого пользователя!"];
             }
         });
         return result;
     }
 
-    function validExecutor(value, colname) {
+    function validExecutor(value, colname, message) {
         var result = [true, ""];
         value.trim();
         var myLoginEditRegEx = new RegExp(/^[а-яА-ЯёЁ0-9._-\s]+/i);
@@ -381,7 +384,7 @@ $(function () {
             if (myLoginEditRegEx.test(value[i]))
                 count++;
             else
-                return [false, "Значение " + colname + " должно соответствовать регулярному выражению [а-яА-Я0-9._-\s]"];
+                return [false, "Значение " + message + " должно соответствовать регулярному выражению [а-яА-Я0-9._-\s]"];
         }
         return result;
     }
@@ -391,7 +394,7 @@ $(function () {
         value.trim();
         var myLoginEditRegEx = new RegExp("[0-9]{5,20}", "i");
         if(!myLoginEditRegEx.test(value))
-            return [false, "Значение " + colname + " должно соответствовать выражению [0-9]{6,20}"];
+            return [false, "Значение " + message + " должно соответствовать выражению [0-9]{6,20}"];
         return result;
     }
 });

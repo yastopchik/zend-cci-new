@@ -69,7 +69,7 @@ $(function () {
                 name: 'value', index: 'value', editable: true, editrules: {
                 custom: true,
                 custom_func: function (value) {
-                    return validReq(value, jQuery("#requestlist").jqGrid('getGridParam', 'selrow'));
+                    return validReq(value, $("#requestlist").jqGrid('getGridParam', 'selrow'));
                 }
             },
                 edittype: "text", sortable: false, width: '60%'
@@ -86,10 +86,10 @@ $(function () {
         multiselect: false,
         onSelectRow: function (id) {
             if (id && id !== lastSel) {
-                jQuery('#requestlist').jqGrid('restoreRow', lastSel);
+                $('#requestlist').jqGrid('restoreRow', lastSel);
                 lastSel = id;
             }
-            jQuery('#requestlist').jqGrid('editRow', id, true);
+            $('#requestlist').jqGrid('editRow', id, true);
         },
         editurl: "addrequest",
         caption: "Добавление заявки"

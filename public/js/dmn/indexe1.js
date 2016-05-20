@@ -32,7 +32,7 @@ $(function () {
                     dataUrl: 'dmnexecutor/getcity',
                     style: "width:98%",
                     buildSelect: function (data) {
-                        var response = jQuery.parseJSON(data);
+                        var response = $.parseJSON(data);
                         var s = '<select>';
                         if (response && response.length) {
                             for (var i = 0, l = response.length; i < l; i++) {
@@ -74,7 +74,7 @@ $(function () {
                 index: 'unp',
                 width: '6%',
                 editable: true,
-                editrules: {required: true, minValue: 9, maxValue: 9, integer: true}
+                editrules: {required: true, integer: true}
             }
         ],
         rowNum: 10,
@@ -89,17 +89,17 @@ $(function () {
         editurl: "dmnexecutor/editorgexecutor",
         caption: "Представительства (филиалы) Торгово-Промышленной Палаты",
         onSelectRow: function () {
-            var ids = jQuery("#orgexecutor").jqGrid('getGridParam', 'selrow');
+            var ids = $("#orgexecutor").jqGrid('getGridParam', 'selrow');
             if (ids != null) {
-                jQuery("#user").jqGrid('setGridParam', {url: 'dmnexecutor/getexecutor?id=' + ids, page: 1});
-                jQuery("#user").jqGrid('setGridParam', {editurl: 'dmnexecutor/editexecutor?orgId=' + ids});
-                jQuery("#user").jqGrid('setCaption', "Сотрудники  Торгово-Промышленной Палаты ")
+                $("#user").jqGrid('setGridParam', {url: 'dmnexecutor/getexecutor?id=' + ids, page: 1});
+                $("#user").jqGrid('setGridParam', {editurl: 'dmnexecutor/editexecutor?orgId=' + ids});
+                $("#user").jqGrid('setCaption', "Сотрудники  Торгово-Промышленной Палаты ")
                     .trigger('reloadGrid');
             } else {
                 ids = 0;
                 if ($("#executor").jqGrid('getGridParam', 'records') > 0) {
-                    jQuery("#user").jqGrid('setGridParam', {url: 'dmnexecutor/getexecutor?id=' + ids, page: 1});
-                    jQuery("#user").jqGrid('setCaption', "Сотрудники  Торгово-Промышленной Палаты")
+                    $("#user").jqGrid('setGridParam', {url: 'dmnexecutor/getexecutor?id=' + ids, page: 1});
+                    $("#user").jqGrid('setCaption', "Сотрудники  Торгово-Промышленной Палаты")
                         .trigger('reloadGrid');
                 }
             }
@@ -130,7 +130,7 @@ $(function () {
                 name: 'login', index: 'login', width: '12%', editable: true, editrules: {
                 required: true, custom: true,
                 custom_func: function (value) {
-                    return validLogin(value, 'login');
+                    return validLogin(value, 'login', 'поля Логин');
                 }
             }
             },
@@ -138,7 +138,7 @@ $(function () {
                 name: 'email', index: 'email', width: '15%', editable: true, editrules: {
                 required: false, email: true, custom: true,
                 custom_func: function (value) {
-                    return validEmail(value, 'email');
+                    return validEmail(value, 'email', 'поля Email');
                 }
             }
             },
@@ -146,7 +146,7 @@ $(function () {
                 name: 'executor', index: 'executor', width: '11%', editable: true, editrules: {
                 required: true, custom: true,
                 custom_func: function (value) {
-                    return validExecutor(value, 'executor');
+                    return validExecutor(value, 'executor', 'поля Имя Полное');
                 }
             }
             },
@@ -168,7 +168,7 @@ $(function () {
                 name: 'position', index: 'position', width: '10%', editable: true, editrules: {
                required: true, custom: true,
                 custom_func: function (value) {
-                    return validExecutor(value,colname);
+                    return validExecutor(value, 'position', 'поля Должность');
                 }
             }
             },
@@ -176,7 +176,7 @@ $(function () {
                 name: 'phone', index: 'phone', width: '9%', editable: true, editrules: {
                 required: true, custom: true,
                 custom_func: function (value) {
-                    return validPhone(value,'phone');
+                    return validPhone(value, 'phone', 'поля Телефон');
                 }
             }
             },
@@ -210,7 +210,7 @@ $(function () {
                     dataUrl: 'dmnexecutor/getrole',
                     style: "width:98%",
                     buildSelect: function (data) {
-                        var response = jQuery.parseJSON(data);
+                        var response = $.parseJSON(data);
                         var s = '<select>';
                         if (response && response.length) {
                             for (var i = 0, l = response.length; i < l; i++) {
@@ -235,7 +235,7 @@ $(function () {
         sortorder: "asc",
         multiselect: false,
         gridComplete: function () {
-            var ids = jQuery("#orgexecutor").jqGrid('getDataIDs');
+            var ids = $("#orgexecutor").jqGrid('getDataIDs');
             if (ids == 0) {
                 $("#gridWrapper").hide();
             }
@@ -277,13 +277,13 @@ $(function () {
             },
         });
 });
-function validLogin(value, colname) {
+function validLogin(value, colname, message) {
     var result = null;
     value.trim();
     var ids = $("#user").jqGrid('getGridParam', 'selrow');
     var myLoginEditRegEx = new RegExp("[0-9a-zA-Z]{6,20}", "i");
     if(!myLoginEditRegEx.test(value))
-        return [false, "Значение " + colname.value + " должно соответствовать регулярному выражению [0-9a-zA-Z]{6,20}"];
+        return [false, "Значение " + message + " должно соответствовать регулярному выражению [0-9a-zA-Z]{6,20}"];
     $.ajax({
         async: false,
         url: 'dmnexecutor/noobjectexist',
@@ -296,13 +296,14 @@ function validLogin(value, colname) {
                 result = [false, "Такой пользователь уже есть в базе данных!"];
         },
         error: function () {
-            Message.error('Ошибка валидации' + value);
+            Message.error('Ошибка валидации' + message);
+            result = [false, "Такой пользователь уже есть в базе данных!"];
         }
     });
 
     return result;
 }
-function validEmail(value, colname) {
+function validEmail(value, colname, message) {
     var result = null;
     value.trim();
     var ids = $("#user").jqGrid('getGridParam', 'selrow');
@@ -315,17 +316,18 @@ function validEmail(value, colname) {
             if (res === "true")
                 result = [true, ""];
             else
-                result = [false, "Такой email уже есть в базе данных!"];
+                result = [false, "Такой email уже есть в базе данных у другого пользователя!"];
         },
         error: function () {
-            Message.error('Ошибка валидации' + value);
+            Message.error('Ошибка валидации' + message);
+            result = [false, "Такой email уже есть в базе данных у другого пользователя!"];
         }
     });
 
 
     return result;
 }
-function validExecutor(value, colname) {
+function validExecutor(value, colname, message) {
     var result = [true, ""];
     value.trim();
     var myLoginEditRegEx = new RegExp(/^[а-яА-ЯёЁ0-9._-\s]+/i);
@@ -334,7 +336,7 @@ function validExecutor(value, colname) {
         if (myLoginEditRegEx.test(value[i]))
             count++;
         else
-            return [false, "Значение " + colname + " должно соответствовать выражению [а-яА-Я0-9._-\s]"];
+            return [false, "Значение " + message + " должно соответствовать выражению [а-яА-Я0-9._-\s]"];
     }
     return result;
 }
@@ -343,6 +345,6 @@ function validPhone(value, colname) {
     value.trim();
     var myLoginEditRegEx = new RegExp("[0-9]{5,20}", "i");
     if(!myLoginEditRegEx.test(value))
-        return [false, "Значение " + colname + " должно соответствовать выражению [0-9]{6,20}"];
+        return [false, "Значение " + message + " должно соответствовать выражению [0-9]{6,20}"];
     return result;
 }

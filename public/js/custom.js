@@ -351,7 +351,6 @@ $(document).delegate('#show_dates', 'click', function (e) {
                 'country': $("#statcountries option:selected").val()
             }, periodview);
         }
-        $('.modal').remove();
         $('.modal-backdrop').remove();
         $('body').removeClass("modal-open");
     }

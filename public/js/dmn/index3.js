@@ -26,7 +26,7 @@ $(function () {
                     dataUrl: 'dmnrequest/getstatus',
                     style: "width:98%",
                     buildSelect: function (data) {
-                        var response = jQuery.parseJSON(data);
+                        var response = $.parseJSON(data);
                         var s = '<select>';
                         if (response && response.length) {
                             for (var i = 0, l = response.length; i < l; i++) {
@@ -56,33 +56,33 @@ $(function () {
         viewrecords: true,
         sortorder: "desc",
         onSelectRow: function () {
-            var ids = jQuery("#requestlist_n").jqGrid('getGridParam', 'selrow');
+            var ids = $("#requestlist_n").jqGrid('getGridParam', 'selrow');
             if (ids != null) {
-                jQuery("#requestlist").jqGrid('setGridParam', {url: 'requests/getrequest?id=' + ids, page: 1});
-                jQuery("#requestlist").jqGrid('setCaption', "Детализированная информация по заявке №: " + ids)
+                $("#requestlist").jqGrid('setGridParam', {url: 'requests/getrequest?id=' + ids, page: 1});
+                $("#requestlist").jqGrid('setCaption', "Детализированная информация по заявке №: " + ids)
                     .trigger('reloadGrid');
-                jQuery("#requestlist_d").jqGrid('setGridParam', {url: 'requests/getrequestdesc?id=' + ids, page: 1});
-                jQuery("#requestlist_d").jqGrid('setCaption', "Дополнительная информация по заявке №: " + ids)
+                $("#requestlist_d").jqGrid('setGridParam', {url: 'requests/getrequestdesc?id=' + ids, page: 1});
+                $("#requestlist_d").jqGrid('setCaption', "Дополнительная информация по заявке №: " + ids)
                     .trigger('reloadGrid');
             } else {
                 ids = 0;
                 if ($("#requestlist").jqGrid('getGridParam', 'records') > 0) {
-                    jQuery("#requestlist").jqGrid('setGridParam', {url: 'requests/getrequest?id=' + ids, page: 1});
-                    jQuery("#requestlist").jqGrid('setCaption', "Детализированная информация по заявке №: " + ids)
+                    $("#requestlist").jqGrid('setGridParam', {url: 'requests/getrequest?id=' + ids, page: 1});
+                    $("#requestlist").jqGrid('setCaption', "Детализированная информация по заявке №: " + ids)
                         .trigger('reloadGrid');
                 }
                 if ($("#requestlist_d").jqGrid('getGridParam', 'records') > 0) {
-                    jQuery("#requestlist_d").jqGrid('setGridParam', {
+                    $("#requestlist_d").jqGrid('setGridParam', {
                         url: 'requests/getrequestdesc?id=' + ids,
                         page: 1
                     });
-                    jQuery("#requestlist_d").jqGrid('setCaption', "Дополнительная информация по заявке №: " + ids)
+                    $("#requestlist_d").jqGrid('setCaption', "Дополнительная информация по заявке №: " + ids)
                         .trigger('reloadGrid');
                 }
             }
         },
         gridComplete: function () {
-            var ids = jQuery("#requestlist_n").jqGrid('getDataIDs');
+            var ids = $("#requestlist_n").jqGrid('getDataIDs');
             for (var i = 0; i < ids.length; i++) {
                 var cl = ids[i];
                 xls = '<a href="#"  class="btn btn-success btn-sm download" data-type="text" data-href="requests/downloadxls?id=' + cl + '">' +
@@ -124,10 +124,10 @@ $(function () {
         multiselect: false,
         onSelectRow: function (id) {
             if (id && id !== lastSel) {
-                jQuery('#requestlist').jqGrid('restoreRow', lastSel);
+                $('#requestlist').jqGrid('restoreRow', lastSel);
                 lastSel = id;
             }
-            jQuery('#requestlist').jqGrid('editRow', id, true);
+            $('#requestlist').jqGrid('editRow', id, true);
         },
         caption: "Детализация заявки",
         gridComplete: function () {

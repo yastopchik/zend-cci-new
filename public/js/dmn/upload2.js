@@ -99,7 +99,7 @@ $(function () {
                 Message.error('Не выбраны организация или представитель организации');
         });
         uploader.bind('FileUploaded', function (up, file, response) {
-            response = jQuery.parseJSON(response.response);
+            response = $.parseJSON(response.response);
             if (typeof response.error !== 'undefined') {
                 if (typeof response.error.code !== 'undefined') {
                     uploader.trigger('Error', {
