@@ -80,7 +80,7 @@ class DmnuploadService
     protected $serviceLocator;
 
     /**
-     * @param Zend\Cache\Storage\Adapter\Filesystem $cache
+     * @param \Zend\Cache\Storage\Adapter\Filesystem $cache
      */
     public function __construct(Filesystem $cache)
     {

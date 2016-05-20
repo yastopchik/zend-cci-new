@@ -65,7 +65,7 @@ class DmnUploadController extends AbstractActionController
         $response = $this->getResponse();
         $response->getHeaders()->clearHeaders()->addHeaders(array(
             'Pragma' => 'public',
-            'Content-Type' => 'application/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'Content-Type' => 'application/vnd.ms-excel',
             'Content-Disposition' => 'attachment;filename="CT-1_' . date('Y_m_d(H:i:s)') . '.xls"',
             'Cache-Control' => 'max-age=0'
         ));

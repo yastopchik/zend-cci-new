@@ -342,7 +342,7 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
         if (!is_null($data['id'])) {
             $em->getConnection()->beginTransaction();
             try {
-                $rn = $em->find($this->__get('entityNameLifecycle'), $data['id']);
+                $rn = $em->find($this->__get('entityNameRequestNumber'), $data['id']);
                 if ($rn instanceof \DmnDatabase\Entity\CciRequestNumber) {
                     if (!is_null($data['workorder']))
                         $rn->setWorkorder($data['workorder']);
