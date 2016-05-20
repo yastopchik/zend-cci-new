@@ -106,28 +106,32 @@ $(function () {
         }
     );
 });
-$('#add').on("click", function () {
+$('#add').on("click", function (e) {
+    e.preventDefault;
     var requestlist = $('#requestlist');
     var validate;
-    if (requestlist.length){
-        req.forEach(function(item) {
-            validate=requestlist.find('tr#'+item).find('td[aria-describedby="requestlist_value"]').text();
-            if (validate.length <= 1){
-                Message.error(requestlist.find('tr#'+item).find('td[aria-describedby="requestlist_name"]').text() + ' - не заполнено!');
-                return false;
+    var isvalid = true;
+    if (requestlist.length) {
+        req.forEach(function (item) {
+            validate = requestlist.find('tr#' + item).find('td[aria-describedby="requestlist_value"]').text();
+            if (validate.length <= 1) {
+                Message.error(requestlist.find('tr#' + item).find('td[aria-describedby="requestlist_name"]').text() + ' - не заполнено!');
+                isvalid = false;
             }
         });
     }
-    $("#loadImg").show();
-    $.ajax({
-         dataType: 'json',
+    if (isvalid) {
+        $("#loadImg").show();
+        $.ajax({
+            dataType: 'json',
             url: 'save',
-            success: function(jsondata){
+            success: function (jsondata) {
                 $("#loadImg").hide();
                 Message.success('Заявка на сертификат принята');
                 $(location).attr('href', '/requests');
             }
-    });
+        });
+    }
 });
 function validReq(value, id) {
     var a = req.indexOf(id);

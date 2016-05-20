@@ -163,29 +163,33 @@ $(function () {
             },
         }
     );
-    $('#add').on("click", function () {
+    $('#add').on("click", function (e) {
+        e.preventDefault();
         var requestlist = $('#requestlist');
         var validate;
-        if (requestlist.length){
-            req.forEach(function(item) {
-                validate=requestlist.find('tr#'+item).find('td[aria-describedby="requestlist_value"]').text();
-                if (validate.length <= 1){
-                    Message.error(requestlist.find('tr#'+item).find('td[aria-describedby="requestlist_name"]').text() + ' - не заполнено!');
-                    return false;
-                }
-            });
-        }
-        if (!!exUser){
-            $("#loadImg").show();
-            $.ajax({
-                dataType: 'json',
-                url: 'save?id='+exUser,
-                success: function(jsondata){
-                    $("#loadImg").hide();
-                    Message.success('Заявка на сертификат принята');
-                    $(location).attr('href', '/dmnexrequest');
-                }
-            });
+        var isvalid = true;
+        if (!!exUser) {
+            if (requestlist.length) {
+                req.forEach(function (item) {
+                    validate = requestlist.find('tr#' + item).find('td[aria-describedby="requestlist_value"]').text();
+                    if (validate.length <= 1) {
+                        Message.error(requestlist.find('tr#' + item).find('td[aria-describedby="requestlist_name"]').text() + ' - не заполнено!');
+                        isvalid = false;
+                    }
+                });
+            }
+            if (isvalid) {
+                $("#loadImg").show();
+                $.ajax({
+                    dataType: 'json',
+                    url: 'save?id=' + exUser,
+                    success: function (jsondata) {
+                        $("#loadImg").hide();
+                        Message.success('Заявка на сертификат принята');
+                        $(location).attr('href', '/dmnrequest');
+                    }
+                });
+            }
         } else {
             $("#loadImg").hide();
             Message.error('Не выбраны организация и клиент');

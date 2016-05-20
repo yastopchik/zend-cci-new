@@ -51,9 +51,9 @@ $(function () {
             modalHelp.find('.modal-footer').prepend('<button type="button" class="btn btn-primary" id="exSubmit">Выбрать</button>');
         }
     }
-    $('#exSubmit').on('click', function(){
+    $('#exSubmit').on('click', function () {
         exUser = $("select#exUser option:selected").attr('value');
-        if(!!exUser)
+        if (!!exUser)
             modalHelp.modal('hide');
         else
             Message.error('Не выбраны организация или представитель организации');
@@ -162,30 +162,33 @@ $(function () {
             },
         }
     );
-    $('#add').on("click", function () {
+    $('#add').on("click", function (e) {
+        e.preventDefault();
         var requestlist = $('#requestlist');
         var validate;
-        if (requestlist.length){
-            req.forEach(function(item) {
-                validate=requestlist.find('tr#'+item).find('td[aria-describedby="requestlist_value"]').text();
-                if (validate.length <= 1){
-                    Message.error(requestlist.find('tr#'+item).find('td[aria-describedby="requestlist_name"]').text() + ' - не заполнено!');
-                    return false;
-                }
-            });
-        }
-        var obj = $(this);
-        if (!!exUser){
-            $("#loadImg").show();
-            $.ajax({
-                dataType: 'json',
-                url: 'save?id='+exUser,
-                success: function(jsondata){
-                    $("#loadImg").hide();
-                    Message.success('Заявка на сертификат принята');
-                    $(location).attr('href', '/dmnrequest');
-                }
-            });
+        var isvalid = true;
+        if (!!exUser) {
+            if (requestlist.length) {
+                req.forEach(function (item) {
+                    validate = requestlist.find('tr#' + item).find('td[aria-describedby="requestlist_value"]').text();
+                    if (validate.length <= 1) {
+                        Message.error(requestlist.find('tr#' + item).find('td[aria-describedby="requestlist_name"]').text() + ' - не заполнено!');
+                        isvalid = false;
+                    }
+                });
+            }
+            if (isvalid) {
+                $("#loadImg").show();
+                $.ajax({
+                    dataType: 'json',
+                    url: 'save?id=' + exUser,
+                    success: function (jsondata) {
+                        $("#loadImg").hide();
+                        Message.success('Заявка на сертификат принята');
+                        $(location).attr('href', '/dmnrequest');
+                    }
+                });
+            }
         } else {
             $("#loadImg").hide();
             Message.error('Не выбраны организация и клиент');
