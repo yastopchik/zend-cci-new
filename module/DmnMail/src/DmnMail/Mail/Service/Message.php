@@ -6,6 +6,7 @@ use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\Mail\Message as MailMessage;
 use Zend\Mime\Message as MimeMessage;
 use Zend\Mime\Part as MimePart;
+use Zend\Mime\Mime;
 
 class Message implements ServiceManagerAwareInterface {
 
@@ -88,13 +89,13 @@ class Message implements ServiceManagerAwareInterface {
         $content = $renderer->render($nameOrModel, $values);
 
         $text = new MimePart('');
-        $text->type = "text/plain";
-        $text->encoding='quoted-printable';
+        $text->type = Mime::TYPE_TEXT;
+        $text->encoding    = Mime::ENCODING_BASE64;
         $text->charset='UTF-8';
 
         $html = new MimePart($content);
-        $html->type = "text/html";
-        $html->encoding='quoted-printable'; 
+        $html->type = Mime::TYPE_HTML;
+        $html->encoding    = Mime::ENCODING_BASE64;
         $html->charset='UTF-8';
 
         $body = new MimeMessage();

@@ -15,7 +15,11 @@ class MailOptions implements MailOptionsInterface
 	/**
 	 * @var string
 	 */
-	protected $emailFromAddress = 'yastopchik@mail.ru';
+	protected $emailFromAddress = 'mail@info.of.by';
+	/**
+	 * @var string
+	 */
+	protected $emailFromName = 'УП Могилевское отделение БелТПП';
 	/**
 	 * @var string
 	 */
@@ -23,7 +27,7 @@ class MailOptions implements MailOptionsInterface
 	/**
 	 * @var string
 	 */
-	protected $emailSubject = 'Ваша заявка на получение сертификата готова.';
+	protected $emailSubject = 'Заявка на получение сертификата.';
 	/**
 	 * @var string
 	 */
@@ -48,6 +52,10 @@ class MailOptions implements MailOptionsInterface
 	public function getEmailFromAddress() 
 	{
 	    return $this->emailFromAddress;
+	}
+	public function getEmailFromName()
+	{
+		return $this->emailFromName;
 	}
 	public function getEmailToAddress($id)
 	{
