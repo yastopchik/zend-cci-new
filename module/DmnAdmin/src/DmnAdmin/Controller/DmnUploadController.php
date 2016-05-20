@@ -65,7 +65,7 @@ class DmnUploadController extends AbstractActionController
         $response = $this->getResponse();
         $response->getHeaders()->clearHeaders()->addHeaders(array(
             'Pragma' => 'public',
-            'Content-Type' => 'application/vnd.ms-excel',
+            'Content-Type' => 'application/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
             'Content-Disposition' => 'attachment;filename="CT-1_' . date('Y_m_d(H:i:s)') . '.xls"',
             'Cache-Control' => 'max-age=0'
         ));
@@ -79,6 +79,7 @@ class DmnUploadController extends AbstractActionController
                 ob_start();
                 $this->upload->downloadPrint($requestNumber);
                 $excelOutput = ob_get_clean();
+                $response->setContent($excelOutput);
             }
         }
         return $response;
