@@ -245,23 +245,23 @@ $(document).delegate("#changePass", "click", function (e) {
     e.preventDefault();
     var modalHelp = $("#modalHelp");
     var modalBody = modalHelp.find('.modal-body');
+    var modalFooter = modalHelp.find('.modal-footer');
     var href = $(this).data("href");
     if (modalHelp.length) {
         modalHelp.find('.modal-title').html('Сменить пароль');
         modalHelp.modal();
         if (modalBody.length) {
             modalBody.empty();
+            modalFooter.empty();
             modalBody.load(href);
-            var changePassSubmit=modalHelp.find('.modal-footer').find('#changePassSubmit');
-            if(changePassSubmit.length==0)
-                modalHelp.find('.modal-footer').prepend('<button type="button" class="btn btn-primary" id="changePassSubmit">Изменить</button>');
+            modalFooter.append('<button type="button" class="btn btn-primary" id="changePassSubmit">Изменить</button>' +
+                               '<button type="button" id="buttonClose" class="btn btn-default" data-dismiss="modal">Закрыть</button>');
         }
     }
 });
 $(document).delegate("#changePassSubmit", "click", function (e) {
     e.preventDefault();
     var action = $('form#changePassForm').attr('action');
-    var modalHelp = $("#modalHelp");
     $.ajax({
         url: action,
         type: 'post',
@@ -273,15 +273,17 @@ $(document).delegate("#changePassSubmit", "click", function (e) {
                 Message.error(rpcResponse.error.message);
             } else {
                 Message.success('Пароль успешно изменен!');
-                modalHelp.modal('hide')
-                $('.modal').remove();
-                $('.modal-backdrop').remove();
-                $('body').removeClass("modal-open");
             }
 
         },
     });
     var form = $('form#changePassForm').serialize();
+    var modalHelp = $("#modalHelp");
+    modalHelp.modal('hide')
+    $('.modal-backdrop').remove();
+    $('body').removeClass("modal-open");
+    $("#loadImg").show();
+    return false;
 });
 $(document).delegate("a#tab2", "click", function () {
     $("a#tab1").removeClass("active");
@@ -356,6 +358,7 @@ $(document).delegate('#show_dates', 'click', function (e) {
     }
 });
 $(document).on('submit', '#loginForm', function (e) {
+    e.preventDefault();
     $.ajax({
         type: 'POST',
         cache: false,
@@ -380,7 +383,40 @@ $(document).on('submit', '#loginForm', function (e) {
         }
     });
     $("#loadImg").show();
+    return false;
+});
+$(document).delegate('#emailSend', 'click', function (e) {
     e.preventDefault();
+    var href = $(this).data('href');
+    var rowid = $(this).data('id');
+    $.ajax({
+        url: href + '?id=' + rowid,
+        type: 'GET',
+        data: ({
+            _search: true,
+            filters: JSON.stringify({
+                'groupOp': 'AND',
+                'rules': [{'field': 'id', 'op': 'eq', 'data': rowid}]
+            })
+        }),
+        success: function (response) {
+            var rpcResponse = JSON.parse(response);
+            $("#loadImg").hide();
+            if (typeof(rpcResponse.error) != 'undefined') {
+                Message.error(rpcResponse.error.message);
+            } else {
+                Message.success('Письмо успешно отпралено');
+            }
+        },
+        error: function (response) {
+            Message.error(response);
+        }
+    });
+    var modalHelp = $("#modalHelp");
+    modalHelp.modal('hide')
+    $('.modal-backdrop').remove();
+    $('body').removeClass("modal-open");
+    $("#loadImg").show();
     return false;
 });
 $(document).delegate('#close_dates', 'click', function () {

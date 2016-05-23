@@ -10,7 +10,10 @@ $(function () {
         modalHelp.find('.modal-title').html('Выбирете необходимые данные');
         modalHelp.modal();
         var modalBody = modalHelp.find('.modal-body');
+        var modalFooter = modalHelp.find('.modal-footer');
         if (modalBody.length) {
+            modalBody.empty();
+            modalFooter.empty();
             modalBody.append('<label for="exOrg">Организация:</label><select class="form-control" id="exOrg"></select>');
             $.ajax({
                 url: 'getexorganization?id=1',
@@ -48,7 +51,9 @@ $(function () {
                     },
                 });
             })
-            modalHelp.find('.modal-footer').prepend('<button type="button" class="btn btn-primary" id="exSubmit">Выбрать</button>');
+            modalFooter.append('<button type="button" class="btn btn-primary" id="exSubmit">Выбрать</button>' +
+                               '<button type="button" id="buttonClose" class="btn btn-default" data-dismiss="modal">Закрыть</button>');
+
         }
     }
     $('#exSubmit').on('click', function () {

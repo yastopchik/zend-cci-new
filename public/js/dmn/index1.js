@@ -277,24 +277,21 @@ $(function () {
         /*editurl: "dmnrequest/editrequestnumber",*/
         afterSaveCell: function (rowid, name, val, iRow, iCol) {
             if (name.localeCompare("status") == 0 && val == 4) {
-                var isSentEmail = confirm("Вы изменили статус на действует. Отправить email заказчику?")
-                if (isSentEmail && !isNaN(rowid)) {
-                    $.ajax({
-                        url: 'dmnrequest/sendmail?id=' + rowid,
-                        data: ({
-                            _search: true,
-                            filters: JSON.stringify({
-                                'groupOp': 'AND',
-                                'rules': [{'field': 'id', 'op': 'eq', 'data': rowid}]
-                            })
-                        }),
-                        async: false,
-                        successes: function (data) {
-                            Message.success('Письмо успешно отправлено заказчику');
-                        }
-                    });
-                } else {
-                    return false;
+                var modalHelp = $("#modalHelp");
+                if (modalHelp.length) {
+                    var modalDialog = modalHelp.find('.modal-dialog');
+                    modalDialog.removeClass('modal-lg').addClass('modal-sm');
+                    modalHelp.find('.modal-title').html('Сообщение');
+                    modalHelp.modal();
+                    var modalBody = modalHelp.find('.modal-body');
+                    var modalFooter = modalHelp.find('.modal-footer');
+                    if (modalBody.length) {
+                        modalBody.empty();
+                        modalFooter.empty();
+                        modalBody.append('<h4 style="text-align: center; font-size: 14px;">Вы изменили статус сертификата на "действует".</h4><br><h2 style="text-align: center; color: #005500;">Отправить email заказчику?</h2>');
+                        modalFooter.append('<button type="button" class="btn btn-primary" data-href="dmnrequest/sendmail" data-id="' + rowid +'" id="emailSend">Отправить</button>' +
+                                           '<button type="button" id="buttonClose" class="btn btn-default" data-dismiss="modal">Закрыть</button>');
+                    }
                 }
             }
         },

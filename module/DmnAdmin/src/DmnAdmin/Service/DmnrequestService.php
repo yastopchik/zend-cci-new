@@ -538,12 +538,23 @@ class DmnrequestService implements EventManagerAwareInterface
      */
     public function sendMail()
     {
-        $data = $this->getRequestNumberWithParameters()->getResult();
-        if (is_array($data) && count($data) != 0) {
-            $this->getEventManager()->trigger('send_mail', $this, $data);
-            return array('success'=>true);
+        $requestNumber = $this->getRequestNumberWithParameters()->getResult();
+        if (is_array($requestNumber) && count($requestNumber) != 0) {
+            foreach ($requestNumber as $row) {
+                foreach ($row as $key => $value) {
+                    if (($key == 'workorder') && (empty($value))) {
+                        return json_encode(['jsonrpc' => '2.0', 'error' => ['code' => 100, 'message' => 'Не введен номер сертификата. Перед повторной отправкой смените статус на "к выдаче"']], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+                    } else if (($key == 'destinationiso') && (empty($value))) {
+                        return json_encode(['jsonrpc' => '2.0', 'error' => ['code' => 100, 'message' => 'Не выбрана страна назначения. Перед повторной отправкой смените статус на "к выдаче"']], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+                    } else if (($key == 'numblank') && (empty($value))) {
+                        return json_encode(['jsonrpc' => '2.0', 'error' => ['code' => 100, 'message' => 'Не введен номер бланка. Перед повторной отправкой смените статус на "к выдаче"']], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+                    }
+                }
+            }
+            $this->getEventManager()->trigger('send_mail', $this, $requestNumber);
+            return json_encode(['success'=>true], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         }
-        return array('error'=>true);
+        return json_encode(['jsonrpc' => '2.0', 'error' => ['code' => 100, 'message' => 'Ошибка выборки данных. Перед повторной отправкой смените статус на "к выдаче"']], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }
 
     /*Session

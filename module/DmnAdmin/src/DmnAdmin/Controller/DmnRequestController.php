@@ -426,7 +426,7 @@ class DmnRequestController extends AbstractActionController
 
         $response = $this->dbRequest->sendMail();
 
-        return $this->getResponse()->setContent(json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+        return $this->getResponse()->setContent($response);
     }
     /*Archve*/
     public function archreqAction()

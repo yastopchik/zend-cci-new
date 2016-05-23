@@ -21,6 +21,12 @@ interface MailOptionsInterface
 	 * @return string
 	 */	
 	public function getEmailTemplate();
+
+	/**
+	 * get Email From Name
+	 * @return mixed
+	 */
+	public function getEmailFromName();
 	/**
 	 * get Email From Address
 	 *
