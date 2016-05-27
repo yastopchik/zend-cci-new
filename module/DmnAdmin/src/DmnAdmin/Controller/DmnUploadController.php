@@ -116,7 +116,6 @@ class DmnUploadController extends AbstractActionController
 
     public function uploadxmlAction()
     {
-        $response = $this->getResponse();
         $date = new \DateTime('NOW');
         $data = $this->upload->getRequestNumbersByDate($date);
         if (is_array($data) && count($data) > 0) {
@@ -135,12 +134,11 @@ class DmnUploadController extends AbstractActionController
                 $xml->flush();
             }
         }
-        return $response;
+        return $this->getResponse()->setContent(json_encode(['success'=>true], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
     }
 
     public function reqxmlAction()
     {
-        $response = $this->getResponse();
         $date = new \DateTime('NOW');
         $data = $this->upload->getRequestNumbersByStatus();
         if (is_array($data) && count($data) > 0) {
@@ -160,7 +158,7 @@ class DmnUploadController extends AbstractActionController
                 $data = $this->upload->getRequestService()->fillXmlUnloading($value, $date);
             }
         }
-        return $response;
+        return $this->getResponse()->setContent(json_encode(['success'=>true], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
     }
 
 
