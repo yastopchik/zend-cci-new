@@ -160,7 +160,8 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
     {
         $em = $this->doctrineEntity;
         try {
-            $x = new $this->__get('entityNameXmlUnloading');
+            $entityName=$this->__get('entityNameXmlUnloading');
+            $x = new $entityName;
             $x->setDateunloading($date);
             $x->setSertificatenumid($em->find($this->__get('entityNameRequestNumber'), $value['id']));
             $em->persist($x);

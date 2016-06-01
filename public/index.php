@@ -6,7 +6,7 @@ define('REQUEST_MICROTIME', microtime(true));
  * to the application root now.
  */
 chdir(dirname(__DIR__));
-
+define('ROOT_PATH', dirname(__DIR__));
 // Setup autoloading
 require 'init_autoloader.php';
 // Run the application!
