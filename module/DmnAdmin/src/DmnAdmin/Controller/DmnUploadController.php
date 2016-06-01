@@ -137,7 +137,7 @@ class DmnUploadController extends AbstractActionController
         return $this->getResponse()->setContent(json_encode(['success'=>true], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
     }
 
-    public function reqxmlAction()
+     public function reqxmlAction()
     {
         $date = new \DateTime('NOW');
         $data = $this->upload->getRequestNumbersByStatus();
@@ -155,10 +155,10 @@ class DmnUploadController extends AbstractActionController
                 $xml->setRootName('cert');
                 $xml->convertToFile($writer);
                 $xml->flush();
-                $data = $this->upload->getRequestService()->fillXmlUnloading($value, $date);
+                print_r($this->upload->getRequestService()->fillXmlUnloading($value, $date));
             }
         }
-        return $this->getResponse()->setContent(json_encode(['success'=>true], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+        //return $this->getResponse()->setContent(json_encode(['success'=>true], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
     }
 
 
