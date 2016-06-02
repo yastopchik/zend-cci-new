@@ -52,7 +52,7 @@ class Module
         }, 100);
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-        //$eventManager->attach('route', array($this, 'doHttpsRedirect'));
+        $eventManager->attach('route', array($this, 'doHttpsRedirect'));
     }
 
     public function getConfig()
