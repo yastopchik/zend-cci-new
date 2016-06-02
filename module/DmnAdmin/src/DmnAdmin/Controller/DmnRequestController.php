@@ -431,8 +431,7 @@ class DmnRequestController extends AbstractActionController
     /*Archve*/
     public function archreqAction()
     {
-        $response = $this->getResponse();
         $this->dbRequest->requestToArchive();
-        return $response;
+        return $this->getResponse()->setContent(json_encode(['success'=>true], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
     }
 }
