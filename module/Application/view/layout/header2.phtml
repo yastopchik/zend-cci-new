@@ -1,26 +1,26 @@
 ﻿<li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
        aria-expanded="false"><i class="fa fa-database"
-                                aria-hidden="true"></i> <?php echo $this->translate('Sertificates'); ?>
+                                aria-hidden="true"></i> <?= $this->translate('Sertificates'); ?>
         <span class="caret"></span></a>
     <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-        <li class="<?php echo((($route == "requests") && ($action == "index")) ? "active" : "") ?>"><a
-                href="<?php echo $this->url('requests', array('action' => 'index')); ?>" id="view"><i
-                    class="fa fa-list"></i> <?php echo $this->translate('View'); ?></a></li>
-        <li class="<?php echo((($route == "requests") && ($action == "upload")) ? "active" : "") ?>"><a
-                href="<?php echo $this->url('requests', array('action' => 'upload')); ?>" id="upload"><i
-                    class="fa fa-upload"></i> <?php echo $this->translate('Upload'); ?></a></li>
-        <li class="<?php echo((($route == "requests") && ($action == "add")) ? "active" : "") ?>"><a
-                href="<?php echo $this->url('requests', array('action' => 'add')); ?>" id="addition"><i
-                    class="fa fa-plus-square"></i> <?php echo $this->translate('Add'); ?></a></li>
+        <li class="<?=((($route == "requests") && ($action == "index")) ? "active" : "") ?>"><a
+                href="<?= $this->url('requests', array('action' => 'index')); ?>" id="view"><i
+                    class="fa fa-list"></i> <?= $this->translate('View'); ?></a></li>
+        <li class="<?=((($route == "requests") && ($action == "upload")) ? "active" : "") ?>"><a
+                href="<?= $this->url('requests', array('action' => 'upload')); ?>" id="upload" data-role="<?= $role ?>"><i
+                    class="fa fa-upload"></i> <?= $this->translate('Upload'); ?></a></li>
+        <li class="<?=((($route == "requests") && ($action == "add")) ? "active" : "") ?>"><a
+                href="<?= $this->url('requests', array('action' => 'add')); ?>" id="addition"><i
+                    class="fa fa-plus-square"></i> <?= $this->translate('Add'); ?></a></li>
         <li role="separator" class="divider"></li>
         <li class="dropdown-submenu">
             <a tabindex="-1" href="#">
-                <i class="fa fa-calendar" aria-hidden="true"></i> <?php echo $this->translate('Archive'); ?>
+                <i class="fa fa-calendar" aria-hidden="true"></i> <?= $this->translate('Archive'); ?>
             </a>
             <ul class="dropdown-menu">
-                <li class="<?php echo((($route == "requests") && ($action == "archive")) ? "active" : "") ?>"><a
-                        href="<?php echo $this->url('requests', array('action' => 'archive')); ?>"
+                <li class="<?=((($route == "requests") && ($action == "archive")) ? "active" : "") ?>"><a
+                        href="<?= $this->url('requests', array('action' => 'archive')); ?>"
                         id="view"><i
                             class="fa fa-list"></i> 2015</a></li>
             </ul>

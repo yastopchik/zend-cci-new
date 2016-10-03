@@ -784,6 +784,61 @@ ul.tabs li a.active {
 .modal-content, .btn-info, .well, .form-control {
     border-radius: 0;
 }
+div.preview span.btn-del-img{
+    position: static;
+    display: block;
+    margin-top: 10px;
+    width: 100px;
+    float: right;
+}
+
+.field-full-address #showMap{
+    display: none;
+}
+.field-full-address #showMap ~ label{
+    font-weight: normal;
+    color: #229ec0;
+}
+
+.field-full-address #showMap ~ label:hover{
+    font-weight: normal;
+    color: #337ab7;
+}
+
+.services .control-label{
+    margin-bottom: 0;
+}
+
+.user-profile-form #upload-image .note{
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.show-map .map{
+    background-color: #ffffff;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.work-time .form-group .control-label{
+    font-weight: normal;
+}
+.work-time .form-group .inputs-block *{
+    display: inline-block;
+}
+.work-time .form-group .inputs-block input{
+    width: 43%;
+}
+.work-time {
+    margin-bottom: 20px;
+}
+.work-time .form-group{
+    margin-bottom: 0;
+}
+
+.user-profile-form input[type=text]{
+    background-color: #fff;
+}
 
 @media (min-width: 992px) and (max-width: 1199px) {
     .brand span {

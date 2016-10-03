@@ -1,0 +1,225 @@
+<?= $this->headTitle($this->translate('WorkTime')); ?>
+
+    <div id="content">
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('dmncontent', array('action' => 'index', 'id' => $id)));
+$formLabel = $this->plugin('formLabel');
+$form->prepare();
+echo $this->form()->openTag($form);
+?>
+    <div class="container">
+        <div class="row work-time">
+            <div class="col-md-12 form-group">
+                <?php
+                $title = $form->get('title');
+                $title->setAttribute('required', 'required');
+                $title->setAttribute('class', 'form-control');
+                $title->setAttribute('id', 'title');
+                ?>
+                <label for="title" class="control-label"><?= $title->getLabel(); ?></label>
+                <?= $this->formInput($title) . $this->formElementErrors($title); ?>
+            </div>
+            <div class="col-md-3 col-xs-6 form-group">
+                <?php
+                $mno = $form->get('mondey-open');
+                $mno->setAttribute('id', 'monday-open-time');
+                $mno->setAttribute('class', 'form-control');
+                $mno->setAttribute('name', 'available_time[]');
+                $mnc = $form->get('mondey-close');
+                $mnc->setAttribute('id', 'monday-close-time');
+                $mnc->setAttribute('class', 'form-control');
+                ?>
+                <label class="control-label"><?= $mno->getLabel(); ?></label>
+
+                <div class="inputs-block monday">
+                    <?= $this->formInput($mno); ?>
+                    <span>-</span>
+                    <?= $this->formInput($mnc); ?>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <?php
+                        $monday = $form->get('monday_weekend');
+                        $monday->setAttribute('id', 'monday');
+                        $monday->setAttribute('class', 'weekend-chb');
+                        ?>
+                        <?= $this->formCheckbox($monday) . $monday->getLabel(); ?>
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-3 col-xs-6 form-group">
+                <?php
+                $tho = $form->get('tuesday-open');
+                $tho->setAttribute('id', 'tuesday-open-time');
+                $tho->setAttribute('class', 'form-control');
+                $thc = $form->get('tuesday-close');
+                $thc->setAttribute('id', 'tuesday-close-time');
+                $thc->setAttribute('class', 'form-control');
+                ?>
+                <label class="control-label"><?= $tho->getLabel(); ?></label>
+
+                <div class="inputs-block tuesday">
+                    <?= $this->formInput($tho); ?>
+                    <span>-</span>
+                    <?= $this->formInput($thc); ?>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <?php
+                        $tuesday = $form->get('tuesday_weekend');
+                        $tuesday->setAttribute('id', 'tuesday');
+                        $tuesday->setAttribute('class', 'weekend-chb');
+                        ?>
+                        <?= $this->formCheckbox($tuesday) . $tuesday->getLabel(); ?>
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-3 col-xs-6 form-group">
+                <?php
+                $wno = $form->get('wednesday-open');
+                $wno->setAttribute('id', 'wednesday-open-time');
+                $wno->setAttribute('class', 'form-control');
+                $wnc = $form->get('wednesday-close');
+                $wnc->setAttribute('id', 'wednesday-close-time');
+                $wnc->setAttribute('class', 'form-control');
+                ?>
+                <label class="control-label"><?= $wno->getLabel(); ?></label>
+
+                <div class="inputs-block wednesday">
+                    <?= $this->formInput($wno); ?>
+                    <span>-</span>
+                    <?= $this->formInput($wnc); ?>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <?php
+                        $wednesday = $form->get('wednesday_weekend');
+                        $wednesday->setAttribute('id', 'wednesday');
+                        $wednesday->setAttribute('class', 'weekend-chb');
+                        ?>
+                        <?= $this->formCheckbox($tuesday) . $tuesday->getLabel(); ?>
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-3 col-xs-6 form-group">
+                <?php
+                $thso = $form->get('thursday-open');
+                $thso->setAttribute('id', 'thursday-open-time');
+                $thso->setAttribute('class', 'form-control');
+                $thsc = $form->get('thursday-close');
+                $thsc->setAttribute('id', 'thursday-close-time');
+                $thsc->setAttribute('class', 'form-control');
+                ?>
+                <label class="control-label"><?= $thso->getLabel(); ?></label>
+
+                <div class="inputs-block thursday">
+                    <?= $this->formInput($thso); ?>
+                    <span>-</span>
+                    <?= $this->formInput($thsc); ?>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <?php
+                        $thursday = $form->get('thursday_weekend');
+                        $thursday->setAttribute('id', 'thursday');
+                        $thursday->setAttribute('class', 'thursday-chb');
+                        ?>
+                        <?= $this->formCheckbox($tuesday) . $tuesday->getLabel(); ?>
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-3 col-xs-6 form-group">
+                <?php
+                $frio = $form->get('friday-open');
+                $frio->setAttribute('id', 'friday-open-time');
+                $frio->setAttribute('class', 'form-control');
+                $fric = $form->get('friday-close');
+                $fric->setAttribute('id', 'friday-close-time');
+                $fric->setAttribute('class', 'form-control');
+                ?>
+                <label class="control-label"><?= $frio->getLabel(); ?></label>
+
+                <div class="inputs-block friday">
+                    <?= $this->formInput($frio); ?>
+                    <span>-</span>
+                    <?= $this->formInput($fric); ?>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <?php
+                        $friday = $form->get('friday_weekend');
+                        $friday->setAttribute('id', 'friday');
+                        $friday->setAttribute('class', 'friday-chb');
+                        ?>
+                        <?= $this->formCheckbox($friday) . $friday->getLabel(); ?>
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-3 col-xs-6 form-group">
+                <?php
+                $sato = $form->get('saturday-open');
+                $sato->setAttribute('id', 'saturday-open-time');
+                $sato->setAttribute('class', 'form-control');
+                $satc = $form->get('saturday-close');
+                $satc->setAttribute('id', 'saturday-close-time');
+                $satc->setAttribute('class', 'form-control');
+                ?>
+                <label class="control-label"><?= $sato->getLabel(); ?></label>
+
+                <div class="inputs-block saturday">
+                    <?= $this->formInput($sato); ?>
+                    <span>-</span>
+                    <?= $this->formInput($satc); ?>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <?php
+                        $saturday = $form->get('saturday_weekend');
+                        $saturday->setAttribute('id', 'saturday');
+                        $saturday->setAttribute('class', 'saturday-chb');
+                        ?>
+                        <?= $this->formCheckbox($saturday) . $saturday->getLabel(); ?>
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-3 col-xs-6 form-group">
+                <?php
+                $suno = $form->get('sunday-open');
+                $suno->setAttribute('id', 'sunday-open-time');
+                $suno->setAttribute('class', 'form-control');
+                $sunc = $form->get('sunday-close');
+                $sunc->setAttribute('id', 'sunday-close-time');
+                $sunc->setAttribute('class', 'form-control');
+                ?>
+                <label class="control-label"><?= $suno->getLabel(); ?></label>
+
+                <div class="inputs-block sunday">
+                    <?= $this->formInput($suno); ?>
+                    <span>-</span>
+                    <?= $this->formInput($sunc); ?>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <?php
+                        $sunday = $form->get('sunday_weekend');
+                        $sunday->setAttribute('id', 'sunday');
+                        $sunday->setAttribute('class', 'sunday-chb');
+                        ?>
+                        <?= $this->formCheckbox($saturday) . $saturday->getLabel(); ?>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <?php
+            echo $this->formHidden($form->get('id'));
+            $submit = $form->get('submit');
+            $submit->setAttribute('class', 'btn  btn-info addbutton');
+            echo $this->formElement($submit)
+            ?>
+        </div>
+    </div>
+<?php
+echo $this->form()->closeTag($form);
+?>

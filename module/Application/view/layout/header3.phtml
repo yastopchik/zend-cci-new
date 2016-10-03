@@ -1,26 +1,26 @@
 ﻿<li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
        aria-expanded="false"><i class="fa fa-database"
-                                aria-hidden="true"></i> <?php echo $this->translate('Sertificates'); ?>
+                                aria-hidden="true"></i> <?= $this->translate('Sertificates'); ?>
         <span class="caret"></span></a>
     <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-        <li class="<?php echo((($route == "dmnrequest") && ($action == "index")) ? "active" : "") ?>"><a
-                href="<?php echo $this->url('dmnrequest', array('action' => 'index')); ?>" id="view"><i
-                    class="fa fa-list"></i> <?php echo $this->translate('View'); ?></a></li>
-        <li class="<?php echo((($route == "dmnupload") && ($action == "index")) ? "active" : "") ?>"><a
-                href="<?php echo $this->url('dmnupload', array('action' => 'index')); ?>" id="upload"><i
-                    class="fa fa-upload"></i> <?php echo $this->translate('Upload'); ?></a></li>
-        <li class="<?php echo((($route == "dmnrequest") && ($action == "add")) ? "active" : "") ?>"><a
-                href="<?php echo $this->url('dmnrequest', array('action' => 'add')); ?>" id="addition"><i
-                    class="fa fa-plus-square"></i> <?php echo $this->translate('Add'); ?></a></li>
+        <li class="<?=((($route == "dmnrequest") && ($action == "index")) ? "active" : "") ?>"><a
+                href="<?= $this->url('dmnrequest', array('action' => 'index')); ?>" id="view"><i
+                    class="fa fa-list"></i> <?= $this->translate('View'); ?></a></li>
+        <li class="<?=((($route == "dmnupload") && ($action == "index")) ? "active" : "") ?>"><a
+                href="<?= $this->url('dmnupload', array('action' => 'index')); ?>" id="upload" data-role="<?= $role ?>"><i
+                    class="fa fa-upload"></i> <?= $this->translate('Upload'); ?></a></li>
+        <li class="<?=((($route == "dmnrequest") && ($action == "add")) ? "active" : "") ?>"><a
+                href="<?= $this->url('dmnrequest', array('action' => 'add')); ?>" id="addition"><i
+                    class="fa fa-plus-square"></i> <?= $this->translate('Add'); ?></a></li>
         <li role="separator" class="divider"></li>
         <li class="dropdown-submenu">
             <a tabindex="-1" href="#">
-                <i class="fa fa-calendar" aria-hidden="true"></i> <?php echo $this->translate('Archive'); ?>
+                <i class="fa fa-calendar" aria-hidden="true"></i> <?= $this->translate('Archive'); ?>
             </a>
             <ul class="dropdown-menu">
-                <li class="<?php echo((($route == "dmnrequest") && ($action == "archive")) ? "active" : "") ?>"><a
-                        href="<?php echo $this->url('dmnrequest', array('action' => 'archive')); ?>"
+                <li class="<?=((($route == "dmnrequest") && ($action == "archive")) ? "active" : "") ?>"><a
+                        href="<?= $this->url('dmnrequest', array('action' => 'archive')); ?>"
                         id="view"><i
                             class="fa fa-list"></i> 2015</a></li>
             </ul>
@@ -29,20 +29,20 @@
 </li>
 <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-       aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i> <?php echo $this->translate('Management'); ?>
+       aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i> <?= $this->translate('Management'); ?>
         <span class="caret"></span></a>
     <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-        <li class="<?php echo((($route == "dmnuser") && ($action == "index")) ? "active" : "") ?>"><a
-                href="<?php echo $this->url('dmnuser', array('action' => 'index')); ?>" id="users"><i
-                    class="fa fa-users"></i> <?php echo $this->translate('Clients'); ?></a></li>
-        <li class="<?php echo((($route == "dmnexecutor") && ($action == "index")) ? "active" : "") ?>"><a
-                href="<?php echo $this->url('dmnexecutor', array('action' => 'index')); ?>" id="executors"><i
-                    class="fa fa-graduation-cap"></i> <?php echo $this->translate('Executors'); ?></a></li>
-        <li class="<?php echo((($route == "dmncontent") && ($action == "index")) ? "active" : "") ?>"><a
-                href="<?php echo $this->url('dmncontent', array('action' => 'index')); ?>" id="edcontent"><i
-                    class="fa fa-pencil-square-o"></i> <?php echo $this->translate('Content'); ?></a></li>
+        <li class="<?=((($route == "dmnuser") && ($action == "index")) ? "active" : "") ?>"><a
+                href="<?= $this->url('dmnuser', array('action' => 'index')); ?>" id="users"><i
+                    class="fa fa-users"></i> <?= $this->translate('Clients'); ?></a></li>
+        <li class="<?=((($route == "dmnexecutor") && ($action == "index")) ? "active" : "") ?>"><a
+                href="<?= $this->url('dmnexecutor', array('action' => 'index')); ?>" id="executors"><i
+                    class="fa fa-graduation-cap"></i> <?= $this->translate('Executors'); ?></a></li>
+        <li class="<?=((($route == "dmncontent") && ($action == "index")) ? "active" : "") ?>"><a
+                href="<?= $this->url('dmncontent', array('action' => 'index')); ?>" id="edcontent"><i
+                    class="fa fa-pencil-square-o"></i> <?= $this->translate('Content'); ?></a></li>
     </ul>
 </li>
-<li class="<?php echo((($route == "dmnstatistics") && ($action == "index")) ? "active" : "") ?>"><a
-        href="<?php echo $this->url('dmnstatistics', array('action' => 'index')); ?>" id="statistics"><i
-            class="fa fa-pie-chart" aria-hidden="true"></i> <?php echo $this->translate('Statistics'); ?></a></li>
+<li class="<?=((($route == "dmnstatistics") && ($action == "index")) ? "active" : "") ?>"><a
+        href="<?= $this->url('dmnstatistics', array('action' => 'index')); ?>" id="statistics"><i
+            class="fa fa-pie-chart" aria-hidden="true"></i> <?= $this->translate('Statistics'); ?></a></li>

@@ -422,6 +422,15 @@ $(document).delegate('#emailSend', 'click', function (e) {
 $(document).delegate('#close_dates', 'click', function () {
     $("#calendar").hide();
 });
+$(document).ready(function() {
+    var path = window.location.pathname;
+    $.ajax({
+        url: 'dmncontent/worktime',
+        success:function(response){
+            alert('ok');
+        }
+    })
+});
 /*Messages*/
 Message = {
     success: function (message) {

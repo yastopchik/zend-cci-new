@@ -1,5 +1,5 @@
-<?php echo $this->headTitle($this->translate('Content')); 
-	  $this->headScript() 
+<?php echo $this->headTitle($this->translate('Content'));
+$this->inlineScript()
                            ->offsetSetFile(101, $this->basePath() . '/components/ckeditor/ckeditor.js')	  
                            ->offsetSetFile(102, $this->basePath() . '/components/ckeditor/lang/ru.js')	 ;?>
 

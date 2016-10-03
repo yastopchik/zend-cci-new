@@ -59,16 +59,16 @@
                     $action = $active['action'];
                     switch ($role) {
                         case '2':
-                            echo $this->partial('header2', array('route' => $route, 'action' => $action));
+                            echo $this->partial('header2', ['route' => $route, 'action' => $action, 'role'=>$role]);
                             break;
                         case '3':
-                            echo $this->partial('header3', array('route' => $route, 'action' => $action));
+                            echo $this->partial('header3', ['route' => $route, 'action' => $action, 'role'=>$role]);
                             break;
                         case '4':
-                            echo $this->partial('header4', array('route' => $route, 'action' => $action));
+                            echo $this->partial('header4', ['route' => $route, 'action' => $action, 'role'=>$role]);
                             break;
                         case '5':
-                            echo $this->partial('header5', array('route' => $route, 'action' => $action));
+                            echo $this->partial('header5', ['route' => $route, 'action' => $action, 'role'=>$role]);
                             break;
                     }
                 } ?>
