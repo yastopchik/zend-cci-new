@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-15 12:15+0300\n"
-"PO-Revision-Date: 2015-08-25 11:05+0300\n"
+"PO-Revision-Date: 2016-10-23 22:01+0300\n"
 "Last-Translator: vragovR <vragovR@yandex.ru>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en_US\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: translate\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.8.9\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../view/dmnadmin/dmnrequest/index.phtml:1
@@ -87,3 +87,21 @@ msgstr "Нет документов"
 #: ../view/dmnadmin/dmnstatistics/index.phtml:1
 msgid "Statistics"
 msgstr "Статистика"
+
+msgid "info"
+msgstr "Информация"
+
+msgid "alias"
+msgstr "Псевдоним"
+
+msgid "title"
+msgstr "Заголовок"
+
+msgid "action"
+msgstr "Действие"
+
+msgid "edit content"
+msgstr "Редактировать контент"
+
+msgid "add content"
+msgstr "Добавить контент"

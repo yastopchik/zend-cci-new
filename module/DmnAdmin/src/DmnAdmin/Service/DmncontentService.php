@@ -5,7 +5,8 @@ namespace DmnAdmin\Service;
 use DmnLog\Service\LogService;
 use DmnDatabase\Service\Exception\RuntimeException;
 
-class DmncontentService{      
+class DmncontentService
+{
 	/**
 	 *
 	 * @var $id
@@ -26,6 +27,15 @@ class DmncontentService{
 	 * @var $authUserId
 	 */
 	protected $authUserId;
+	/**
+	 *get All Content
+	 * @param $id
+	 * @return content
+	 */
+	public function getContent(){
+
+		return $this->dbContent->getContent();
+	}
 	
 	/**
 	 *get Content by id

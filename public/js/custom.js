@@ -424,12 +424,12 @@ $(document).delegate('#close_dates', 'click', function () {
 });
 $(document).ready(function() {
     var path = window.location.pathname;
-    $.ajax({
+    /*$.ajax({
         url: 'dmncontent/worktime',
         success:function(response){
             alert('ok');
         }
-    })
+    })*/
 });
 /*Messages*/
 Message = {

@@ -21,7 +21,7 @@ class ContentMapper extends AbstractMapper implements ContentMapperInterface
         $em = $this->doctrineEntity;
         $query = $em->createQueryBuilder()
             ->from($this->entityNameContent, 'co')
-            ->select("co.id, co.static, co.title, co.content")
+            ->select("co, co.id, co.static, co.title, co.content")
             ->orderBy('co.id', 'ASC')
             ->getQuery();
         return $query;

@@ -1,0 +1,66 @@
+<?php echo $this->headTitle($this->translate('Content'));
+$this->inlineScript()
+    ->offsetSetFile(101, $this->basePath() . '/components/ckeditor/ckeditor.js')
+    ->offsetSetFile(102, $this->basePath() . '/components/ckeditor/lang/ru.js'); ?>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="<?= $this->url('dmncontent', array('action' => 'index')); ?>">
+            <?= $this->translate('Content') ?></a></li>
+    <li class="breadcrumb-item active"><?= $data->getTitle() ?></li>
+</ol>
+<div id="content" class="container">
+    <div class="row">
+        <div class="alert alert-success" role="alert">
+            <h2><?= $this->translate('edit content') ?></h2></div>
+        <?php
+        $form = $this->form;
+        $form->setAttribute('action', $this->url('dmncontent', array('action' => 'edit', 'id' => $id)));
+        $formLabel = $this->plugin('formLabel');
+        $form->prepare();
+        echo $this->form()->openTag($form);
+        ?>
+        <div class="form-group">
+            <?php
+            $title = $form->get('title');
+            $title->setAttribute('required', 'required');
+            $title->setAttribute('class', 'form-control');
+            $title->setAttribute('id', 'title');
+            ?>
+            <label for="title" class="control-label"><?php echo $title->getLabel(); ?></label>
+            <?php echo $this->formInput($title) . $this->formElementErrors($title); ?>
+        </div>
+        <div class="form-group">
+            <?php
+            $text = $form->get('content');
+            $text->setAttribute('required', 'required');
+            $text->setAttribute('class', 'form-control');
+            $text->setAttribute('id', 'editor1');
+            echo $formLabel->openTag() . $text->getOption('label');
+            echo $formLabel->closeTag();
+            ?>
+            <?php
+            echo $this->formTextarea($text) . $this->formElementErrors($text);
+            ?>
+        </div>
+        <div class="form-group">
+            <?php
+            echo $this->formHidden($form->get('id'));
+            $submit = $form->get('submit');
+            $submit->setAttribute('class', 'btn  btn-info addbutton');
+            echo $this->formElement($submit)
+            ?>
+        </div>
+        <?php
+        echo $this->form()->closeTag($form);
+        ?>
+    </div>
+</div>
+<?php
+$this->inlineScript()->captureStart();
+echo <<<JS
+ CKEDITOR.replace( 'editor1', {
+	 language: 'ru',
+     uiColor: '#f6961b',
+ });
+JS;
+$this->inlineScript()->captureEnd();
+?>

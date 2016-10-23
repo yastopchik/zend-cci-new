@@ -1,67 +1,49 @@
-<?php echo $this->headTitle($this->translate('Content'));
-$this->inlineScript()
-                           ->offsetSetFile(101, $this->basePath() . '/components/ckeditor/ckeditor.js')	  
-                           ->offsetSetFile(102, $this->basePath() . '/components/ckeditor/lang/ru.js')	 ;?>
-
-
-<div id="content">
-<?php 
-if(isset($static) && is_array($static)){
-	?><ul id="tab"><?php 
-	foreach($static as $key=>$value){
-	 $active=$key+1;
-		if($active==$id){?>
-		 <li><a href="<?php echo $this->url('dmncontent', array('action' => 'index', 'id'=>$value['id'])); ?>" class="active"><?php echo $value['static']; ?></a></li>
-		<?php }else{ ?>
-		 <li><a href="<?php echo $this->url('dmncontent', array('action' => 'index', 'id'=>$value['id'])); ?>"><?php echo $value['static']; ?></a></li>
-		<?php }}?></ul><?php } ?>
-<?php 
-$form = $this->form;  
-$form->setAttribute('action',  $this->url('dmncontent', array('action' => 'index', 'id'=>$id)));
-$formLabel = $this->plugin('formLabel');
-$form->prepare(); 
-echo $this->form()->openTag($form);
-?>
-<div class="form-group">
-<?php
-$title = $form->get('title');
-$title->setAttribute('required', 'required'); 
-$title->setAttribute('class', 'form-control');
-$title->setAttribute('id', 'title');
-?>
-<label for="title" class="control-label"><?php echo $title->getLabel(); ?></label>
-<?php echo $this->formInput($title). $this->formElementErrors($title); ?>
+<?= $this->headTitle($this->translate('Content')); ?>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item active"><?= $this->translate('Content') ?></li>
+</ol>
+<div id="content" class="container">
+    <div class="row">
+        <div class="alert alert-success" role="alert">
+            <h2><?= $this->translate('edit content') ?></h2>
+        </div>
+        <div class="margin-bottom-10">
+            <button type="button" class="btn btn-info">
+                <a href="<?= $this->url('dmncontent', array('action' => 'add')); ?>">
+                    <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                    <?= $this->translate('add content') ?></a></button>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr class="btn-warning">
+                <th class="col-md-1 col-xs-12"><?= $this->translate('id') ?></th>
+                <th class="col-md-2 col-xs-12"><?= $this->translate('alias') ?></th>
+                <th class="col-md-9 col-xs-12"><?= $this->translate('title') ?></th>
+                <th class="col-md-1 col-xs-12"><?= $this->translate('action') ?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            if ((isset($paginator)) && ($paginator->getCurrentItemCount() != 0)) {
+                foreach ($this->paginator as $page) { ?>
+                    <tr>
+                        <td><?= $page['id'] ?></td>
+                        <td><?= $page['static'] ?></td>
+                        <td><?= $page['title'] ?></td>
+                        <td><a href="dmncontent/edit?id=<?=$page['id']?>" class="btn btn-danger btn-sm"  >
+                                <i class="fa fa-edit" title="<?= $this->translate('edit content') ?>" aria-hidden="true"></i></a></td>
+                    </tr>
+                <?php }
+            } ?>
+            </tbody>
+        </table>
+        <?php
+        if ((isset($paginator)) && ($paginator->getCurrentItemCount() != 0)) {
+            echo $this->paginationControl($this->paginator, 'Elastic', 'paginator-elastic', [
+                'route' => 'dmncontent',
+                'params' => array('action' => 'index')
+            ]);
+        }
+        ?>
+    </div>
 </div>
-<div class="form-group">
-<?php
-$text = $form->get('content');
-$text->setAttribute('required', 'required');  
-$text->setAttribute('class', 'form-control');
-$text->setAttribute('id', 'editor1');
-echo $formLabel->openTag().$text->getOption('label');   echo $formLabel->closeTag();
-?>
-<?php 
-echo $this->formTextarea($text) . $this->formElementErrors($text);
-?>  
-</div>
-<div class="form-group">
-<?php 
-echo $this->formHidden($form->get('id'));
-$submit=$form->get('submit');
-$submit->setAttribute('class', 'btn  btn-info addbutton');
-echo $this->formElement($submit)
-?> 
-</div>
-<?php     
-echo $this->form()->closeTag($form);
-?> 
-<?php 
-$this->inlineScript()->captureStart();
-echo <<<JS
- CKEDITOR.replace( 'editor1', {
-	 language: 'ru',
-     uiColor: '#f6961b',
- });
-JS;
-$this->inlineScript()->captureEnd();
-?>
