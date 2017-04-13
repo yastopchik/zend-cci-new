@@ -1,5 +1,7 @@
 nbproject
 data
+1C
+khimvolokno
 ._*
 .vagrant
 .~lock.*
@@ -8,5 +10,7 @@ data
 .idea
 .project
 .settings
+*.zip
+*.tar
 vendor
 composer.phar

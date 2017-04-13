@@ -71,6 +71,9 @@ abstract class AbstractServiceFactory implements FactoryInterface {
 		return $this->create();
 	}
 
+	/**
+	 * @return mixed
+	 */
 	abstract protected function create();
 
 }

@@ -119,7 +119,7 @@ class DmnUploadController extends AbstractActionController
         $date = new \DateTime('NOW');
         $data = $this->upload->getRequestNumbersByDate($date);
         if (is_array($data) && count($data) > 0) {
-            $directory = '1C/download/' . $date->format('d_m_Y');
+            $directory = ROOT_PATH.'/1C/download/' . $date->format('d_m_Y');
             if (is_dir($directory))
                 $this->upload->delTree($directory);
             mkdir($directory, 0777, true);
@@ -137,12 +137,12 @@ class DmnUploadController extends AbstractActionController
         return $this->getResponse()->setContent(json_encode(['success'=>true], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
     }
 
-    public function reqxmlAction()
+     public function reqxmlAction()
     {
         $date = new \DateTime('NOW');
         $data = $this->upload->getRequestNumbersByStatus();
         if (is_array($data) && count($data) > 0) {
-            $directory = '1C/request/' . $date->format('d_m_Y');
+            $directory = ROOT_PATH.'/1C/request/' . $date->format('d_m_Y');
             if (is_dir($directory))
                 $this->upload->delTree($directory);
             mkdir($directory, 0777, true);
@@ -155,7 +155,7 @@ class DmnUploadController extends AbstractActionController
                 $xml->setRootName('cert');
                 $xml->convertToFile($writer);
                 $xml->flush();
-                $data = $this->upload->getRequestService()->fillXmlUnloading($value, $date);
+                $this->upload->getRequestService()->fillXmlUnloading($value, $date);
             }
         }
         return $this->getResponse()->setContent(json_encode(['success'=>true], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));

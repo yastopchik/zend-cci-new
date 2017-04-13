@@ -24,6 +24,7 @@ return array(
 			array('controller' => 'DmnFea\Controller\DmnFea',  'roles' => array('guest', 'user')),
 			array('controller' => 'Application\Controller\Requests',  'roles' => array('user')),
 			array('controller' => 'DmnAdmin\Controller\DmnRequest',  'roles' => array('admin', 'distributer')),
+			array('controller' => 'DmnAdmin\Controller\DmnRequest', 'action' => array('archreq'), 'roles' => array('guest', 'user', 'admin', 'distributer', 'executor')),
 			array('controller' => 'DmnAdmin\Controller\DmnExecutor',  'roles' => array('admin', 'distributer')),
 			array('controller' => 'DmnAdmin\Controller\DmnUpload', 'action' => array('downloadxml', 'downloadprint', 'downloadxls', 'index'), 'roles' => array('admin', 'distributer')),
 		    array('controller' => 'DmnAdmin\Controller\DmnUpload', 'action' => array('uploadxml', 'reqxml'), 'roles' => array('guest', 'user', 'admin', 'distributer', 'executor')),
