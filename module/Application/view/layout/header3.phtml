@@ -46,3 +46,6 @@
 <li class="<?=((($route == "dmnstatistics") && ($action == "index")) ? "active" : "") ?>"><a
         href="<?= $this->url('dmnstatistics', array('action' => 'index')); ?>" id="statistics"><i
             class="fa fa-pie-chart" aria-hidden="true"></i> <?= $this->translate('Statistics'); ?></a></li>
+<li class="<?=((($route == "dmnact") && ($action == "index")) ? "active" : "") ?>"><a
+        href="<?= $this->url('dmnact', array('action' => 'index')); ?>" id="act"><i
+            class="fa fa-tasks" aria-hidden="true"></i> <?= 'Акты'; ?></a></li>

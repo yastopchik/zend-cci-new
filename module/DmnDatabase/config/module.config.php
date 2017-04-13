@@ -8,6 +8,7 @@ use DmnDatabase\Data\StatisticMapper;
 use DmnDatabase\Data\UserMapper;
 use DmnDatabase\Data\CountryMapper;
 use DmnDatabase\Data\ContentMapper;
+use DmnDatabase\Data\ActMapper;
 use DmnDatabase\Data\FormsMapper;
 
 return array(    
@@ -37,6 +38,7 @@ return array(
                		   'db_user'            => 'DmnDatabase\Service\UserService',
                		   'db_country'         => 'DmnDatabase\Service\CountryService',
                		   'db_content'         => 'DmnDatabase\Service\ContentService',
+               		   'db_act'             => 'DmnDatabase\Service\ActService',
                        'db_forms'           => 'DmnDatabase\Service\FormsService',
                ),
                'factories'=>array(               			              		
@@ -49,6 +51,7 @@ return array(
                		   'DmnDatabase\Service\UserService'        	 => 'DmnDatabase\Service\UserServiceFactory',
                		   'DmnDatabase\Service\CountryService'        	 => 'DmnDatabase\Service\CountryServiceFactory',
                		   'DmnDatabase\Service\ContentService'        	 => 'DmnDatabase\Service\ContentServiceFactory',
+               		   'DmnDatabase\Service\ActService'        	     => 'DmnDatabase\Service\ActServiceFactory',
                        'DmnDatabase\Service\FormsService'        	 => 'DmnDatabase\Service\FormsServiceFactory',
                		    
                		   'DmnDatabase\Data\UserMapper' => function ($sm) {
@@ -78,6 +81,9 @@ return array(
                         'DmnDatabase\Data\ContentMapper' => function ($sm) {
                         	return new ContentMapper($sm->get('doctrine.entitymanager.orm_default'));
                         },
+				        'DmnDatabase\Data\ActMapper' => function ($sm) {
+					       return new ActMapper($sm->get('doctrine.entitymanager.orm_default'));
+				        },
                         'DmnDatabase\Data\FormsMapper' => function ($sm) {
                             return new FormsMapper($sm->get('doctrine.entitymanager.orm_default'));                            
                         },

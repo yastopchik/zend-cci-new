@@ -8,6 +8,7 @@ return array(
             'DmnAdmin\Controller\DmnUser' => 'DmnAdmin\Factory\Controller\DmnuserControllerServiceFactory',
             'DmnAdmin\Controller\DmnExecutor' => 'DmnAdmin\Factory\Controller\DmnexecutorControllerServiceFactory',
             'DmnAdmin\Controller\DmnContent' => 'DmnAdmin\Factory\Controller\DmncontentControllerServiceFactory',
+            'DmnAdmin\Controller\DmnAct' => 'DmnAdmin\Factory\Controller\DmnactControllerServiceFactory',
         )
     ),
     'service_manager' => array(
@@ -18,6 +19,7 @@ return array(
             'dmn_executor' => 'DmnAdmin\Service\DmnexecutorService',
             'dmn_user' => 'DmnAdmin\Service\DmnuserService',
             'dmn_content' => 'DmnAdmin\Service\DmncontentService',
+            'dmn_act' => 'DmnAdmin\Service\DmnactService',
 
         ),
         'invokables' => array(
@@ -38,6 +40,7 @@ return array(
             'DmnAdmin\Service\DmnexecutorService' => 'DmnAdmin\Service\DmnexecutorServiceFactory',
             'DmnAdmin\Service\DmnuserService' => 'DmnAdmin\Service\DmnuserServiceFactory',
             'DmnAdmin\Service\DmncontentService' => 'DmnAdmin\Service\DmncontentServiceFactory',
+            'DmnAdmin\Service\DmnactService' => 'DmnAdmin\Service\DmnactServiceFactory',
             'request_session' => function ($sm) {
                 return new \DmnAdmin\Storage\Session();
             },
@@ -138,6 +141,26 @@ return array(
                         'action' => 'index',
                         'id' => 1,
                         'page' =>1,
+                    ),
+                ),
+            ),
+            'dmnact' => array('type' => 'segment',
+                'options' => array(
+                    'route' => '/dmnact[/:action][/page/:page][/id/:id][/isarch/:isarch][/countryId/:countryId]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                        'countryId' => '[0-9]+',
+                        'isarch' => '[0-9]',
+                        'page' => '[0-9]+'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'DmnAdmin\Controller\DmnAct',
+                        'action' => 'index',
+                        'id' => 0,
+                        'countryId' => 0,
+                        'isarch' => 0,
+                        'page' => 1
                     ),
                 ),
             ),

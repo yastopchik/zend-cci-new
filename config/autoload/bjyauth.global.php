@@ -30,6 +30,7 @@ return array(
 		    array('controller' => 'DmnAdmin\Controller\DmnUpload', 'action' => array('uploadxml', 'reqxml'), 'roles' => array('guest', 'user', 'admin', 'distributer', 'executor')),
 			array('controller' => 'DmnAdmin\Controller\DmnUser',  'roles' => array('admin', 'distributer')),
 			array('controller' => 'DmnAdmin\Controller\DmnContent',  'roles' => array('admin', 'distributer')),
+			array('controller' => 'DmnAdmin\Controller\DmnAct',  'roles' => array('admin', 'distributer')),
 			array('controller' => 'DmnExecutor\Controller\DmnExrequest',  'roles' => array('executor')),
 		    array('controller' => 'DmnAdmin\Controller\DmnStatistics',  'roles' => array('user', 'admin', 'distributer', 'executor')),
 			), 
