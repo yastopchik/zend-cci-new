@@ -14,8 +14,8 @@ class DmnactServiceFactory extends AbstractServiceFactory
 {
     protected function create() 
     {
-        $actService = new DmnactService();
-        $actService->setDbContent($this->getServiceLocator()->get('db_act'));
+        $actService = new DmnactService($this->getServiceLocator()->get('cache'));
+        $actService->setDbActService($this->getServiceLocator()->get('db_act'));
         //$contentService->setAuth($this->getServiceLocator()->get('zfcuser_user_service')->getUserAuthId());
         $logger=$this->getServiceLocator()->get('logger');
         $logger->openStream('act');

@@ -14,16 +14,16 @@ use DmnAdmin\Service\DmnactService;
 
 class DmnActController extends AbstractActionController
 {
-    protected $dbContent;
+    protected $dbRequest;
 
-    public function __construct(DmnactService $dbContent)
+    public function __construct(DmnactService $dbRequest)
     {
-        $this->dbContent = $dbContent;
+        $this->dbRequest = $dbRequest;
     }
     public function indexAction()
     {
         $view = new ViewModel();
-        $view->setTemplate('dmnact/dmnact/index');
+        $view->setTemplate('dmnadmin/dmnact/index');
         return $view;
     }
     public function getactsAction()
@@ -34,7 +34,28 @@ class DmnActController extends AbstractActionController
             $this->dbRequest->setQueryParametrs($parameters);
         }
 
-        $response = $this->dbRequest->getRequestNumber();
+        $response = $this->dbRequest->getActs();
+
+        return $this->getResponse()->setContent(json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+
+    }
+    public function editactAction()
+    {
+
+        $parameters = $this->getRequest()->getPost();
+
+        if ($parameters) {
+
+            $this->dbRequest->setPostParametrs($parameters);
+
+            return $this->dbRequest->editSessionRequestValue();
+        }
+        return false;
+    }
+    public function getstatusAction()
+    {
+
+        $response = $this->dbRequest->getStatuses();
 
         return $this->getResponse()->setContent(json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 

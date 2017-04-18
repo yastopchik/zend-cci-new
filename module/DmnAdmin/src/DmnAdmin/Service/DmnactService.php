@@ -9,10 +9,14 @@
 namespace DmnAdmin\Service;
 
 use DmnLog\Service\LogService;
-use DmnDatabase\Service\Exception\RuntimeException;
+use Zend\Cache\Storage\Adapter\Filesystem;
 
 class DmnactService
 {
+    const STATUS_ACTIVE = 1;
+
+    const STATUS_DRAFT = 0;
+
     /**
      *
      * @var $id
@@ -20,9 +24,9 @@ class DmnactService
     protected $id;
     /**
      *
-     * @var $dbContent
+     * @var $dbActService
      */
-    protected $dbContent;
+    protected $dbActService;
     /**
      *
      * @var $logger
@@ -30,9 +34,28 @@ class DmnactService
     protected $logger;
     /**
      *
+     * @var $cache
+     */
+    protected $cache;
+    /**
+     *
      * @var $authUserId
      */
     protected $authUserId;
+
+    private $status = [
+        '0'=>'Не действует',
+        '1'=>'Действует',
+    ];
+
+
+    /**
+     * @param Zend\Cache\Storage\Adapter\Filesystem $cache
+     */
+    public function __construct(Filesystem $cache)
+    {
+        $this->cache = $cache;
+    }
     /**
      *get All Acts
      * @param $id
@@ -40,23 +63,23 @@ class DmnactService
      */
     public function getActs()
     {
-        return $this->dbContent->getActs();
+        return $this->dbActService->getActs();
     }
     /**
      *
      * @return $dbContent
      */
-    public function getDbContent(){
+    public function getDbActService(){
 
-        return $this->dbContent;
+        return $this->dbActService;
     }
     /**
      *
-     * @param $dbContent
+     * @param $dbActService
      */
-    public function setDbContent($dbContent){
+    public function setDbActService($dbActService){
 
-        $this->dbContent = $dbContent;
+        $this->dbActService = $dbActService;
     }
     /**
      *
@@ -75,5 +98,28 @@ class DmnactService
     {
 
         return $this->logger;
+    }
+    /**
+     *Get List of Statuses
+     * @return  data
+     */
+    public function getStatuses()
+    {
+
+        $response = $this->cache->getItem('get_actstatuses');
+
+        if (is_null($response)) {
+
+            $data = $this->status;
+
+            $response = [];
+            foreach ($data as $key => $value) {
+                $response[$key]['id'] = $key;
+                $response[$key]['status'] = $value;
+            }
+            $this->cache->setItem('get_actstatuses', $response);
+        }
+
+        return $response;
     }
 }

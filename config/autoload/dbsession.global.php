@@ -13,14 +13,14 @@
 return array(
     'zf2-db-session'=>[
         'sessionConfig' => [
-            'cache_expire' => 3600,
+            'cache_expire' => 36000,
             //'cookie_domain' => 'localhost',
             'name' => 'request',
-            'cookie_lifetime' => 3600,
-            'gc_maxlifetime' => 3600,
+            'cookie_lifetime' => 36000,
+            'gc_maxlifetime' => 36000,
             'cookie_path' => '/',
             'cookie_secure' => false,//когда включиться https поставить true
-            'remember_me_seconds' => 3600,
+            'remember_me_seconds' => 36000,
             'use_cookies' => true,
         ],
         'serviceConfig'=>[
