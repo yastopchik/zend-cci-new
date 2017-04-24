@@ -65,9 +65,4 @@ class OrganizationService{
     	}
     	return $this->mapperRequest->setParentid($parentid);
     }
-
-  
-
 }
-
-?>

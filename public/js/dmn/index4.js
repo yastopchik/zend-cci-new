@@ -9,7 +9,46 @@ $(function () {
         colModel: [
             {name: 'id', index: 'id', width: '3%', searchoptions: {sopt: ['eq']}},
             {name: 'numact', index: 'numact', width: '10%', editable: true, searchoptions: {sopt: ['eq']}},
-            {name: 'organization', index: 'organization', width: '10%', editable: false, searchoptions: {sopt: ['eq']}},
+            {
+                name: 'organization', 
+                index: 'organization', 
+                width: '10%',
+                editable: true,
+                edittype: 'select',
+                stype: 'select',
+                editrules: {required: true},
+                editoptions: {
+                    dataUrl: 'dmnact/getorg',
+                    style: "width:95%",
+                    buildSelect: function (data) {
+                        var response = $.parseJSON(data);
+                        var s = '<select>';
+                        if (response && response.length) {
+                            for (var i = 0, l = response.length; i < l; i++) {
+                                var ri = response[i];
+                                s += '<option value="' + ri.id + '">' + ri.name + '</option>';
+                            }
+                        }
+                        return s + "</select>";
+                    }
+                },
+                searchoptions: {
+                    sopt: ['eq'],
+                    dataUrl: 'dmnact/getorg',
+                    style: "width:95%",
+                    buildSelect: function (data) {
+                        var response = $.parseJSON(data);
+                        var s = '<select>';
+                        if (response && response.length) {
+                            for (var i = 0, l = response.length; i < l; i++) {
+                                var ri = response[i];
+                                s += '<option value="' + ri.id + '">' + ri.name + '</option>';
+                            }
+                        }
+                        return s + "</select>";
+                    }
+                }
+            },
             {name: 'countryrule', index: 'countryrule', width: '10%', editable: false, searchoptions: {sopt: ['eq']}},
             {
                 name: 'dateact', index: 'dateact', width: '10%', editable: true, editrules: {required: true},
@@ -87,7 +126,7 @@ $(function () {
                 editrules: {required: true},
                 editoptions: {
                     dataUrl: 'dmnact/getstatus',
-                    style: "width:98%",
+                    style: "width:95%",
                     buildSelect: function (data) {
                         var response = $.parseJSON(data);
                         var s = '<select>';
@@ -103,7 +142,7 @@ $(function () {
                 searchoptions: {
                     sopt: ['eq'],
                     dataUrl: 'dmnact/getstatus',
-                    style: "width:98%",
+                    style: "width:95%",
                     buildSelect: function (data) {
                         var response = $.parseJSON(data);
                         var s = '<select>';
@@ -123,7 +162,7 @@ $(function () {
                 width: '10%',
                 editable: true,
                 edittype: "textarea",
-                editoptions: {rows: "2", cols: "30"}
+                editoptions: {rows: "5", cols: "57"}
             },
             {
                 name: 'description',
@@ -131,7 +170,7 @@ $(function () {
                 width: '10%',
                 editable: true,
                 edittype: "textarea",
-                editoptions: {rows: "3", cols: "30"}
+                editoptions: {rows: "5", cols: "57"}
             },
             {
                 name: 'criorigin',
@@ -139,20 +178,18 @@ $(function () {
                 width: '10%',
                 editable: true,
                 edittype: "textarea",
-                editoptions: {rows: "3", cols: "30"}
+                editoptions: {rows: "5", cols: "57"}
             },
         ],
         cmTemplate: {sortable: false},
         rowNum: 5,
         rowList: [5, 10, 20, 30],
-        cellEdit: true,
-        cellsubmit: "remote",
-        cellurl: "dmnact/editact",
-        caption: "Акты",
         autowidth: true,
         shrinkToFit: true,
-        height: '20%',
+        height: '50%',
         minHeight: 100,
+        editurl: "dmnact/editact",
+        caption: "Акты экспертизы",
         pager: '#pactlist',
         sortname: 'id',
         multiselect: false,
@@ -168,16 +205,11 @@ $(function () {
             reloadAfterSubmit: true,
             closeAfterEdit: true,
             beforeShowForm: function (form) {
-                var dlgDiv = $("#editmodactlist");
-                var parentDiv = dlgDiv.parent();
-                var dlgWidth = dlgDiv.width();
-                var parentWidth = parentDiv.width();
-                var dlgHeight = dlgDiv.height();
-                var parentHeight = parentDiv.height();
-                var parentTop = parentDiv.offset().top;
-                var parentLeft = parentDiv.offset().left;
-                dlgDiv[0].style.top = Math.round(parentTop + (parentHeight - dlgHeight) / 2) + "px";
-                dlgDiv[0].style.left = Math.round(parentLeft + (parentWidth - dlgWidth  ) / 2) + "px";
+                $(form).closest(".ui-jqdialog").position({
+                    of: ".main",
+                    my: "center center",
+                    at: "top top"
+                });
             }
         },
         {
@@ -186,16 +218,11 @@ $(function () {
             closeAfterEdit: true,
             width: '50%',
             beforeShowForm: function (form) {
-                var dlgDiv = $("#editmodactlist");
-                var parentDiv = dlgDiv.parent();
-                var dlgWidth = dlgDiv.width();
-                var parentWidth = parentDiv.width();
-                var dlgHeight = dlgDiv.height();
-                var parentHeight = parentDiv.height();
-                var parentTop = parentDiv.offset().top;
-                var parentLeft = parentDiv.offset().left;
-                dlgDiv[0].style.top = Math.round(parentTop + (parentHeight - dlgHeight) / 2) + "px";
-                dlgDiv[0].style.left = Math.round(parentLeft + (parentWidth - dlgWidth  ) / 2) + "px";
+                $(form).closest(".ui-jqdialog").position({
+                    of: ".main",
+                    my: "center center",
+                    at: "top top"
+                });
             },
         },
         {},

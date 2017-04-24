@@ -48,7 +48,7 @@ class DmnActController extends AbstractActionController
 
             $this->dbRequest->setPostParametrs($parameters);
 
-            return $this->dbRequest->editSessionRequestValue();
+            return $this->dbRequest->editAct();
         }
         return false;
     }
@@ -56,6 +56,14 @@ class DmnActController extends AbstractActionController
     {
 
         $response = $this->dbRequest->getStatuses();
+
+        return $this->getResponse()->setContent(json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+
+    }
+    public function getorgAction()
+    {
+
+        $response = $this->dbRequest->getOrganization();
 
         return $this->getResponse()->setContent(json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 

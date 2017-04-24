@@ -131,10 +131,4 @@ class DmncontentService
     
     	return $this->logger;
     }
-   
-    
-
 }
-
-
-?>

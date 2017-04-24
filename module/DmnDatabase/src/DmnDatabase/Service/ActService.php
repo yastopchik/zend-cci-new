@@ -21,4 +21,15 @@ class ActService
     {
         return $this->mapperRequest->getActs();
     }
+    public function editAct(array $data, $oper) {
+
+        if (empty($data) || empty($oper)) {
+            throw new \InvalidArgumentException('Data or Operation  can\'t be empty');
+        }
+        if(strcmp($oper, 'edit')==0)
+            return $this->mapperRequest->editAct($data);
+        if(strcmp($oper, 'add')==0)
+            return $this->mapperRequest->addAct($data);
+
+    }
 }
