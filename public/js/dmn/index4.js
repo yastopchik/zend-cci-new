@@ -3,15 +3,15 @@ $(function () {
         monthNamesShort = ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"];
     $("#actlist").jqGrid({
         regional: 'ru',
-        url: "dmnact/getacts",
+        url: "dmnact/getactnumbers",
         datatype: "json",
-        colNames: ['ID', '№ Акта', 'Организация', 'Страна ', 'Дата акта', 'Срок действия', 'Статус' ,'Код ТН ВЭД',  'Наименование', 'Критерий'],
+        colNames: ['ID', '№ Акта', 'Организация', 'Страна ', 'Дата акта', 'Срок действия', 'Статус'],
         colModel: [
             {name: 'id', index: 'id', width: '3%', searchoptions: {sopt: ['eq']}},
             {name: 'numact', index: 'numact', width: '10%', editable: true, searchoptions: {sopt: ['eq']}},
             {
-                name: 'organization', 
-                index: 'organization', 
+                name: 'organization',
+                index: 'organization',
                 width: '10%',
                 editable: true,
                 edittype: 'select',
@@ -156,30 +156,6 @@ $(function () {
                     }
                 }
             },
-            {
-                name: 'hscode',
-                index: 'hscode',
-                width: '10%',
-                editable: true,
-                edittype: "textarea",
-                editoptions: {rows: "5", cols: "57"}
-            },
-            {
-                name: 'description',
-                index: 'description',
-                width: '10%',
-                editable: true,
-                edittype: "textarea",
-                editoptions: {rows: "5", cols: "57"}
-            },
-            {
-                name: 'criorigin',
-                index: 'criorigin',
-                width: '10%',
-                editable: true,
-                edittype: "textarea",
-                editoptions: {rows: "5", cols: "57"}
-            },
         ],
         cmTemplate: {sortable: false},
         rowNum: 5,
@@ -188,13 +164,24 @@ $(function () {
         shrinkToFit: true,
         height: '50%',
         minHeight: 100,
-        editurl: "dmnact/editact",
+        editurl: "dmnact/editactnumber",
         caption: "Акты экспертизы",
         pager: '#pactlist',
         sortname: 'id',
         multiselect: false,
         viewrecords: true,
         sortorder: "desc",
+        onSelectRow: function () {
+            var ids = $("#actlist").jqGrid('getGridParam', 'selrow');
+            if (ids != null) {
+                $("#gridWrapper").show();
+                $("#acts_d").jqGrid('setGridParam', {url: 'dmnact/getacts?id=' + ids, page: 1});
+                $("#acts_d").jqGrid('setGridParam', {editurl: 'dmnact/editact?actn=' + ids});
+                $("#acts_d").jqGrid('setCaption', "Дополнительная информация по акту экспертизы").trigger('reloadGrid');
+            } else {
+                $("#gridWrapper").hide();
+            }
+        },
     });
     $("#actlist").jqGrid('navGrid', "#pactlist", {edit: true, add: true, del: false, search: true},
         {
@@ -233,4 +220,97 @@ $(function () {
             closeAfterSearch: true,
         }
     );
+    $("#acts_d").jqGrid({
+        regional: 'ru',
+        url: 'dmnact/getacts?id=0',
+        datatype: "json",
+        colNames: ['Код ТН ВЭД', 'Наименование товара', 'Критерий происхожденя'],
+        colModel: [
+            {
+                name: 'hscode',
+                index: 'hscode',
+                width: '30%',
+                editable: true,
+                edittype: "textarea",
+                editoptions: {rows: "5", cols: "60"}
+            },
+            {
+                name: 'description',
+                index: 'description',
+                width: '30%',
+                editable: true,
+                edittype: "textarea",
+                editoptions: {rows: "5", cols: "60"}
+            },
+            {
+                name: 'criorigin',
+                index: 'criorigin',
+                width: '30%',
+                editable: true,
+                edittype: "textarea",
+                editoptions: {rows: "5", cols: "60"}
+            },
+        ],
+        cmTemplate: {sortable: false},
+        rowNum: 15,
+        autowidth: true,
+        shrinkToFit: true,
+        height: '100%',
+        rowList: [10, 20, 30],
+        pager: '#pacts_d',
+        sortname: 'item',
+        viewrecords: true,
+        sortorder: "asc",
+        multiselect: false,
+        editurl: "dmnact/editact",
+        caption: "Дополнительная информация по актам экспертизы",
+        gridComplete: function () {
+            var ids = $("#actlist").jqGrid('getDataIDs');
+            if (ids == 0) {
+                $("#gridWrapper").hide();
+            }
+            else {
+                $('#gridWrapper').show();
+            }
+        },
+    });
+    $("#acts_d").jqGrid('navGrid', '#pacts_d', {add: true, edit: true, del: false, search: true},
+        {
+            width: '50%',
+            reloadAfterSubmit: true,
+            closeAfterEdit: true,
+            beforeShowForm: function (form) {
+                var dlgDiv = $("#editmodacts_d");
+                var parentDiv = dlgDiv.parent();
+                var dlgWidth = dlgDiv.width();
+                var parentWidth = parentDiv.width();
+                var dlgHeight = dlgDiv.height();
+                var parentHeight = parentDiv.height();
+                var parentTop = parentDiv.offset().top;
+                var parentLeft = parentDiv.offset().left;
+                dlgDiv[0].style.top = Math.round(parentTop + (parentHeight - dlgHeight) / 2) + "px";
+                dlgDiv[0].style.left = Math.round(parentLeft + (parentWidth - dlgWidth  ) / 2) + "px";
+            }
+        },
+        {
+            closeAfterAdd: true,
+            rowID: "new_row",
+            position: "last",
+            useDefValues: true,
+            reloadAfterSubmit: true,
+            closeAfterEdit: true,
+            width: '50%',
+            beforeShowForm: function (form) {
+                var dlgDiv = $("#editmodacts_d");
+                var parentDiv = dlgDiv.parent();
+                var dlgWidth = dlgDiv.width();
+                var parentWidth = parentDiv.width();
+                var dlgHeight = dlgDiv.height();
+                var parentHeight = parentDiv.height();
+                var parentTop = parentDiv.offset().top;
+                var parentLeft = parentDiv.offset().left;
+                dlgDiv[0].style.top = Math.round(parentTop + (parentHeight - dlgHeight) / 2) + "px";
+                dlgDiv[0].style.left = Math.round(parentLeft + (parentWidth - dlgWidth  ) / 2) + "px";
+            }
+        });
 });

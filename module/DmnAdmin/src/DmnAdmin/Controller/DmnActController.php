@@ -26,6 +26,50 @@ class DmnActController extends AbstractActionController
         $view->setTemplate('dmnadmin/dmnact/index');
         return $view;
     }
+    public function getactnumbersAction()
+    {
+        $parameters = $this->getRequest()->getQuery();
+
+        if ($parameters) {
+            $this->dbAct->setQueryParametrs($parameters);
+        }
+
+        $response = $this->dbAct->getActNumbers();
+
+        return $this->getResponse()->setContent(json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+
+    }
+    public function editactnumberAction()
+    {
+
+        $parameters = $this->getRequest()->getPost();
+
+        if ($parameters) {
+
+            $this->dbAct->setPostParametrs($parameters);
+
+            return $this->dbAct->editActNumber();
+        }
+        return false;
+    }
+    public function editactAction()
+    {
+        $actn = (int) $this->params()->fromQuery('actn', 0);
+
+        if (is_int($actn)&&!is_null($actn)) {
+
+            $parameters = $this->getRequest()->getPost();
+
+            if($parameters){
+
+                $this->dbAct->setPostParametrs($parameters);
+
+                return $this->dbAct->editAct($actn);
+            }
+        }
+        return false;
+
+    }
     public function getactsAction()
     {
         $parameters = $this->getRequest()->getQuery();
@@ -37,20 +81,6 @@ class DmnActController extends AbstractActionController
         $response = $this->dbAct->getActs();
 
         return $this->getResponse()->setContent(json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-
-    }
-    public function editactAction()
-    {
-
-        $parameters = $this->getRequest()->getPost();
-
-        if ($parameters) {
-
-            $this->dbAct->setPostParametrs($parameters);
-
-            return $this->dbAct->editAct();
-        }
-        return false;
     }
     public function getstatusAction()
     {

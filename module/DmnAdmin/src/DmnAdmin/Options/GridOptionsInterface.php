@@ -51,4 +51,10 @@ interface GridOptionsInterface
 	 * @return string
 	 */
 	public function getActOptions();
+	/**
+	 * get ActOptions
+	 *
+	 * @return string
+	 */
+	public function getActNumberOptions();
 }

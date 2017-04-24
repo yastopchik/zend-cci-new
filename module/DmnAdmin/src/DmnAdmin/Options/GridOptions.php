@@ -134,6 +134,16 @@ class GridOptions  implements GridOptionsInterface
 	 */
 	protected $actOptions = array(
 		'options' => array(
+			'hscode' => 'Код ТН ВЭД',
+			'description'    => 'Наименование',
+			'criorigin'    => 'Критерий',
+		),
+	);
+	/**
+	 * @var array
+	 */
+	protected $actNumberOptions = array(
+		'options' => array(
 			'id'=>'ID',
 			'numact'    => '№ Акта',
 			'organization'    => 'Организация',
@@ -141,9 +151,6 @@ class GridOptions  implements GridOptionsInterface
 			'dateact'    => 'Дата Акта',
 			'dateduration'    => 'Срок действия',
 			'status'    => 'Статус',
-			'hscode' => 'Код ТН ВЭД',
-			'description'    => 'Наименование',
-			'criorigin'    => 'Критерий',
 		),
 	);
 	
@@ -212,6 +219,10 @@ class GridOptions  implements GridOptionsInterface
 		return $this->userOptions;
 	}
 	
+	public function getActNumberOptions()
+	{
+		return $this->actNumberOptions;
+	}
 	public function getActOptions()
 	{
 		return $this->actOptions;

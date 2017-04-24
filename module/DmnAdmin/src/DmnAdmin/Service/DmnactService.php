@@ -72,14 +72,14 @@ class DmnactService
      * @param $id
      * @return content
      */
-    public function getActs()
+    public function getActNumbers()
     {
         if(isset($this->data['_search']) && ($this->data['_search'])   && !empty($this->data['filters']))
             $search=$this->data['filters'];
         else
             $search=null;
         
-        $data = $this->dbActService->getActs();
+        $data = $this->dbActService->getActNumbers();
 
         $adapter = new DoctrineAdapter(new ORMPaginator($data));
 
@@ -89,7 +89,7 @@ class DmnactService
             ->setItemCountPerPage((int)$this->rows)
             ->setPageRange(5);
 
-        $response=$this->convertPanginationToResponce($paginator, $this->options->getActOptions());
+        $response=$this->convertPanginationToResponce($paginator, $this->options->getActNumberOptions());
 
         return $response;
     }
@@ -217,17 +217,53 @@ class DmnactService
         return $response;
     }
     /**
-     *Edit Organization
+     *Edit ActNumber
      *@return true|false
      */
-    public function editAct(){
+    public function editActNumber()
+    {
 
-        if($this->cache->hasItem('get_act')){
-            $this->cache->removeItem('get_act');
-        }
         $this->logger->info('Редактирование/Добавление Акта экспертизы -, пользователь -'.$this->authUserId);
 
+        return $this->dbActService->editActNumber($this->data, $this->data['oper']);
+
+    }
+    /**
+     *Edit ActNumber
+     *@return true|false
+     */
+    public function editAct($actn)
+    {
+        $this->logger->info('Редактирование/Добавление Данных в акт -'.$this->authUserId);
+
+        $this->data['actid']=$actn;
+
         return $this->dbActService->editAct($this->data, $this->data['oper']);
+
+    }
+    /**
+     *Get List of Acts by id actID
+     * @return  paginator
+     */
+    public function getActs()
+    {
+
+        if ($this->id != 0) {
+
+            $data = $this->dbActService->getActByActnumberId($this->id);
+
+            $adapter = new DoctrineAdapter(new ORMPaginator($data));
+
+            $paginator = new Paginator($adapter);
+
+            $paginator->setCurrentPageNumber((int)$this->page)
+                ->setItemCountPerPage((int)$this->rows)
+                ->setPageRange(5);
+            $response = $this->convertPanginationToResponce($paginator, $this->options->getActOptions());
+        } else {
+            $response = array();
+        }
+        return $response;
 
     }
     public function setPostParametrs(Parameters $parametrs)

@@ -17,9 +17,20 @@ class ActService
         $this->mapperRequest = $mapperRequest;
     }
 
-    public function getActs()
+    public function getActNumbers()
     {
-        return $this->mapperRequest->getActs();
+        return $this->mapperRequest->getActNumbers();
+    }
+    public function editActNumber(array $data, $oper) {
+
+        if (empty($data) || empty($oper)) {
+            throw new \InvalidArgumentException('Data or Operation  can\'t be empty');
+        }
+        if(strcmp($oper, 'edit')==0)
+            return $this->mapperRequest->editActNumber($data);
+        if(strcmp($oper, 'add')==0)
+            return $this->mapperRequest->addActNumber($data);
+
     }
     public function editAct(array $data, $oper) {
 
@@ -31,5 +42,12 @@ class ActService
         if(strcmp($oper, 'add')==0)
             return $this->mapperRequest->addAct($data);
 
+    }
+    public function getActByActnumberId($actnumberId)
+    {
+        if (empty($actnumberId)) {
+            throw new \InvalidArgumentException('Actnumber Id can\'t be empty');
+        }
+        return $this->mapperRequest->getActByActnumberId($actnumberId);
     }
 }
