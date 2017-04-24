@@ -12,12 +12,15 @@ use DmnLog\Service\LogService;
 use Zend\Cache\Storage\Adapter\Filesystem;
 use DmnDatabase\Service\OrganizationService;
 use Zend\Stdlib\Parameters;
+use Zend\Paginator\Paginator;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use DmnAdmin\Options\GridOptionsInterface;
+
 
 class DmnactService
 {
-    const STATUS_ACTIVE = 1;
-
-    const STATUS_DRAFT = 0;
+    use \DmnAdmin\Object\ResponseTrait;
 
     /**
      *
@@ -52,8 +55,8 @@ class DmnactService
     protected $dbOrganization;
 
     private $status = [
-        '0'=>'Не действует',
-        '1'=>'Действует'
+        '4'=>'Действует',
+        '12'=>'Не действует'
     ];
 
 
@@ -71,7 +74,24 @@ class DmnactService
      */
     public function getActs()
     {
-        return $this->dbActService->getActs();
+        if(isset($this->data['_search']) && ($this->data['_search'])   && !empty($this->data['filters']))
+            $search=$this->data['filters'];
+        else
+            $search=null;
+        
+        $data = $this->dbActService->getActs();
+
+        $adapter = new DoctrineAdapter(new ORMPaginator($data));
+
+        $paginator = new Paginator($adapter);
+
+        $paginator->setCurrentPageNumber((int)$this->page)
+            ->setItemCountPerPage((int)$this->rows)
+            ->setPageRange(5);
+
+        $response=$this->convertPanginationToResponce($paginator, $this->options->getActOptions());
+
+        return $response;
     }
     /**
      *
@@ -116,6 +136,24 @@ class DmnactService
 
         return $this->dbOrganization;
     }
+    /**
+     *Get Options
+     *@return options
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+    /**
+     *Set Options
+     *@return options
+     */
+    public function setOptions(GridOptionsInterface $options)
+    {
+        $this->options = $options;
+
+        return $this;
+    }
 
     /**
      *
@@ -140,9 +178,11 @@ class DmnactService
             $data = $this->status;
 
             $response = [];
+            $i = 0;
             foreach ($data as $key => $value) {
-                $response[$key]['id'] = $key;
-                $response[$key]['status'] = $value;
+                $response[$i]['id'] = $key;
+                $response[$i]['status'] = $value;
+                $i++;
             }
             $this->cache->setItem('get_actstatuses', $response);
         }

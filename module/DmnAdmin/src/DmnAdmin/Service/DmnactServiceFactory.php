@@ -9,6 +9,7 @@
 namespace DmnAdmin\Service;
 
 use DmnDatabase\Service\AbstractServiceFactory;
+use DmnAdmin\Options\GridOptions;
 
 class DmnactServiceFactory extends AbstractServiceFactory 
 {
@@ -17,6 +18,7 @@ class DmnactServiceFactory extends AbstractServiceFactory
         $actService = new DmnactService($this->getServiceLocator()->get('cache'));
         $actService->setDbActService($this->getServiceLocator()->get('db_act'));
         $actService->setDbOrganization($this->getServiceLocator()->get('db_organization'));
+        $actService->setOptions(new GridOptions());
         //$contentService->setAuth($this->getServiceLocator()->get('zfcuser_user_service')->getUserAuthId());
         $logger=$this->getServiceLocator()->get('logger');
         $logger->openStream('act');

@@ -14,11 +14,11 @@ use DmnAdmin\Service\DmnactService;
 
 class DmnActController extends AbstractActionController
 {
-    protected $dbRequest;
+    protected $dbAct;
 
-    public function __construct(DmnactService $dbRequest)
+    public function __construct(DmnactService $dbAct)
     {
-        $this->dbRequest = $dbRequest;
+        $this->dbAct = $dbAct;
     }
     public function indexAction()
     {
@@ -31,10 +31,10 @@ class DmnActController extends AbstractActionController
         $parameters = $this->getRequest()->getQuery();
 
         if ($parameters) {
-            $this->dbRequest->setQueryParametrs($parameters);
+            $this->dbAct->setQueryParametrs($parameters);
         }
 
-        $response = $this->dbRequest->getActs();
+        $response = $this->dbAct->getActs();
 
         return $this->getResponse()->setContent(json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 
@@ -46,16 +46,16 @@ class DmnActController extends AbstractActionController
 
         if ($parameters) {
 
-            $this->dbRequest->setPostParametrs($parameters);
+            $this->dbAct->setPostParametrs($parameters);
 
-            return $this->dbRequest->editAct();
+            return $this->dbAct->editAct();
         }
         return false;
     }
     public function getstatusAction()
     {
 
-        $response = $this->dbRequest->getStatuses();
+        $response = $this->dbAct->getStatuses();
 
         return $this->getResponse()->setContent(json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 
@@ -63,7 +63,7 @@ class DmnActController extends AbstractActionController
     public function getorgAction()
     {
 
-        $response = $this->dbRequest->getOrganization();
+        $response = $this->dbAct->getOrganization();
 
         return $this->getResponse()->setContent(json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 

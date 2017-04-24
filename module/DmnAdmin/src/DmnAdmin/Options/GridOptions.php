@@ -129,6 +129,23 @@ class GridOptions  implements GridOptionsInterface
 					'datelastvisit'    => 'Дата последнего визита',
 			),
 	);
+	/**
+	 * @var array
+	 */
+	protected $actOptions = array(
+		'options' => array(
+			'id'=>'ID',
+			'numact'    => '№ Акта',
+			'organization'    => 'Организация',
+			'countryrule'    => 'Страна',
+			'dateact'    => 'Дата Акта',
+			'dateduration'    => 'Срок действия',
+			'status'    => 'Статус',
+			'hscode' => 'Код ТН ВЭД',
+			'description'    => 'Наименование',
+			'criorigin'    => 'Критерий',
+		),
+	);
 	
 	
 	/**
@@ -193,5 +210,10 @@ class GridOptions  implements GridOptionsInterface
 	public function getUserOptions()
 	{
 		return $this->userOptions;
+	}
+	
+	public function getActOptions()
+	{
+		return $this->actOptions;
 	}
 }

@@ -49,7 +49,7 @@ $(function () {
                     }
                 }
             },
-            {name: 'countryrule', index: 'countryrule', width: '10%', editable: false, searchoptions: {sopt: ['eq']}},
+            {name: 'countryrule', index: 'countryrule', width: '10%', editable: true, searchoptions: {sopt: ['eq']}},
             {
                 name: 'dateact', index: 'dateact', width: '10%', editable: true, editrules: {required: true},
                 editoptions: {
@@ -198,31 +198,32 @@ $(function () {
     });
     $("#actlist").jqGrid('navGrid', "#pactlist", {edit: true, add: true, del: false, search: true},
         {
-            jqModal: true,
-            savekey: [true, 13],
-            navkeys: [true, 38, 40],
-            width: '50%',
+            width: '70%',
             reloadAfterSubmit: true,
             closeAfterEdit: true,
             beforeShowForm: function (form) {
-                $(form).closest(".ui-jqdialog").position({
-                    of: ".main",
-                    my: "center center",
-                    at: "top top"
-                });
+                var dlgDiv = $("#editmodactlist");
+                var parentDiv = dlgDiv.parent();
+                var dlgWidth = dlgDiv.width();
+                var parentWidth = parentDiv.width();
+                var parentLeft = parentDiv.offset().left;
+                dlgDiv[0].style.left = Math.round(parentLeft + (parentWidth - dlgWidth  ) / 2) + "px";
             }
         },
         {
-            jqModal: true,
+            closeAfterAdd: true,
+            rowID: "new_row",
+            position: "last",
+            useDefValues: true,
+            width: '70%',
             reloadAfterSubmit: true,
-            closeAfterEdit: true,
-            width: '50%',
             beforeShowForm: function (form) {
-                $(form).closest(".ui-jqdialog").position({
-                    of: ".main",
-                    my: "center center",
-                    at: "top top"
-                });
+                var dlgDiv = $("#editmodactlist");
+                var parentDiv = dlgDiv.parent();
+                var dlgWidth = dlgDiv.width();
+                var parentWidth = parentDiv.width();
+                var parentLeft = parentDiv.offset().left;
+                dlgDiv[0].style.left = Math.round(parentLeft + (parentWidth - dlgWidth  ) / 2) + "px";
             },
         },
         {},
