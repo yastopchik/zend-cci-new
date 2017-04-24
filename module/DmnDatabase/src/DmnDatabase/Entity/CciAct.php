@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: yastopchik
- * Date: 13.04.2017
- * Time: 19:18
- */
 
 namespace DmnDatabase\Entity;
 
@@ -14,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * CciAct
  *
  * @ORM\Table(name="cci_act", indexes={@ORM\Index(name="acts_to_status_idx", columns={"StatusId"}), @ORM\Index(name="acts_to_organization_idx", columns={"OrganizationId"})})
+ * @ORM\Entity
  */
 class CciAct
 {
@@ -32,16 +27,7 @@ class CciAct
      * @ORM\Column(name="NumAct", type="string", length=45, nullable=true)
      */
     private $numact;
-    
-    /**
-     * @var \DmnDatabase\Entity\CciOrganization
-     *
-     * @ORM\ManyToOne(targetEntity="DmnDatabase\Entity\CciOrganization")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="OrganizationId", referencedColumnName="id")
-     * })
-     */
-    private $organizationid;
+
     /**
      * @var string
      *
@@ -62,13 +48,14 @@ class CciAct
      * @ORM\Column(name="DateDuration", type="date", nullable=false)
      */
     private $dateduration;
-    
+
     /**
      * @var string
      *
-     * @ORM\Column(name="HsCode", type="string", length=255, nullable=true)
+     * @ORM\Column(name="HsCode", type="string", length=255, nullable=false)
      */
     private $hscode;
+
     /**
      * @var string
      *
@@ -84,6 +71,16 @@ class CciAct
     private $criorigin;
 
     /**
+     * @var \DmnDatabase\Entity\CciOrganization
+     *
+     * @ORM\ManyToOne(targetEntity="DmnDatabase\Entity\CciOrganization")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="OrganizationId", referencedColumnName="id")
+     * })
+     */
+    private $organizationid;
+
+    /**
      * @var \DmnDatabase\Entity\CciStatus
      *
      * @ORM\ManyToOne(targetEntity="DmnDatabase\Entity\CciStatus")
@@ -92,6 +89,7 @@ class CciAct
      * })
      */
     private $statusid;
+
 
 
     /**
@@ -119,7 +117,7 @@ class CciAct
     }
 
     /**
-     * Get Numact
+     * Get numact
      *
      * @return string
      */
@@ -128,29 +126,6 @@ class CciAct
         return $this->numact;
     }
 
-    /**
-     * Set organizationid
-     *
-     * @param \DmnDatabase\Entity\CciOrganization $organizationid
-     *
-     * @return CciAct
-     */
-    public function setOrganizationid(\DmnDatabase\Entity\CciOrganization $organizationid = null)
-    {
-        $this->organizationid = $organizationid;
-
-        return $this;
-    }
-
-    /**
-     * Get organizationid
-     *
-     * @return \DmnDatabase\Entity\CciOrganization
-     */
-    public function getOrganizationid()
-    {
-        return $this->organizationid;
-    }
     /**
      * Set countryrule
      *
@@ -166,7 +141,7 @@ class CciAct
     }
 
     /**
-     * Get Countryrule
+     * Get countryrule
      *
      * @return string
      */
@@ -176,7 +151,7 @@ class CciAct
     }
 
     /**
-     * Set dateorder
+     * Set dateact
      *
      * @param \DateTime $dateact
      *
@@ -222,6 +197,7 @@ class CciAct
     {
         return $this->dateduration;
     }
+
     /**
      * Set hscode
      *
@@ -245,6 +221,7 @@ class CciAct
     {
         return $this->hscode;
     }
+
     /**
      * Set description
      *
@@ -268,6 +245,7 @@ class CciAct
     {
         return $this->description;
     }
+
     /**
      * Set criorigin
      *
@@ -293,6 +271,30 @@ class CciAct
     }
 
     /**
+     * Set organizationid
+     *
+     * @param \DmnDatabase\Entity\CciOrganization $organizationid
+     *
+     * @return CciAct
+     */
+    public function setOrganizationid(\DmnDatabase\Entity\CciOrganization $organizationid = null)
+    {
+        $this->organizationid = $organizationid;
+
+        return $this;
+    }
+
+    /**
+     * Get organizationid
+     *
+     * @return \DmnDatabase\Entity\CciOrganization
+     */
+    public function getOrganizationid()
+    {
+        return $this->organizationid;
+    }
+
+    /**
      * Set statusid
      *
      * @param \DmnDatabase\Entity\CciStatus $statusid
@@ -315,6 +317,4 @@ class CciAct
     {
         return $this->statusid;
     }
-
-
 }
