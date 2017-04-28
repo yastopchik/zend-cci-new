@@ -5,7 +5,8 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use DmnExecutor\Controller\DmnExrequestController;
 
-class DmnexrequestControllerServiceFactory implements FactoryInterface {
+class DmnexrequestControllerServiceFactory implements FactoryInterface 
+{
 
 	public function createService(ServiceLocatorInterface $serviceLocator)
 	{

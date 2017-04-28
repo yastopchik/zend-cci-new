@@ -33,6 +33,7 @@ return array(
 			array('controller' => 'DmnAdmin\Controller\DmnContent',  'roles' => array('admin', 'distributer')),
 			array('controller' => 'DmnAdmin\Controller\DmnAct',  'roles' => array('admin', 'distributer')),
 			array('controller' => 'DmnExecutor\Controller\DmnExrequest',  'roles' => array('executor')),
+			array('controller' => 'DmnExecutor\Controller\DmnExacts',  'roles' => array('executor')),
 		    array('controller' => 'DmnAdmin\Controller\DmnStatistics',  'roles' => array('user', 'admin', 'distributer', 'executor')),
 			), 
 		),         

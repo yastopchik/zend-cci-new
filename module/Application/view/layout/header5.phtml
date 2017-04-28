@@ -19,11 +19,20 @@
                 <i class="fa fa-calendar" aria-hidden="true"></i> <?= $this->translate('Archive'); ?>
             </a>
             <ul class="dropdown-menu">
-                <li class="<?=((($route == "dmnexrequest") && ($action == "archive")) ? "active" : "") ?>"><a
-                        href="<?= $this->url('dmnexrequest', array('action' => 'archive')); ?>"
-                        id="view"><i
-                            class="fa fa-list"></i> 2015</a></li>
+                <li class="<?=((($route == "dmnexrequest") && ($action == "archive")) ? "active" : "") ?>">
+                    <a href="<?= $this->url('archive', array('year'=>2015)); ?>" id="view">
+                        <i class="fa fa-list"></i> 2015
+                    </a>
+                </li>
+                <li class="<?=((($route == "dmnexrequest") && ($action == "archive")) ? "active" : "") ?>">
+                    <a href="<?= $this->url('archive', array('year'=>2016)); ?>" id="view">
+                        <i class="fa fa-list"></i> 2016
+                    </a>
+                </li>
             </ul>
         </li>
     </ul>
 </li>
+<li class="<?=((($route == "dmnexact") && ($action == "index")) ? "active" : "") ?>"><a
+        href="<?= $this->url('dmnexact', array('action' => 'index')); ?>" id="act"><i
+            class="fa fa-tasks" aria-hidden="true"></i> <?= 'Акты экспертизы'; ?></a></li>

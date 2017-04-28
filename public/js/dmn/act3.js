@@ -3,7 +3,7 @@ $(function () {
         monthNamesShort = ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"];
     $("#actlist").jqGrid({
         regional: 'ru',
-        url: "dmnact/getactnumbers",
+        url: "dmnexact/getactnumbers",
         datatype: "json",
         colNames: ['ID', '№ Акта', 'Организация', 'Страна ', 'Дата акта', 'Срок действия', 'Статус'],
         colModel: [
@@ -164,7 +164,7 @@ $(function () {
         shrinkToFit: true,
         height: '20%',
         minHeight: 100,
-        editurl: "dmnact/editactnumber",
+        editurl: "dmnexact/editactnumber",
         caption: "Акты экспертизы",
         pager: '#pactlist',
         sortname: 'id',
@@ -175,8 +175,8 @@ $(function () {
             var ids = $("#actlist").jqGrid('getGridParam', 'selrow');
             if (ids != null) {
                 $("#gridWrapper").show();
-                $("#acts_d").jqGrid('setGridParam', {url: 'dmnact/getacts?id=' + ids, page: 1});
-                $("#acts_d").jqGrid('setGridParam', {editurl: 'dmnact/editact?actn=' + ids});
+                $("#acts_d").jqGrid('setGridParam', {url: 'dmnexact/getacts?id=' + ids, page: 1});
+                $("#acts_d").jqGrid('setGridParam', {editurl: 'dmnexact/editact?actn=' + ids});
                 $("#acts_d").jqGrid('setCaption', "Дополнительная информация по акту экспертизы").trigger('reloadGrid');
             } else {
                 $("#gridWrapper").hide();
@@ -222,7 +222,7 @@ $(function () {
     );
     $("#acts_d").jqGrid({
         regional: 'ru',
-        url: 'dmnact/getacts?id=0',
+        url: 'dmnexact/getacts?id=0',
         datatype: "json",
         colNames: ['Код ТН ВЭД', 'Наименование товара', 'Критерий происхожденя'],
         colModel: [
@@ -265,9 +265,8 @@ $(function () {
         editurl: "dmnact/editact",
         caption: "Дополнительная информация по актам экспертизы",
         gridComplete: function () {
-            var ids =$("#actlist").jqGrid ('getGridParam', 'selrow'),
-                idsd = $("#acts_d").jqGrid('getDataIDs');
-            if (ids===null && idsd.length == 0) {
+            var ids = $("#acts_d").jqGrid('getDataIDs');
+            if (ids.length == 0) {
                 $("#gridWrapper").hide();
             }
             else {
