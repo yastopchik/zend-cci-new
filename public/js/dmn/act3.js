@@ -18,7 +18,7 @@ $(function () {
                 stype: 'select',
                 editrules: {required: true},
                 editoptions: {
-                    dataUrl: 'dmnact/getorg',
+                    dataUrl: 'dmnexact/getorg',
                     style: "width:95%",
                     buildSelect: function (data) {
                         var response = $.parseJSON(data);
@@ -34,7 +34,7 @@ $(function () {
                 },
                 searchoptions: {
                     sopt: ['eq'],
-                    dataUrl: 'dmnact/getorg',
+                    dataUrl: 'dmnexact/getorg',
                     style: "width:95%",
                     buildSelect: function (data) {
                         var response = $.parseJSON(data);
@@ -125,7 +125,7 @@ $(function () {
                 stype: 'select',
                 editrules: {required: true},
                 editoptions: {
-                    dataUrl: 'dmnact/getstatus',
+                    dataUrl: 'dmnexact/getstatus',
                     style: "width:95%",
                     buildSelect: function (data) {
                         var response = $.parseJSON(data);
@@ -141,7 +141,7 @@ $(function () {
                 },
                 searchoptions: {
                     sopt: ['eq'],
-                    dataUrl: 'dmnact/getstatus',
+                    dataUrl: 'dmnexact/getstatus',
                     style: "width:95%",
                     buildSelect: function (data) {
                         var response = $.parseJSON(data);
@@ -265,8 +265,9 @@ $(function () {
         editurl: "dmnact/editact",
         caption: "Дополнительная информация по актам экспертизы",
         gridComplete: function () {
-            var ids = $("#acts_d").jqGrid('getDataIDs');
-            if (ids.length == 0) {
+            var ids =$("#actlist").jqGrid ('getGridParam', 'selrow'),
+                idsd = $("#acts_d").jqGrid('getDataIDs');
+            if (ids===null && idsd.length == 0) {
                 $("#gridWrapper").hide();
             }
             else {

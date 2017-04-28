@@ -130,8 +130,9 @@ $(function () {
         multiselect: false,
         caption: "Дополнительная информация по актам экспертизы",
         gridComplete: function () {
-            var ids = $("#actlist").jqGrid('getDataIDs');
-            if (ids == 0) {
+            var ids =$("#actlist").jqGrid ('getGridParam', 'selrow'),
+                idsd = $("#acts_d").jqGrid('getDataIDs');
+            if (ids===null && idsd.length == 0) {
                 $("#gridWrapper").hide();
             }
             else {

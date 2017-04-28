@@ -45,4 +45,51 @@ class DmnExactsController extends AbstractActionController
 
         return $this->getResponse()->setContent(json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
     }
+    public function getstatusAction()
+    {
+
+        $response = $this->actsService->getStatuses();
+
+        return $this->getResponse()->setContent(json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+
+    }
+    public function getorgAction()
+    {
+
+        $response = $this->actsService->getOrganization();
+
+        return $this->getResponse()->setContent(json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+
+    }
+    public function editactnumberAction()
+    {
+
+        $parameters = $this->getRequest()->getPost();
+
+        if ($parameters) {
+
+            $this->actsService->setPostParametrs($parameters);
+
+            return $this->actsService->editActNumber();
+        }
+        return false;
+    }
+    public function editactAction()
+    {
+        $actn = (int) $this->params()->fromQuery('actn', 0);
+
+        if (is_int($actn)&&!is_null($actn)) {
+
+            $parameters = $this->getRequest()->getPost();
+
+            if($parameters){
+
+                $this->actsService->setPostParametrs($parameters);
+
+                return $this->actsService->editAct($actn);
+            }
+        }
+        return false;
+
+    }
 }

@@ -57,9 +57,7 @@ class GridOptions  implements GridOptionsInterface
 	 */
 	protected $actNumberOptions = array(
 		'options' => array(
-			'id'=>'ID',
 			'numact'    => '№ Акта',
-			'organization'    => 'Организация',
 			'countryrule'    => 'Страна',
 			'dateact'    => 'Дата Акта',
 			'dateduration'    => 'Срок действия',
