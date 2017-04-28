@@ -265,8 +265,8 @@ $(function () {
         editurl: "dmnact/editact",
         caption: "Дополнительная информация по актам экспертизы",
         gridComplete: function () {
-            var ids = $("#actlist").jqGrid('getDataIDs');
-            if (ids == 0) {
+            var ids = $("#acts_d").jqGrid('getDataIDs');
+            if (ids.length == 0) {
                 $("#gridWrapper").hide();
             }
             else {

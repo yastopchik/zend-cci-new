@@ -45,11 +45,4 @@ interface OrganizationMapperInterface {
 	 * @return string
 	 */
 	public function getEntityNameOrganization();
-	/**
-	 * @param integer $authUserId
-	 * @return query | NULL
-	 */
-	public function getOrgByUserId($authUserId);
 }
-
-?>

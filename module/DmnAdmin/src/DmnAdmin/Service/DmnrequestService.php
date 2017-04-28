@@ -129,6 +129,8 @@ class DmnrequestService implements EventManagerAwareInterface
      * @var $cache
      */
     protected $cache;
+    
+    protected $year;
 
     /**
      * @param Zend\Cache\Storage\Adapter\Filesystem $cache
@@ -436,9 +438,11 @@ class DmnrequestService implements EventManagerAwareInterface
      */
     public function getRequestNumber()
     {
-        if(!is_null($this->isarch))
-
-            $this->setEntityArchive();
+        if(!is_null($this->isarch)){
+            $this->setEntityArchive();            
+            $this->dbRequest->setYear($this->year);
+            $this->dbRequest->setArchive(true);
+        }
 
         $data = $this->getRequestNumberWithParameters();
 
@@ -771,6 +775,7 @@ class DmnrequestService implements EventManagerAwareInterface
         $data['value'] = $parametrs->get('value', null);
         $data['oper'] = $parametrs->get('oper', null);
         $data['idreq'] = $parametrs->get('idreq', null);
+        $data['year'] = $parametrs->get('year', null);
         $this->data = $data;
     }
 

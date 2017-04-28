@@ -55,37 +55,37 @@ return array(
                        'DmnDatabase\Service\FormsService'        	 => 'DmnDatabase\Service\FormsServiceFactory',
                		    
                		   'DmnDatabase\Data\UserMapper' => function ($sm) {
-               			return new UserMapper($sm->get('doctrine.entitymanager.orm_default'));
+               			return new UserMapper($sm->get('doctrine.entitymanager.orm_default'), $sm);
                			},
                		   'DmnDatabase\Data\StatisticMapper' => function ($sm) {
-               			return new StatisticMapper($sm->get('doctrine.entitymanager.orm_default'));
+               			return new StatisticMapper($sm->get('doctrine.entitymanager.orm_default'), $sm);
                			},
                		   'DmnDatabase\Data\PriorityMapper' => function ($sm) {
-               			return new PriorityMapper($sm->get('doctrine.entitymanager.orm_default'));
+               			return new PriorityMapper($sm->get('doctrine.entitymanager.orm_default'), $sm);
                		    },
                		   'DmnDatabase\Data\OrganizationMapper' => function ($sm) {
-               			return new OrganizationMapper($sm->get('doctrine.entitymanager.orm_default'));
+               			return new OrganizationMapper($sm->get('doctrine.entitymanager.orm_default'), $sm);
                     	},                       
                        'DmnDatabase\Data\StatusMapper' => function ($sm) {
-                   	        return new StatusMapper($sm->get('doctrine.entitymanager.orm_default'));
+                   	        return new StatusMapper($sm->get('doctrine.entitymanager.orm_default'), $sm);
                    	    },
                        'DmnDatabase\Data\RequestMapper' => function ($sm) {
-                   	        return new RequestMapper($sm->get('doctrine.entitymanager.orm_default'));
+                   	        return new RequestMapper($sm->get('doctrine.entitymanager.orm_default'), $sm);
                         },
                        'DmnDatabase\Data\LifecycleMapper' => function ($sm) {
-                        	return new LifecycleMapper($sm->get('doctrine.entitymanager.orm_default'));
+                        	return new LifecycleMapper($sm->get('doctrine.entitymanager.orm_default'), $sm);
                         },
                         'DmnDatabase\Data\CountryMapper' => function ($sm) {
-                        	return new CountryMapper($sm->get('doctrine.entitymanager.orm_default'));
+                        	return new CountryMapper($sm->get('doctrine.entitymanager.orm_default'), $sm);
                         },
                         'DmnDatabase\Data\ContentMapper' => function ($sm) {
-                        	return new ContentMapper($sm->get('doctrine.entitymanager.orm_default'));
+                        	return new ContentMapper($sm->get('doctrine.entitymanager.orm_default'), $sm);
                         },
 				        'DmnDatabase\Data\ActMapper' => function ($sm) {
-					       return new ActMapper($sm->get('doctrine.entitymanager.orm_default'));
+					       return new ActMapper($sm->get('doctrine.entitymanager.orm_default'), $sm);
 				        },
                         'DmnDatabase\Data\FormsMapper' => function ($sm) {
-                            return new FormsMapper($sm->get('doctrine.entitymanager.orm_default'));                            
+                            return new FormsMapper($sm->get('doctrine.entitymanager.orm_default'), $sm);                            
                         },
                         'zfcuser_module_options' => function ($sm) {
                         	$config = $sm->get('Configuration');
@@ -95,7 +95,10 @@ return array(
                         	$mapper = new \DmnDatabase\Mapper\User($sm->get('doctrine.entitymanager.orm_default'), $sm->get('zfcuser_module_options'));
                         	return $mapper;
                         },                        
-               )
+               ),
+		   'invokables' => array(
+	           'Zend\Authentication\AuthenticationService' => 'Zend\Authentication\AuthenticationService',
+            ),
        ),
         
 		

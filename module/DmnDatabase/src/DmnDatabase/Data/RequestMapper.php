@@ -8,6 +8,10 @@ use Doctrine\ORM\QueryBuilder;
 class RequestMapper extends AbstractMapper implements RequestMapperInterface
 {
     protected $roleId = 2;
+    
+    private $year;
+    
+    private $archive=false;
     /**
      * @dependency_table CciCountry
      */
@@ -199,8 +203,9 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
     public function getRequestNumber($search)
     {
         $em = $this->doctrineEntity;
+        $entityName = $this->__get('entityNameRequestNumber');
         $query = $em->createQueryBuilder()
-            ->from($this->__get('entityNameRequestNumber'), 'rn')
+            ->from($entityName, 'rn')
             ->select("rn, rn.id, rn.workorder, rn.dateorder, rn.numblank, f.forms, rn.file, p.id as priorityid, p.priority,
     			  s.id as statusid, s.status, u.id as userid,  rn.numdoplist, u.name, u.position, u.phone as phone, o.name as organization, 
     			  rez.id as isresident, e.id as executorid, e.name as executor, rn.destinationiso, e.position as execposition, 
@@ -213,12 +218,18 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
             ->join('o.cityid', 'c')
             ->join('rn.formsid', 'f')
             ->join('o.isresident', 'rez');
+        if($this->year !==null && $this->archive){
+            $query->andWhere('rn.dateorder >= :more')
+                  ->setParameter('more',new \DateTime("{$this->year}-01-01"))
+                  ->andWhere('rn.dateorder <= :less')
+                  ->setParameter('less',new \DateTime("{$this->year}-12-31"));
+        }
         if (!empty($search))
             $query = $this->convertSearchToWhere($query, $search);
         if (!is_null($this->authUserId))
             $query = $this->convertAuthToWhere($query);
         $result = $query->orderBy('rn.id', 'DESC')
-            ->getQuery();
+            ->getQuery();        
         return $result;
     }
 
@@ -722,5 +733,13 @@ class RequestMapper extends AbstractMapper implements RequestMapperInterface
             $em->close();
             throw $e;
         }
+    }
+    public function setYear($year)
+    {
+          $this->year = $year;   
+    }
+    public function getYear()
+    {
+        return $this->year;
     }
 }

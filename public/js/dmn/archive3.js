@@ -1,8 +1,8 @@
 $(function () {
-    var lastSel;
+    var lastSel, year = $('#content').attr('data-year'), http = location.origin;
     $("#requestlist_n").jqGrid({
         regional: 'ru',
-        url: "getrequestnumber?isarch=1",
+        url: http +"/requests/getrequestnumber?isarch=1&year="+year,
         datatype: "json",
         colNames: ['ID', '№Сертиф.', 'Дата', '№Бланка', 'Файл', 'Статус', 'Исполнитель', 'Должность Исполнителя', 'Телефон Исполн', 'Email Исполн'],
         colModel: [{name: 'id', index: 'id', width: '2%', search: false, hidden: true},
@@ -21,7 +21,7 @@ $(function () {
             {name: 'file', index: 'file', width: '14%', editable: false},
             {name: 'status', index: 'status', width: '10%', stype: 'select',
                 searchoptions: {
-                dataUrl: 'dmnrequest/getstatus',
+                dataUrl:  http +"/dmnrequest/getstatus",
                 style: "width:98%",
                 buildSelect: function (data) {
                     var response = $.parseJSON(data);
@@ -54,22 +54,22 @@ $(function () {
         onSelectRow: function () {
             var ids = $("#requestlist_n").jqGrid('getGridParam', 'selrow');
             if (ids != null) {
-                $("#requestlist").jqGrid('setGridParam', {url: 'getrequest?isarch=1&id=' + ids, page: 1});
+                $("#requestlist").jqGrid('setGridParam', {url:  http +"/requests/getrequest?isarch=1&id=" + ids, page: 1});
                 $("#requestlist").jqGrid('setCaption', "Детализированная информация по заявке №: " + ids)
                     .trigger('reloadGrid');
-                $("#requestlist_d").jqGrid('setGridParam', {url: 'getrequestdesc?isarch=1&id=' + ids, page: 1});
+                $("#requestlist_d").jqGrid('setGridParam', {url:  http +"/requests/getrequestdesc?isarch=1&id=" + ids, page: 1});
                 $("#requestlist_d").jqGrid('setCaption', "Дополнительная информация по заявке №: " + ids)
                     .trigger('reloadGrid');
             } else {
                 ids = 0;
                 if ($("#requestlist").jqGrid('getGridParam', 'records') > 0) {
-                    $("#requestlist").jqGrid('setGridParam', {url: 'getrequest?isarch=1&id=' + ids, page: 1});
+                    $("#requestlist").jqGrid('setGridParam', {url: http +"/requests/getrequest?isarch=1&id=" + ids, page: 1});
                     $("#requestlist").jqGrid('setCaption', "Детализированная информация по заявке №: " + ids)
                         .trigger('reloadGrid');
                 }
                 if ($("#requestlist_d").jqGrid('getGridParam', 'records') > 0) {
                     $("#requestlist_d").jqGrid('setGridParam', {
-                        url: 'requests/getrequestdesc?id=' + ids,
+                        url: http +"/requests/getrequestdesc?id=" + ids,
                         page: 1
                     });
                     $("#requestlist_d").jqGrid('setCaption', "Дополнительная информация по заявке №: " + ids)
@@ -89,7 +89,7 @@ $(function () {
     );
     $("#requestlist").jqGrid({
         regional: 'ru',
-        url: 'getrequest?isarch=1&id=0',
+        url:  http +"/requests/getrequest?isarch=1&id=0",
         datatype: "json",
         colNames: ['Наименование', 'Значение', 'IdReq'],
         colModel: [
@@ -134,7 +134,7 @@ $(function () {
         });
     $("#requestlist_d").jqGrid({
         regional: 'ru',
-        url: 'getrequestdesc?isarch=1&id=0',
+        url:  http +"/requests/getrequestdesc?isarch=1&id=0",
         datatype: "json",
         colNames: ['Id', 'П/н №', 'К-во мест и вид упак.', 'Описание товара', 'Критерий', 'Кол-во товара', 'Ед.изм.', 'Номер и дата счета-фактуры'],
         colModel: [{name: 'id', index: 'id', width: '2%', hidden: true},

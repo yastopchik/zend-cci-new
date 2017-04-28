@@ -31,6 +31,8 @@ class RequestsController extends AbstractActionController
 	public function archiveAction()
 	{
 		$view = new ViewModel();
+		$year =  $this->params()->fromRoute('year');
+		$view->setVariable('year', $year);
 		$view->setTemplate('application/requests/archive');
 		return $view;
 	}

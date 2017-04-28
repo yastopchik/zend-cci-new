@@ -6,12 +6,12 @@ use Zend\EventManager\EventInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\ServiceManager\ServiceLocatorAwareTrait;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
+//use Zend\ServiceManager\ServiceLocatorAwareInterface;
 
 use DmnMail\Mail\Options\MailOptions;
 use DmnMail\Mail\Service\Message as MailService;
 
-class MailEventsListener implements ListenerAggregateInterface, ServiceLocatorAwareInterface
+class MailEventsListener implements ListenerAggregateInterface//, ServiceLocatorAwareInterface
 {
     use ServiceLocatorAwareTrait;
     /**

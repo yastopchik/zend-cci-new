@@ -2,23 +2,23 @@
 /**
  * Created by PhpStorm.
  * User: yastopchik
- * Date: 13.04.2017
- * Time: 21:35
+ * Date: 25.04.2017
+ * Time: 19:38
  */
 
-namespace DmnAdmin\Service;
+namespace Application\Service;
 
 use DmnDatabase\Service\AbstractServiceFactory;
-use DmnAdmin\Options\GridOptions;
+use Application\Options\GridOptions;
 
-class DmnactServiceFactory extends AbstractServiceFactory 
+class ActsServiceFactory extends AbstractServiceFactory
 {
-    protected function create() 
+    protected function create()
     {
-        $actService = new DmnactService($this->getServiceLocator()->get('cache'));
+        $actService = new ActsService($this->getServiceLocator()->get('cache'));
         $actService->setDbActService($this->getServiceLocator()->get('db_act'));
         $actService->setDbOrganization($this->getServiceLocator()->get('db_organization'));
-        $actService->setOptions(new GridOptions());
+        $actService->setApplicationOptions(new GridOptions());
         $actService->setAuth($this->getServiceLocator()->get('zfcuser_user_service')->getUserAuthId());
         $actService->setRole($this->getServiceLocator()->get('zfcuser_user_service')->getDefineRole());
         $logger=$this->getServiceLocator()->get('logger');

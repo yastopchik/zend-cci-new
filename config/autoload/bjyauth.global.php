@@ -23,6 +23,7 @@ return array(
 			array('controller' => 'Application\Controller\User',  'roles' => array('guest', 'user', 'admin', 'distributer', 'executor')),
 			array('controller' => 'DmnFea\Controller\DmnFea',  'roles' => array('guest', 'user')),
 			array('controller' => 'Application\Controller\Requests',  'roles' => array('user')),
+			array('controller' => 'Application\Controller\Acts',  'roles' => array('user')),
 			array('controller' => 'DmnAdmin\Controller\DmnRequest',  'roles' => array('admin', 'distributer')),
 			array('controller' => 'DmnAdmin\Controller\DmnRequest', 'action' => array('archreq'), 'roles' => array('guest', 'user', 'admin', 'distributer', 'executor')),
 			array('controller' => 'DmnAdmin\Controller\DmnExecutor',  'roles' => array('admin', 'distributer')),

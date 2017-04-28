@@ -3,6 +3,7 @@ return array(
 	'controllers' => array(
 				'factories' => array(
 					'Application\Controller\Requests' => 'Application\Factory\Controller\RequestsControllerServiceFactory',
+					'Application\Controller\Acts' => 'Application\Factory\Controller\ActsControllerServiceFactory',
 					'Application\Controller\Index' => 'Application\Factory\Controller\IndexControllerServiceFactory',
 						
 					'zfcuser' => function($controllerManager) {
@@ -22,6 +23,7 @@ return array(
 	'service_manager' => array(
 				'aliases'=>array(
 						'requests'     	=> 'Application\Service\RequestsService',						
+						'acts'     	=> 'Application\Service\ActsService',
 				),
 				'factories' => array(
 						'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
@@ -34,6 +36,7 @@ return array(
 							return $identity;
 						},
 						'Application\Service\RequestsService' => 'Application\Service\RequestsServiceFactory',
+						'Application\Service\ActsService' => 'Application\Service\ActsServiceFactory',
 						
 				),
 				'invokables'=>array(
@@ -74,13 +77,14 @@ return array(
             ),
             'requests' => array('type'    => 'segment',
                 'options' => array(
-                    'route'    => '/requests[/:action][/page/:page][/id/:id][/isarch/:isarch][/countryId/:countryId]',
+                    'route'    => '/requests[/:action][/page/:page][/id/:id][/isarch/:isarch][/year/:year][/countryId/:countryId]',
                     'constraints' => array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',  
                         'id'     => '[0-9]+',
                     	'countryId'    => '[0-9]+',
                         'isarch'=>'[0-9]',
                     	'page'     => '[0-9]+',
+                    	'year'     => '[0-9]+',
                     ),
                     'defaults' => array(
                         'controller' => 'Application\Controller\Requests',
@@ -88,10 +92,45 @@ return array(
                         'id'     => 0,
                     	'countryId'    => 0,
                         'isarch' => 0,
+                        'year' => 2014,
                     	'page' =>1
                     ),
                 ),                                
             ),
+			'archive' => array('type'    => 'segment',
+				'options' => array(
+					'route'    => '/archive[/:action][/year/:year]',
+					'constraints' => array(
+						'action' => '[a-zA-Z][a-zA-Z0-9_-]*',						
+						'year'    => '[0-9]+',
+					),
+					'defaults' => array(
+						'controller' => 'Application\Controller\Requests',
+						'action'     => 'archive',
+						'year' =>2014
+					),
+				),
+			),
+			'acts' => array('type'    => 'segment',
+				'options' => array(
+					'route'    => '/acts[/:action][/page/:page][/id/:id][/isarch/:isarch][/countryId/:countryId]',
+					'constraints' => array(
+						'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+						'id'     => '[0-9]+',
+						'countryId'    => '[0-9]+',
+						'isarch'=>'[0-9]',
+						'page'     => '[0-9]+',
+					),
+					'defaults' => array(
+						'controller' => 'Application\Controller\Acts',
+						'action'     => 'index',
+						'id'     => 0,
+						'countryId'    => 0,
+						'isarch' => 0,
+						'page' =>1
+					),
+				),
+			),
         ),
     ),
     

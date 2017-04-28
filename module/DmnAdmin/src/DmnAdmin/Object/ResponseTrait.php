@@ -62,6 +62,7 @@ trait ResponseTrait
     {
 
         $this->page = $parametrs->get('page', '');
+        $this->year = $parametrs->get('year', '');
         $this->rows = $parametrs->get('rows', '');
         $this->id = $parametrs->get('id', null);
         $this->isarch = $parametrs->get('isarch', null);

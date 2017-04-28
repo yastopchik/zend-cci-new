@@ -47,7 +47,11 @@ class DmnactService
      * @var $authUserId
      */
     protected $authUserId;
-
+    /**
+     *
+     * @var $authRoleId
+     */
+    protected $authRoleId;
     /**
      *
      * @var $dbOrganization
@@ -78,6 +82,10 @@ class DmnactService
             $search=$this->data['filters'];
         else
             $search=null;
+
+        $this->dbActService->setAuth($this->authUserId);
+
+        $this->dbActService->setRole($this->authRoleId);
         
         $data = $this->dbActService->getActNumbers();
 
@@ -135,6 +143,41 @@ class DmnactService
     {
 
         return $this->dbOrganization;
+    }
+    /**
+     *
+     */
+    public function getRole()
+    {
+
+        return $this->authRoleId;
+    }
+
+    /**
+     * set RoleId
+     */
+    public function setRole($authRole)
+    {
+
+        $this->authRoleId = $authRole;
+    }
+
+    /**
+     *
+     */
+    public function getAuth()
+    {
+
+        return $this->authUserId;
+    }
+
+    /**set UserId
+     *
+     */
+    public function setAuth($authUser)
+    {
+
+        $this->authUserId = $authUser;
     }
     /**
      *Get Options

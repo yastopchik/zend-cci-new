@@ -106,4 +106,8 @@ interface RequestMapperInterface {
 	 * @return query
 	 */
 	public function getDistributerCityByUserId();
+
+	public function setYear($year);
+
+	public function getYear();
 }

@@ -8,11 +8,11 @@
     ],
     "homepage": "http://framework.zend.com/",
     "require": {
-        "php": ">=5.5",
+        "php": ">=7.0",
         "zendframework/zendframework": "~2.5",
         "doctrine/doctrine-module": "^1.0",
         "phpoffice/phpexcel": "^1.8",
-        "zf-commons/zfc-user": "^1.4",
+        "zf-commons/zfc-user": "dev-master",
         "zf-commons/zfc-user-doctrine-orm": "^1.0",
         "nitecon/zf2-db-session": "^1.0",
         "bjyoungblood/bjy-authorize": "^1.4",

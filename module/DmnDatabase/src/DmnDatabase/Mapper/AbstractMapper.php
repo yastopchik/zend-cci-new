@@ -5,12 +5,16 @@ namespace DmnDatabase\Mapper;
 use Doctrine\ORM\EntityManager;
 use Exception;
 use Doctrine\ORM\QueryBuilder;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 class AbstractMapper {
+
     
     protected $authUserId;
     
     protected $authRoleId;
+	
+    protected $identitity;
     
     /**
      * @dependency_table CciUser
@@ -25,13 +29,18 @@ class AbstractMapper {
 	 * @var EntityManager
 	 */
 	protected $doctrineEntity = null;
-
+	/**
+	 *
+	 * @var ServiceLocatorInterface
+	 */
+	protected $sm = null;
 	/**
 	 *
 	 * @param EntityManager      	
 	 */
-	public function __construct(EntityManager $doctrineEntity) {
+	public function __construct(EntityManager $doctrineEntity, ServiceLocatorInterface $sm) {
 		$this->doctrineEntity = $doctrineEntity;
+		$this->sm = $sm;
 	}
 	/**
 	 *
@@ -104,6 +113,24 @@ class AbstractMapper {
 	
 	    return $query;
 	}
+	/**
+	 *
+	 * @return data | NULL
+	 */
+	public function getOrgByUserId($authUserId){
+
+		$em=$this->doctrineEntity;
+		$query=$em->createQueryBuilder()
+			->from($this->entityUser, 'u')
+			->select("org.id, org.fullname, org.address, org.fullnameen, org.addressen")
+			->join('u.organizationid', 'org')
+			->where("u.id =:authUserId")
+			->setParameter('authUserId', $authUserId)
+			->getQuery();
+
+		return $query;
+
+	}
 
 	public function setAuthUserId($authUserId) {
 	    	
@@ -127,7 +154,12 @@ class AbstractMapper {
 	
 	    return $this->entityUser;
 	}
+	public function getUserIdentitity()
+	{		
+		if($this->identitity === null)
+		    $this->identitity = $this->sm->get('zfcuser_auth_service')->getIdentity();
+		
+		return $this->identitity;
+	}
 
 }
-
-?>

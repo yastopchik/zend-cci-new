@@ -110,24 +110,6 @@ class OrganizationMapper extends AbstractMapper implements OrganizationMapperInt
      *
      * @return data | NULL
      */
-    public function getOrgByUserId($authUserId){
-    
-    	$em=$this->doctrineEntity;
-    	$query=$em->createQueryBuilder()
-    	->from($this->entityUser, 'u')
-    	->select("org.id, org.fullname, org.address, org.fullnameen, org.addressen")
-        ->join('u.organizationid', 'org')
-        ->where("u.id =:authUserId")
-        ->setParameter('authUserId', $authUserId)
-    	->getQuery();
-    
-    	return $query;
-    
-    }
-    /**
-     *
-     * @return data | NULL
-     */
     public function getSez(){
     
     	$em=$this->doctrineEntity;    	

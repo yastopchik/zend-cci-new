@@ -198,7 +198,21 @@ class RequestService
         $value=$this->mapperRequest->__get($name);
         $this->mapperRequest->__set($name, $value.'Archive');
     }
+    public function setYear($year)
+    {
+        $this->mapperRequest->setYear($year);
+    }
+    public function getYear()
+    {
+        return $this->mapperRequest->getYear();
+    }
+    public function setArchive($archive)
+    {
+        $this->mapperRequest->archive = $archive;
+    }
+    public function getArchive()
+    {
+        return $this->mapperRequest->archive;
+    }
 
 }
-
-?>

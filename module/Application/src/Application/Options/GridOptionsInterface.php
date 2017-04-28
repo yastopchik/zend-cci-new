@@ -21,5 +21,17 @@ interface GridOptionsInterface
 	 * @return array
 	 */
 	public function getRequestDescriptionOptions();
+	/**
+	 * get ActOptions
+	 *
+	 * @return string
+	 */
+	public function getActOptions();
+	/**
+	 * get ActOptions
+	 *
+	 * @return string
+	 */
+	public function getActNumberOptions();
 	
 }

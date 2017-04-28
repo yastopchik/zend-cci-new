@@ -45,18 +45,27 @@ class GridOptions  implements GridOptionsInterface
 	/**
 	 * @var array
 	 */
-	protected $requestDescriptionOptions = array(
-			'options' => array(
-					'id'=>'ID',
-					'paragraph'    => 'П/н №',
-					'seats' => 'К-во мест и вид упак.',
-					'description'    => 'Описание товара',
-					'hscode'    => 'Код ТНВЭД',
-					'quantity'    => 'Кол-во товара',
-					'unit'    => 'Ед.изм.',
-					'invoce'    => 'Номер и дата счета-фактуры',
-			),
-	);	
+	protected $actOptions = array(
+		'options' => array(
+			'hscode' => 'Код ТН ВЭД',
+			'description'    => 'Наименование',
+			'criorigin'    => 'Критерий',
+		),
+	);
+	/**
+	 * @var array
+	 */
+	protected $actNumberOptions = array(
+		'options' => array(
+			'id'=>'ID',
+			'numact'    => '№ Акта',
+			'organization'    => 'Организация',
+			'countryrule'    => 'Страна',
+			'dateact'    => 'Дата Акта',
+			'dateduration'    => 'Срок действия',
+			'status'    => 'Статус',
+		),
+	);
 	/**
 	 * get requestNumberOptions
 	 *
@@ -83,5 +92,25 @@ class GridOptions  implements GridOptionsInterface
 	public function getRequestDescriptionOptions()
 	{
 		return $this->requestDescriptionOptions;
-	}	
+	}
+	/**
+	 * get ActOptions
+	 *
+	 * @return string
+	 */
+	public function getActOptions(){
+
+		return $this->actOptions;
+
+	}
+	/**
+	 * get ActOptions
+	 *
+	 * @return string
+	 */
+	public function getActNumberOptions(){
+
+		return $this->actNumberOptions;
+
+	}
 }

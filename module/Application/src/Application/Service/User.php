@@ -95,7 +95,7 @@ class User extends ZfcUserService
 	 * @return int
 	 */
 	public function setDefineRole(){
-				
+
 		$auth=$this->getServiceManager()->get('applicationauth');
 		
 		foreach($auth as $key=>$value){
