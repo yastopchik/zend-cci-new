@@ -10,7 +10,7 @@ return array(
     	'DmnAdmin',
     	'DmnExecutor',
         'DmnDatabase', 
-        'DmnFea', 
+        //'DmnFea', 
     	'DmnLog',
     	'DmnMail',
         'DoctrineModule',

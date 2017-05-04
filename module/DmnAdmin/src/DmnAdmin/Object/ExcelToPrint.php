@@ -434,7 +434,10 @@ class ExcelToPrint
     }
 
     /**
-     * get Object for Response
+     * Метод заполняет лист excel контентом в соотвествии с шаблоном 
+     * В цикле перебирается контент заявки (request_description)
+     * В зависимости от размеров листа, количества записей подставляются промежуточные шаблоны
+     * шапка, футер и т.д.
      *
      * @return objPHPExcel
      */
@@ -444,11 +447,13 @@ class ExcelToPrint
             throw new Exception\RuntimeException(sprintf('The variable(s) type isn\'t an array ', __CLASS__));
         }
         foreach ($this->requestContent as $keyDes => $valueDes) {
+            //количество записей в описании заявки
             $this->valueDesCount = count($valueDes);
             $this->currentKeyNum = 0;
+            //цикл по записям заявки
             foreach ($valueDes as $keyNum => $valueNum) {
-                $this->currentKeyNum++;
-                $this->fillContent($valueNum);
+                $this->currentKeyNum++;//инкремент записи сравниваем с последним элементом в массиве
+                $this->fillContent($valueNum);//заполняем лист
                 if ($this->currentKeyNum == $this->valueDesCount) {
                     $this->fillEnd();
                 }
@@ -463,12 +468,20 @@ class ExcelToPrint
         return $this->objPHPExcel;
     }
 
+    /**
+     * Метод заполняет контент
+     * @param array $valueNum значение записи из описания request_description
+     */
     public function fillContent(array $valueNum)
     {
-        foreach ($this->print->getContentPrintOptions() as $options) {
+        //опции для контента в соответствии с шаблоном
+        //$options['row'] - с какой строки начинается заполнение контента
+        $contentOptioins = $this->print->getContentPrintOptions();
+        foreach ($contentOptioins as $options) {
             if (!isset($options['row']) || (!is_int(intval($options['row']))) || !is_array($options['column'])) {
                 throw new Exception\RuntimeException(sprintf('The variable row isn\'t a integer or options isn\'t an array', __CLASS__));
             }
+            //если первая страница заполняем шапку листа
             if ($this->page == 1 && (!$this->switch)) {
                 $this->fillMainTop();
                 $this->setRow($options['row']);
@@ -477,30 +490,33 @@ class ExcelToPrint
                 $valueNum[$this->passing] = $this->passingValue;
                 $this->switch = true;
             }
-            //Merge cell
+            //Объединение ячеек для контента
             $this->mergeCurrentRow('cell');
-            $heigthMonitoredColumn = ceil($this->calculateRowHeigth($valueNum));
-            $heigthCompares = $this->getMaxpixeles();
+            $heigthMonitoredColumn = ceil($this->calculateRowHeigth($valueNum));//расчетная высота ячейки
+            $heigthCompares = $this->getMaxpixeles();//отступ до конца страниы в пикселах за вычетом шапки
             $compare = $heigthCompares - $heigthMonitoredColumn;
-            if ($compare >= $this->getDeviation()) {
+            if ($compare >= $this->getDeviation()) { //если отступ позволяет заполнить даннными ячейки заполняем
                 $this->fillRowContent($valueNum, $options['column']);
                 $this->setMaxpixeles($compare);
                 $this->aSheet->getRowDimension($this->row)->setRowHeight($heigthMonitoredColumn);
                 $this->setRow(++$this->row);
-            } else {
+            } else {//иначе переход на новую страницу
+                //если это последняя запись и отступ позволят, заполняем ячейки данными
                 if (($this->currentKeyNum == $this->valueDesCount) && (abs($compare) <= 15)) {
                     $this->fillRowContent($valueNum, $options['column']);
                     $this->setMaxpixeles(0);
                     $this->aSheet->getRowDimension($this->row)->setRowHeight($heigthMonitoredColumn - 1);
                     $this->setRow(++$this->row);
                 } else {
-                    $string = $this->divideString($valueNum);
+                    //иначе осуществляется переход на новую страницу
+                    $string = $this->divideString($valueNum);//если запись не помещается в строку, разбиваем на две записи
                     if (count($string) == 2) {
                         //$string[0]['description']=$string[0]['description'].$this->continuation;
-                        $this->fillRowContent($string[0], $options['column']);
+                        $this->fillRowContent($string[0], $options['column']);//зполнятся последняя строка на странице
                         $this->aSheet->getRowDimension($this->row)->setRowHeight($this->getMaxpixeles());
-                        $this->transitionPage();
-                        if (!is_null($string[1])) {
+                        $this->transitionPage();//переход на новую страницу
+                        if (!is_null($string[1])) { //если запись была разбита на две, в первую строку следующей страницы
+                            // вносятся данные второй подзаписи из разбиваемой
                             //$string[1][$this->passing]=$this->passingValue;
                             //рекурсия
                             $this->fillContent($string[1]);
@@ -517,12 +533,12 @@ class ExcelToPrint
      */
     public function transitionPage()
     {
-        $this->fillContinuation($this->continuation);
-        $this->fillBottom();
-        $this->fillTop();
+        $this->fillContinuation($this->continuation);//перед переходом на следующую страницу заполняется указатель "см. на следующей странице"
+        $this->fillBottom();//заполняется футер
+        $this->fillTop();//заполняется шапка следующей страницы
         $this->setRow(++$this->row);
         $this->setMaxpixeles($this->maxpixelsNextPages);
-        $this->setPage(++$this->page);
+        $this->setPage(++$this->page);//меняется текущий номер страницы
         $this->switch = false;
     }
 
@@ -573,19 +589,18 @@ class ExcelToPrint
     }
 
     /**
-     * Fill the Top of MainPage
+     * Метод заполняет шапку не основной страницы
      */
     public function fillTop()
     {
-        foreach ($this->print->getTopPrintOptions() as $key => $value) {
+        $topOptions = $this->print->getTopPrintOptions();
+        $this->setRowHeight('top1');
+        foreach ($topOptions as $key => $value) {
             $this->row++;
-            switch ($key) {
-                case '0':
-                    $this->mergeCurrentRow('top');
-                    $this->setRowHeight('top1');
-                    break;
-            }
+            $this->mergeCurrentRow(['top' => $key]);
             $this->fillTemplates($value, 'top', $this->row);
+        }
+        if(count($topOptions)==1){
             $this->row++;
             $this->setRowHeight('top2');
         }
@@ -714,9 +729,19 @@ class ExcelToPrint
     {
         $mergeCurrentRow = $this->print->getaSheetMergeCurrentOptions();
         foreach ($mergeCurrentRow as $valueOpt) {
-            if (array_key_exists($sign, $valueOpt)) {
-                foreach ($valueOpt[$sign] as $key => $value) {
-                    $this->aSheet->mergeCells($value['begin'] . $this->row . ':' . $value['end'] . $this->row);
+            if(is_array($sign)){
+                foreach ($sign as $skey=>$svalue){
+                    if(isset($valueOpt[$skey][$svalue])){
+                        foreach ($valueOpt[$skey][$svalue] as $key => $value) {
+                            $this->aSheet->mergeCells($value['begin'] . $this->row . ':' . $value['end'] . $this->row);
+                        }
+                    }
+                }
+            } else {
+                if (array_key_exists($sign, $valueOpt)) {
+                    foreach ($valueOpt[$sign] as $key => $value) {
+                        $this->aSheet->mergeCells($value['begin'] . $this->row . ':' . $value['end'] . $this->row);
+                    }
                 }
             }
         }
@@ -731,8 +756,15 @@ class ExcelToPrint
     {
         $rowHeight = $this->print->getaSheetRowHeight();
         foreach ($rowHeight as $valueOpt) {
-            if (array_key_exists($sign, $valueOpt)) {
-                $this->aSheet->getRowDimension($this->row)->setRowHeight($valueOpt[$sign]);
+            if (isset($valueOpt[$sign])) {
+                if(!is_array($valueOpt[$sign])) {
+                    $this->aSheet->getRowDimension($this->row)->setRowHeight($valueOpt[$sign]);
+                } else {
+                    foreach($valueOpt[$sign] as $index=>$height){
+                        $row = $this->row + $index;
+                        $this->aSheet->getRowDimension($row)->setRowHeight($height);
+                    }
+                }
             }
         }
     }
@@ -791,7 +823,7 @@ class ExcelToPrint
     }
 
     /**
-     * divide the array by the desired number of characters
+     * Метод разбивает запись на две если не помещается в ячейку при переходе на следующую страницу
      * @param
      * @return array
      */

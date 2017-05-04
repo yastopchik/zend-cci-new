@@ -107,9 +107,11 @@ class PrintOptionsGeneralEn  extends AbstractOptions implements PrintOptionsInte
 	                          '1'=>array('begin'=>'D', 'end'=>'H'),
 	                          '2'=>array('begin'=>'I', 'end'=>'K'),
 	            ),
-	            'top'=>array('0'=>array('begin'=>'A', 'end'=>'F'),
-	                          '1'=>array('begin'=>'G', 'end'=>'K'),
-	            ),
+				'top' => [
+					0 => [
+						0 => ['begin' => 'A', 'end' => 'F'],
+						1 => ['begin' => 'G', 'end' => 'K']]
+				],
 	            'bottom1'=>array('0'=>array('begin'=>'A', 'end'=>'F'),
 	                             '1'=>array('begin'=>'G', 'end'=>'L'),
 	            ),

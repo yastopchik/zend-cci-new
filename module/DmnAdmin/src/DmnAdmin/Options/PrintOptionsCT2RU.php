@@ -107,9 +107,11 @@ class PrintOptionsCT2RU  extends AbstractOptions implements PrintOptionsInterfac
 	                          '1'=>array('begin'=>'D', 'end'=>'G'),
 	                          '2'=>array('begin'=>'J', 'end'=>'K'),
 	            ),
-	            'top'=>array('0'=>array('begin'=>'A', 'end'=>'F'),
-	                          '1'=>array('begin'=>'G', 'end'=>'K'),
-	            ),
+				'top' => [
+					0 => [
+						0 => ['begin' => 'A', 'end' => 'F'],
+						1 => ['begin' => 'G', 'end' => 'K']]
+				],
 	            'bottom1'=>array('0'=>array('begin'=>'A', 'end'=>'E'),
 	                             '1'=>array('begin'=>'F', 'end'=>'L'),
 	            ),

@@ -13,8 +13,8 @@ class PrintOptionsA  extends AbstractOptions implements PrintOptionsInterface
      */
     private $excelToPrintMainPrintOptions = array(
             'options' => array(
-					'setMaxpixeles'=>'278',
-                    'setMaxpixelesNextPages'=>'559',									
+					'setMaxpixeles'=>'298',
+                    'setMaxpixelesNextPages'=>'300',
 					'setDeviation'=>'15',
 					'setMonitoredColumn'=>'description',
 					'setDativeat'=>'the Republic of Belarus',
@@ -110,9 +110,29 @@ class PrintOptionsA  extends AbstractOptions implements PrintOptionsInterface
 	                          '1'=>array('begin'=>'D', 'end'=>'G'),
 	                          '2'=>array('begin'=>'J', 'end'=>'K'),
 	            ),
-	            'top'=>array('0'=>array('begin'=>'A', 'end'=>'F'),
-	                          '1'=>array('begin'=>'G', 'end'=>'K'),
-	            ),
+				'top'=>[
+					0=>[
+						0=>['begin'=>'A', 'end'=>'H'],
+						1=>['begin'=>'I', 'end'=>'L']
+					],
+					1=>[
+						0=>['begin'=>'A', 'end'=>'F'],
+						1=>['begin'=>'G', 'end'=>'J'],
+						2=>['begin'=>'K', 'end'=>'L']
+					],
+					2=>[
+						0=>['begin'=>'A', 'end'=>'F'],
+						1=>['begin'=>'G', 'end'=>'H'],
+						2=>['begin'=>'I', 'end'=>'L']
+					],
+					3=>[
+						0=>['begin'=>'A', 'end'=>'F'],
+						1=>['begin'=>'G', 'end'=>'L'],
+					],
+					4=>[
+						0=>['begin'=>'A', 'end'=>'L'],
+					]
+				],
 	            'bottom1'=>array('0'=>array('begin'=>'A', 'end'=>'F'),
 	                             '1'=>array('begin'=>'G', 'end'=>'L'),
 	            ),
@@ -133,7 +153,13 @@ class PrintOptionsA  extends AbstractOptions implements PrintOptionsInterface
 	 */
 	private $aSheetRowHeight = array(
 	        'options'=>array(	                
-	                'top1'=>'35',
+	                'top1'=>[
+						1=>'15',
+						2=>'72.25',
+						3=>'63.5',
+						4=>'148',
+						5=>'50.5',
+					],
 	                'top2'=>'35',	                
 	                'bottom1'=>'38.5',
 	                'bottom11'=>'55.75',
@@ -174,14 +200,31 @@ class PrintOptionsA  extends AbstractOptions implements PrintOptionsInterface
 	/**
 	 * @var array
 	 */
-	private $topPrintOptions = array(
-			0 =>array(
-					'options' => array(
-							'G'=>'workorder',
-							'L'=>'numblank',
-							)
-					)
-	);	
+	private $topPrintOptions = [
+		0 => ['options' => ['I' => 'workorder']],
+		1 => ['options' => [
+			'A' => [
+				0 => 'consignor',
+				1 => 'prefix',
+				2 => 'adressconsignor',
+				3 => 'exporter',
+				4 => 'adressexporter'],
+			'K' => 'numblank'
+		]],
+		2 => ['options' => [
+			'A' => [
+				0 => 'consignee',
+				1 => 'adressconsignee',
+				2 => 'importer',
+				3 => 'adressimporter'],
+			'I' => 'dativeat'
+		]],
+		3 => ['options' => [
+			'A' => [
+				0 => 'transport',
+				1 => 'itinerary']]],
+		4 => ['options' => ['G' => 'servicemark']],
+	];
 	/**
 	 * @var array
 	 */
@@ -245,7 +288,9 @@ class PrintOptionsA  extends AbstractOptions implements PrintOptionsInterface
 							'dative'=>", "							
 					),
 					'A'=>array(
-							'fullname'=>", "														
+						'fullname'=>", ",
+						'consignee'=>", ",
+						'adressconsignee'=>", "
 					),
 					'A2'=>array(
 							'consignor'=>", ",
@@ -267,7 +312,7 @@ class PrintOptionsA  extends AbstractOptions implements PrintOptionsInterface
 				  'A2' => array(					
 						'font'=>array(
 							'name' => 'Arial',
-							'size' => 10,
+							'size' => 12,
 						),
 						'alignment' => array(
 							'horizontal' => PHPExcel_STYLE_ALIGNMENT::HORIZONTAL_LEFT,
@@ -301,11 +346,11 @@ class PrintOptionsA  extends AbstractOptions implements PrintOptionsInterface
 				'A3' => array(
 					'font'=>array(
 							'name' => 'Arial',
-							'size' => 10,
+							'size' => 12,
 					),
 					'alignment' => array(
 							'horizontal' => PHPExcel_STYLE_ALIGNMENT::HORIZONTAL_LEFT,
-							'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_TOP,
+							'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_CENTER,
 							'wrap'       => true
 					),
 				),
@@ -337,33 +382,56 @@ class PrintOptionsA  extends AbstractOptions implements PrintOptionsInterface
 							'size' => 12,
 					),
 					'alignment' => array(
-							'horizontal' => PHPExcel_STYLE_ALIGNMENT::HORIZONTAL_CENTER,
-							'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_TOP,
+							'horizontal' => PHPExcel_STYLE_ALIGNMENT::HORIZONTAL_LEFT,
+							'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_CENTER,
 							'wrap'       => true
 					),
 				),
 			),
 			'top'=>array(
-				'G' => array(
+				'A' => array(
 					'font'=>array(
-							'name' => 'Arial',
-							'size' => 12,
+						'name' => 'Arial',
+						'size' => 12,
 					),
 					'alignment' => array(
-							'horizontal' => PHPExcel_STYLE_ALIGNMENT::HORIZONTAL_RIGHT,
-							'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_TOP,
-							'wrap'       => true
+						'horizontal' => PHPExcel_STYLE_ALIGNMENT::HORIZONTAL_LEFT,
+						'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_CENTER,
+						'wrap'       => true
+					),
+
+				),
+				'I' => array(
+					'font'=>array(
+						'name' => 'Arial',
+						'size' => 12,
+					),
+					'alignment' => array(
+						'horizontal' => PHPExcel_STYLE_ALIGNMENT::HORIZONTAL_LEFT,
+						'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_CENTER,
+						'wrap'       => true
 					),
 				),
-				'L' => array(
+				'K' => array(
 					'font'=>array(
-							'name' => 'Arial',
-							'size' => 12,
+						'name' => 'Arial',
+						'size' => 12,
 					),
 					'alignment' => array(
-							'horizontal' => PHPExcel_STYLE_ALIGNMENT::HORIZONTAL_CENTER,
-							'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_TOP,
-							'wrap'       => true
+						'horizontal' => PHPExcel_STYLE_ALIGNMENT::HORIZONTAL_CENTER,
+						'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_TOP,
+						'wrap'       => true
+					),
+				),
+				'G' => array(
+					'font'=>array(
+						'name' => 'Arial',
+						'size' => 12,
+					),
+					'alignment' => array(
+						'horizontal' => PHPExcel_STYLE_ALIGNMENT::HORIZONTAL_LEFT,
+						'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_CENTER,
+						'wrap'       => true
 					),
 				),
 			),
