@@ -31,6 +31,7 @@ return array(
             'print_options_a' => 'DmnAdmin\Options\PrintOptionsA',
             'print_object' => 'DmnAdmin\Object\ExcelToPrint',
             'print_options_ct2en' => 'DmnAdmin\Options\PrintOptionsCT2EN',
+            'print_options_usb' => 'DmnAdmin\Options\PrintOptionsUsb',
         ),
         'factories' => array(
 

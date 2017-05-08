@@ -13,7 +13,7 @@ class PrintOptionsGeneralEn  extends AbstractOptions implements PrintOptionsInte
     private $excelToPrintMainPrintOptions = array(
             'options' => array(
 					'setMaxpixeles'=>'278',
-                    'setMaxpixelesNextPages'=>'551',									
+                    'setMaxpixelesNextPages'=>'551',
 					'setDeviation'=>'15',
 					'setMonitoredColumn'=>'description',
 					'setDativeat'=>'the Republic of Belarus',
@@ -213,7 +213,7 @@ class PrintOptionsGeneralEn  extends AbstractOptions implements PrintOptionsInte
 				'options' => array()),
 			2 =>array(
 				'options' => array(
-					'A'=>'nameshorten',
+					'A'=>'nameshort',
 				    'D'=>'dateorder',
 					'G'=>'fioagent',
 				    'J'=>'dateorder',

@@ -629,6 +629,10 @@ class DmnuploadService
                     $printOptions = $this->getServiceLocator()->get('print_options_ct2en');
                     $this->setFileName('maket_ct2en');
                     break;
+                case 7:
+                    $printOptions = $this->getServiceLocator()->get('print_options_usb');
+                    $this->setFileName('maket_usb');
+                    break;
             }
         }
         return $printOptions;
