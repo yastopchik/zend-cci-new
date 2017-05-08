@@ -117,10 +117,28 @@ class PrintOptionsUsb extends AbstractOptions implements PrintOptionsInterface
                 '1'=>array('begin'=>'D', 'end'=>'H'),
                 '2'=>array('begin'=>'I', 'end'=>'K'),
             ),
-            'top' => [
-                0 => [
-                    0 => ['begin' => 'A', 'end' => 'F'],
-                    1 => ['begin' => 'G', 'end' => 'K']]
+            'top'=>[
+                0=>[
+                    0=>['begin'=>'A', 'end'=>'F'],
+                    1=>['begin'=>'G', 'end'=>'J'],
+                    2=>['begin'=>'K', 'end'=>'L']
+                ],
+                1=>[
+                    0=>['begin'=>'A', 'end'=>'F'],
+                    1=>['begin'=>'G', 'end'=>'L'],
+                ],
+                2=>[
+                    0=>['begin'=>'A', 'end'=>'F'],
+                    1=>['begin'=>'G', 'end'=>'H'],
+                    1=>['begin'=>'I', 'end'=>'L'],
+                ],
+                3=>[
+                    0=>['begin'=>'A', 'end'=>'F'],
+                    1=>['begin'=>'G', 'end'=>'L'],
+                ],
+                4=>[
+                    0=>['begin'=>'A', 'end'=>'L'],
+                ]
             ],
             'bottom1'=>array('0'=>array('begin'=>'A', 'end'=>'E'),
                 '1'=>array('begin'=>'F', 'end'=>'L'),
@@ -143,7 +161,13 @@ class PrintOptionsUsb extends AbstractOptions implements PrintOptionsInterface
      */
     private $aSheetRowHeight = array(
         'options'=>array(
-            'top1'=>'35',
+            'top1'=>[
+                1=>'20.75',
+                2=>'64',
+                3=>'72.75',
+                4=>'72.75',
+                5=>'43.5',
+            ],
             'top2'=>'35',
             'bottom1'=>'60.5',
             'bottom11'=>'56.0',
@@ -186,14 +210,44 @@ class PrintOptionsUsb extends AbstractOptions implements PrintOptionsInterface
     /**
      * @var array
      */
-    private $topPrintOptions = array(
-        0 =>array(
-            'options' => array(
-                'G'=>'workorder',
-                'L'=>'numblank',
-            )
-        )
-    );
+    private $topPrintOptions = [
+        0 => ['options' => [
+             'G' => 'workorder',
+             'K' => 'numblank',
+             
+        ]],
+        1 => ['options' => [
+            'A' => [
+                0=>'consignor',
+                1=>'prefix',
+                2=>'sezname',
+                3=>'adressconsignor',
+                4=>'exporter',
+                5=>'adressexporter'
+            ],
+            'G'=>[
+                0=>'dativeat',
+                1=>'sezname',
+            ]
+        ]],
+        2 => ['options' => [
+            'A' => [
+                0 => 'consignee',
+                1 => 'adressconsignee',
+                2 => 'importer',
+                3 => 'adressimporter'
+            ],
+            'I' => [
+                0=>'dative',
+            ]
+        ]],
+        3 => ['options' => [
+            'A' => [
+                0 => 'transport',
+                1 => 'itinerary']
+        ]],
+        4 => ['options' => ['G' => 'servicemark']],
+    ];
     /**
      * @var array
      */
@@ -256,7 +310,6 @@ class PrintOptionsUsb extends AbstractOptions implements PrintOptionsInterface
      */
     private $punctuationPrintOptions = array(
         'options' => array(
-
             'F'=>array(
                 'dative'=>", "
             ),
@@ -288,7 +341,7 @@ class PrintOptionsUsb extends AbstractOptions implements PrintOptionsInterface
                 ),
                 'alignment' => array(
                     'horizontal' => PHPExcel_STYLE_ALIGNMENT::HORIZONTAL_LEFT,
-                    'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_TOP,
+                    'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_CENTER,
                     'wrap'       => true
                 ),
 
@@ -300,7 +353,7 @@ class PrintOptionsUsb extends AbstractOptions implements PrintOptionsInterface
                 ),
                 'alignment' => array(
                     'horizontal' => PHPExcel_STYLE_ALIGNMENT::HORIZONTAL_RIGHT,
-                    'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_TOP,
+                    'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_BOTTOM,
                     'wrap'       => true
                 ),
             ),
@@ -311,7 +364,7 @@ class PrintOptionsUsb extends AbstractOptions implements PrintOptionsInterface
                 ),
                 'alignment' => array(
                     'horizontal' => PHPExcel_STYLE_ALIGNMENT::HORIZONTAL_CENTER,
-                    'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_TOP,
+                    'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_BOTTOM,
                     'wrap'       => true
                 ),
             ),
@@ -372,6 +425,18 @@ class PrintOptionsUsb extends AbstractOptions implements PrintOptionsInterface
             ),
         ),
         'top'=>array(
+            'A' => array(
+                'font'=>array(
+                    'name' => 'Arial',
+                    'size' => 10,
+                ),
+                'alignment' => array(
+                    'horizontal' => PHPExcel_STYLE_ALIGNMENT::HORIZONTAL_LEFT,
+                    'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_CENTER,
+                    'wrap'       => true
+                ),
+
+            ),
             'G' => array(
                 'font'=>array(
                     'name' => 'Arial',
@@ -379,18 +444,29 @@ class PrintOptionsUsb extends AbstractOptions implements PrintOptionsInterface
                 ),
                 'alignment' => array(
                     'horizontal' => PHPExcel_STYLE_ALIGNMENT::HORIZONTAL_RIGHT,
-                    'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_TOP,
+                    'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_BOTTOM,
                     'wrap'       => true
                 ),
             ),
-            'L' => array(
+            'K' => array(
                 'font'=>array(
                     'name' => 'Arial',
                     'size' => 12,
                 ),
                 'alignment' => array(
                     'horizontal' => PHPExcel_STYLE_ALIGNMENT::HORIZONTAL_CENTER,
-                    'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_TOP,
+                    'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_BOTTOM,
+                    'wrap'       => true
+                ),
+            ),
+            'I' => array(
+                'font'=>array(
+                    'name' => 'Arial',
+                    'size' => 12,
+                ),
+                'alignment' => array(
+                    'horizontal' => PHPExcel_STYLE_ALIGNMENT::HORIZONTAL_CENTER,
+                    'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_CENTER,
                     'wrap'       => true
                 ),
             ),

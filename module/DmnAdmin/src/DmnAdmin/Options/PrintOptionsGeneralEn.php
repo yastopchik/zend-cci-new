@@ -213,7 +213,7 @@ class PrintOptionsGeneralEn  extends AbstractOptions implements PrintOptionsInte
 				'options' => array()),
 			2 =>array(
 				'options' => array(
-					'A'=>'nameshort',
+					'A'=>'nameshorten',
 				    'D'=>'dateorder',
 					'G'=>'fioagent',
 				    'J'=>'dateorder',
